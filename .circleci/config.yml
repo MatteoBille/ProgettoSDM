@@ -47,5 +47,3 @@ jobs:
       - run: gradle test
       - store_test_results:
           path: test-results
-  - notify:
-      context: slack-secrets
