@@ -50,19 +50,27 @@ class ArchTest {
     @Test
     void archCannotHaveLengthDifferentThanTwo() {
         Random rand = new Random();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 100; i++) {
             int size1 = rand.nextInt(10)+1;
             int size2 = rand.nextInt(10)+1;
+
+            System.out.println(size1);
+            System.out.println(size2);
             int[] dot1 = rand.ints(size1, 0, 10).toArray();
             int[] dot2 = rand.ints(size2, 0, 10).toArray();
+            Arrays.stream(dot1).forEach(e-> System.out.print(e+" "));
+            System.out.println();
+            Arrays.stream(dot2).forEach(e-> System.out.print(e+" "));
+            System.out.println();
 
-            BadArchDeclarationException badArchDeclarationException = assertThrows(BadArchDeclarationException.class, () -> {
-                new Arch(dot1, dot2);
-            });
 
-            String expectedMessage;
+
             if (size1 != 2 || size2 != 2) {
-                expectedMessage = "Error in dots length";
+                BadArchDeclarationException badArchDeclarationException = assertThrows(BadArchDeclarationException.class, () -> {
+                    new Arch(dot1, dot2);
+                });
+
+                String expectedMessage= "Error in dots length";
                 String actualMessage = badArchDeclarationException.getMessage();
                 assertTrue(actualMessage.contains(expectedMessage));
             }

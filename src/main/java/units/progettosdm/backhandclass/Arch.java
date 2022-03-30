@@ -6,11 +6,11 @@ public class Arch {
     boolean selected;
 
     public Arch(int[] point1, int[] point2) throws BadArchDeclarationException {
-        if(point1[0]==point2[0] && point1[1]==point2[1]){
-            throw new BadArchDeclarationException("Same node connection");
-        }
         if(point1.length!=2 || point2.length!=2){
             throw new BadArchDeclarationException("Error in dots length");
+        }
+        if(point1[0]==point2[0] && point1[1]==point2[1]){
+            throw new BadArchDeclarationException("Same node connection");
         }
         this.point1 = point1;
         this.point2 = point2;
@@ -25,11 +25,4 @@ public class Arch {
         this.selected = true;
     }
 
-    public int[] getPoint1Size() {
-        return point1;
-    }
-
-    public int[] getPoint2Size() {
-        return point2;
-    }
 }
