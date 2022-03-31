@@ -54,15 +54,8 @@ class ArchTest {
             int size1 = rand.nextInt(10)+1;
             int size2 = rand.nextInt(10)+1;
 
-            System.out.println(size1);
-            System.out.println(size2);
             int[] dot1 = rand.ints(size1, 0, 10).toArray();
             int[] dot2 = rand.ints(size2, 0, 10).toArray();
-            Arrays.stream(dot1).forEach(e-> System.out.print(e+" "));
-            System.out.println();
-            Arrays.stream(dot2).forEach(e-> System.out.print(e+" "));
-            System.out.println();
-
 
 
             if (size1 != 2 || size2 != 2) {
