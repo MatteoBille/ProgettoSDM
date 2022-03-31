@@ -3,6 +3,8 @@ package units.progettosdm.backhandclass;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import units.progettosdm.projectExceptions.BadArchDeclarationException;
+import units.progettosdm.projectExceptions.SelectArchAlreadySelectedException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -24,7 +26,7 @@ class ArchTest {
             arch = new Arch(dot1, dot2);
             arch.setArchSelected();
             assertTrue(arch.getArchStatus());
-        } catch (BadArchDeclarationException e) {
+        } catch (BadArchDeclarationException | SelectArchAlreadySelectedException e) {
             e.printStackTrace();
         }
     }
@@ -45,6 +47,30 @@ class ArchTest {
         String actualMessage = badArchDeclarationException.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));
+
+    }
+
+    @Test
+    void CannotSelectAnAlreadySelectedArch() {
+        Dot dot1 = new Dot(2, 0);
+        Dot dot2 = new Dot(2, 2);
+
+        try {
+            final Arch arch = new Arch(dot1, dot2);
+            SelectArchAlreadySelectedException selectArchAlreadySelectedException = assertThrows(SelectArchAlreadySelectedException.class, () -> {
+                        arch.setArchSelected();
+                        arch.setArchSelected();
+                    }
+            );
+
+            String expectedMessage = "Cannot select an Arch that is already selected";
+            String actualMessage = selectArchAlreadySelectedException.getMessage();
+
+            assertTrue(actualMessage.contains(expectedMessage));
+
+        } catch (BadArchDeclarationException e) {
+            e.printStackTrace();
+        }
 
     }
 }

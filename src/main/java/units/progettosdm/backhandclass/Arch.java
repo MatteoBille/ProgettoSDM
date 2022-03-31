@@ -1,5 +1,8 @@
 package units.progettosdm.backhandclass;
 
+import units.progettosdm.projectExceptions.BadArchDeclarationException;
+import units.progettosdm.projectExceptions.SelectArchAlreadySelectedException;
+
 public class Arch {
     Dot dot1;
     Dot dot2;
@@ -18,7 +21,10 @@ public class Arch {
         return selected;
     }
 
-    public void setArchSelected() {
+    public void setArchSelected() throws SelectArchAlreadySelectedException {
+        if(this.selected){
+            throw new SelectArchAlreadySelectedException("Cannot select an Arch that is already selected");
+        }
         this.selected = true;
     }
 
