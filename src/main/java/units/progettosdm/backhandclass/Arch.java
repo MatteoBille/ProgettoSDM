@@ -1,19 +1,16 @@
 package units.progettosdm.backhandclass;
 
 public class Arch {
-    int[] point1;
-    int[] point2;
+    Dot dot1;
+    Dot dot2;
     boolean selected;
 
-    public Arch(int[] point1, int[] point2) throws BadArchDeclarationException {
-        if(point1.length!=2 || point2.length!=2){
-            throw new BadArchDeclarationException("Error in dots length");
-        }
-        if(point1[0]==point2[0] && point1[1]==point2[1]){
+    public Arch(Dot dot1, Dot dot2) throws BadArchDeclarationException {
+        if(dot1.equals(dot2)){
             throw new BadArchDeclarationException("Same node connection");
         }
-        this.point1 = point1;
-        this.point2 = point2;
+        this.dot1 = dot1;
+        this.dot2 = dot2;
         this.selected = false;
     }
 
