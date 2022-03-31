@@ -1,7 +1,6 @@
 package units.progettosdm.backhandclass;
 
 import java.util.Arrays;
-import java.util.Iterator;
 
 public class Dot {
 
@@ -14,7 +13,7 @@ public class Dot {
     }
 
 
-    private int[] dotIndex= new int[2];
+    final private int[] dotIndex = new int[2];
 
     public Dot(int x1, int x2) {
         this.dotIndex[0] = x1;

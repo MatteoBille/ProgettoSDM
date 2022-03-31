@@ -9,7 +9,7 @@ public class Arch {
     boolean selected;
 
     public Arch(Dot dot1, Dot dot2) throws BadArchDeclarationException {
-        if(dot1.equals(dot2)){
+        if (dot1.equals(dot2)) {
             throw new BadArchDeclarationException("Same node connection");
         }
         this.dot1 = dot1;
@@ -22,7 +22,7 @@ public class Arch {
     }
 
     public void setArchSelected() throws SelectArchAlreadySelectedException {
-        if(this.selected){
+        if (this.selected) {
             throw new SelectArchAlreadySelectedException("Cannot select an Arch that is already selected");
         }
         this.selected = true;
