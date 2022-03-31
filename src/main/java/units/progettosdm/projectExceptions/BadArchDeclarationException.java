@@ -1,4 +1,4 @@
-package units.progettosdm.backhandclass;
+package units.progettosdm.projectExceptions;
 
 public class BadArchDeclarationException extends Exception{
 
