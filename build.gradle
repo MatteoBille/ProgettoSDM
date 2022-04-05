@@ -4,7 +4,7 @@ plugins {
     id 'org.openjfx.javafxplugin' version '0.0.10'
 }
 
-group 'units.progettoSDM'
+group 'units.progettosdm'
 version '1.0-SNAPSHOT'
 
 repositories {
@@ -23,8 +23,8 @@ tasks.withType(JavaCompile) {
 }
 
 application {
-    mainModule = 'units.progettosdm.progettosdm'
-    mainClass = 'units.progettosdm.progettosdm.HelloApplication'
+    mainModule = 'units.progettosdm'
+    mainClass = 'units.progettosdm.graphicsclass.MainApplication'
 }
 
 javafx {
