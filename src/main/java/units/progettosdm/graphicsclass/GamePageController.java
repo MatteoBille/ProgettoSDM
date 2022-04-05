@@ -3,10 +3,9 @@ package units.progettosdm.graphicsclass;
 import javafx.fxml.FXML;
 import javafx.scene.*;
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import units.progettosdm.backhandclass.Dot;
 
 import java.util.*;
 
@@ -20,7 +19,7 @@ public class GamePageController {
     private Stage stage;
 
     List<LineBetweenDots_Graphics> lines = new ArrayList<>();
-    Map<String, DotGraphics> dots = new HashMap<>();
+    Map<Dot, DotGraphics> dots = new HashMap<>();
     Group dotsPoint = new Group();
     Group tableLines = new Group();
 
@@ -121,67 +120,22 @@ public class GamePageController {
         initializeGrid(n,m);
     }
 
-    class LineBetweenDots_Graphics extends Rectangle{
-        DotGraphics dot1;
-        DotGraphics dot2;
-        String direction;
-
-        public LineBetweenDots_Graphics(DotGraphics dot1, DotGraphics dot2) {
-
-            if(dot1.getCenterX()==dot2.getCenterX()){
-                setLayoutX(dot1.getCenterX()-dot1.getRadius()/2);
-                setLayoutY(dot1.getCenterY()+dot1.getRadius()*2);
-                setHeight(dot2.getCenterY()-dot1.getCenterY()-dot1.getRadius()*4);
-                setWidth(dot1.getRadius());
-                direction ="vertical";
-
-            }else if(dot1.getCenterY()==dot2.getCenterY()){
-
-                setLayoutX(dot1.getCenterX()+dot1.getRadius()*2);
-                setLayoutY(dot1.getCenterY()-dot1.getRadius()/2);
-                setHeight(dot1.getRadius());
-                setWidth(dot2.getCenterX()-dot1.getCenterX()-dot1.getRadius()*4);
-                direction ="horizontal";
-            }
-
-            this.dot1 = dot1;
-            this.dot2 = dot2;
-
-            System.out.println(this);
-        }
-
-        @Override
-        public String toString() {
-            return "LineBetweenDots_Graphics{" +
-                    "xStart=" + getLayoutX() +
-                    ", yStart=" + getLayoutY() +
-                    ",width=" + getWidth() +
-                    ",height=" + getHeight() +
-                    ",direction=" + direction +
-                    '}';
-        }
-    }
-
-    class DotGraphics extends Circle{
-
-        public DotGraphics(double x, double y, double radius) {
-            super(x,y,radius);
-        }
-    }
-
     private ArrayList<LineBetweenDots_Graphics> setLines(int n, int m) {
         lines = new ArrayList<>();
         for (int i = 0; i < n + 1; i++) {
             for (int j = 0; j < m + 1; j++) {
-                DotGraphics d = dots.get(i+","+j);
+                System.out.println(dots.keySet());
+                Dot comparingDot = new Dot(i,j);
+                System.out.println(comparingDot);
+                DotGraphics d = dots.get(comparingDot);
+                System.out.println(d);
                 if (d != null) {
                     if (i + 1 < n + 1) {
-                        System.out.println(i+","+j+"->"+(i+1)+","+j);
-                        lines.add(new LineBetweenDots_Graphics(d,dots.get((i+1)+","+j)));
+                        lines.add(new LineBetweenDots_Graphics(d,dots.get(new Dot(i+1,j))));
                     }
                     if (j + 1 < m + 1) {
                         System.out.println(i+","+j+"->"+i+","+(j+1));
-                        lines.add(new LineBetweenDots_Graphics(d,dots.get(i+","+(j+1))));
+                        lines.add(new LineBetweenDots_Graphics(d,dots.get(new Dot(i,j+1))));
                     }
                 }
             }
@@ -200,7 +154,7 @@ public class GamePageController {
         tablePane.getChildren().add(tableLines);
     }
 
-    private Map<String, DotGraphics> setDots(int n, int m) {
+    private Map<Dot, DotGraphics> setDots(int n, int m) {
         double max = Math.max(n, m);
         border = width * 0.05;
         double distanceX = (width - border * 2) / (max);
@@ -213,7 +167,7 @@ public class GamePageController {
             for (int j = 0; j < m + 1; j++) {
                 double tempX = border + (distanceX * i);
                 double tempY = border + (distanceY * j);
-                dots.put(i+","+j, new DotGraphics(tempX, tempY,circleSize));
+                dots.put(new Dot(i,j), new DotGraphics(new Dot(i,j),tempX, tempY,circleSize));
             }
         }
         drawDots();
