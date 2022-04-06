@@ -1,6 +1,5 @@
 package units.progettosdm.backhandclass;
 
-import com.sun.javafx.UnmodifiableArrayList;
 import units.progettosdm.projectExceptions.BadArchDeclarationException;
 
 import java.util.ArrayList;
