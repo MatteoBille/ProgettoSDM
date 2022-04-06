@@ -7,7 +7,6 @@ public class Dot {
 
     @Override
     public boolean equals(Object o) {
-        System.out.println(this+" == "+o);
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Dot dot = (Dot) o;
@@ -31,8 +30,6 @@ public class Dot {
 
     @Override
     public String toString() {
-        return "Dot{" +
-                "dotIndex=" + Arrays.toString(dotIndex) +
-                '}';
+        return Arrays.toString(dotIndex);
     }
 }
