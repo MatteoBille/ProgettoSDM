@@ -23,4 +23,11 @@ public class Dot {
     public int[] getDotIndex() {
         return dotIndex;
     }
+
+    @Override
+    public String toString() {
+        return "Dot{" +
+                "dotIndex=" + Arrays.toString(dotIndex) +
+                '}';
+    }
 }

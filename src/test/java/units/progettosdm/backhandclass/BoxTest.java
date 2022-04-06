@@ -49,8 +49,14 @@ public class BoxTest {
             e.printStackTrace();
         }
 
-        Box box = new Box(arch);
+        Box box = new Box(0,0);
+        box.setArches(arch);
         assertTrue(box.checkClosedBox());
 
+    }
+    @Test
+    void testBoxSides(){
+        Box box= new Box(0,0);
+        box.getCouple();
     }
 }
