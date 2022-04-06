@@ -6,6 +6,7 @@ class LineBetweenDots_Graphics extends Rectangle {
     DotGraphics dot1;
     DotGraphics dot2;
     String direction;
+    private boolean selected = false;
 
     public LineBetweenDots_Graphics(DotGraphics dot1, DotGraphics dot2) {
 
@@ -40,5 +41,13 @@ class LineBetweenDots_Graphics extends Rectangle {
                 ",height=" + getHeight() +
                 ",direction=" + direction +
                 '}';
+    }
+
+    public void setSelected() {
+        this.selected = true;
+    }
+
+    public boolean isSelected() {
+        return selected;
     }
 }

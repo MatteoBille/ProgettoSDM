@@ -135,13 +135,15 @@ public class GamePageController {
     }
 
     private void setMouseHoverListener() {
-        lines.forEach(lin -> lin.setOnMouseEntered(ev -> {
-
-            tablePane.getScene().setCursor(Cursor.HAND);
-        }));
-        lines.forEach(lin -> lin.setOnMouseExited(ev -> {
-            tablePane.getScene().setCursor(Cursor.DEFAULT);
-        }));
+        lines.forEach(lin -> {
+            if(!lin.isSelected()){lin.setOnMouseEntered(ev -> {
+                tablePane.getScene().setCursor(Cursor.HAND);
+            });}
+        });
+        lines.forEach(lin ->  {
+            if(!lin.isSelected()){lin.setOnMouseExited(ev -> {
+                tablePane.getScene().setCursor(Cursor.DEFAULT);
+        });}});
     }
 
     private void changeTurn() {
@@ -152,6 +154,7 @@ public class GamePageController {
     private void setClickLineListener() {
         lines.forEach(lin -> lin.setOnMouseClicked(ev -> {
             lin.setOpacity(1);
+            lin.setSelected();
             lin.setOnMouseEntered(e -> {
                 tablePane.getScene().setCursor(Cursor.DEFAULT);
             });
@@ -193,23 +196,25 @@ public class GamePageController {
         lines = new ArrayList<>();
         for (int i = 0; i < n + 1; i++) {
             for (int j = 0; j < m + 1; j++) {
-                System.out.println(dots.keySet());
                 Dot comparingDot = new Dot(i, j);
-                System.out.println(comparingDot);
                 DotGraphics d = dots.get(comparingDot);
-                System.out.println(d);
                 if (d != null) {
                     if (i + 1 < n + 1) {
                         lines.add(new LineBetweenDots_Graphics(d, dots.get(new Dot(i + 1, j))));
                     }
                     if (j + 1 < m + 1) {
-                        System.out.println(i + "," + j + "->" + i + "," + (j + 1));
                         lines.add(new LineBetweenDots_Graphics(d, dots.get(new Dot(i, j + 1))));
                     }
                 }
             }
         }
-        lines.forEach(e -> e.setOpacity(0.2));
+        lines.forEach(e -> {
+            if(e.isSelected()){
+                e.setOpacity(1);
+            }else{
+                e.setOpacity(0.2);
+            }
+        });
         drawLines();
         return (ArrayList<LineBetweenDots_Graphics>) lines;
     }
