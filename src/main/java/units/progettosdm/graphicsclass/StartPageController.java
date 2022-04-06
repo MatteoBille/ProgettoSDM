@@ -36,7 +36,7 @@ public class StartPageController {
         stage.show();
         GamePageController controller = fxmlLoader.getController();
 
-        controller.initializePage(n,m,stage);
+        controller.initializePage(n,m,stage,namePlayer1.getText(),namePlayer2.getText());
     }
 
 
