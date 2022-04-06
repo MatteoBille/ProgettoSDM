@@ -39,4 +39,8 @@ public class Arch {
         return this.dot1.equals(arch.dot1) && this.dot2.equals(arch.dot2);
     }
 
+    @Override
+    public String toString() {
+        return dot1+"---->"+dot2;
+    }
 }

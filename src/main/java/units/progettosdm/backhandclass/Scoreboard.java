@@ -3,11 +3,13 @@ package units.progettosdm.backhandclass;
 import units.progettosdm.projectExceptions.BadArchDeclarationException;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Scoreboard {
     public List<Arch> totalArches = new ArrayList<>();
     private int gridSize;
+
 
     private Box[][] boxes;
 
@@ -22,6 +24,7 @@ public class Scoreboard {
     }*/
     public Scoreboard(int gridSize) {
         this.gridSize = gridSize;
+        boxes = new Box[gridSize][gridSize];
     }
 
 
@@ -74,4 +77,27 @@ public class Scoreboard {
         }
     }
 
+    public String getBoxesToString() {
+        String output = "";
+        for (int i = 0; i < gridSize; i++) {
+            for (int j = 0; j < gridSize; j++) {
+                output+=boxes[i][j].checkClosedBox()?"X ":"O ";
+            }
+            output+="\n";
+        }
+        return output;
+    }
+
+    @Override
+    public String toString() {
+        return "Scoreboard{" +"\n"+
+                "totalArches=" + totalArches +"\n"+
+                "gridSize=" + gridSize+"x"+gridSize +"\n"+
+                "boxes=" +"\n"+ getBoxesToString() +"\n"+
+                '}';
+    }
+
+    public Box[][] getBoxes() {
+        return boxes;
+    }
 }
