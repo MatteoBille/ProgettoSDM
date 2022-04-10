@@ -3,7 +3,6 @@ package units.progettosdm.backhandclass;
 import units.progettosdm.projectExceptions.BadArchDeclarationException;
 import units.progettosdm.projectExceptions.SelectArchAlreadySelectedException;
 
-import java.util.Arrays;
 
 public class Arch {
     Dot dot1;
@@ -11,14 +10,21 @@ public class Arch {
     boolean selected;
 
     public Arch(Dot dot1, Dot dot2) throws BadArchDeclarationException {
+        int[] tempDot1 = dot1.getDotIndex();
+        int[] tempDot2 = dot2.getDotIndex();
         if (dot1.equals(dot2)) {
             throw new BadArchDeclarationException("Same node connection");
+        }
+        if((tempDot1[0]<0)||(tempDot2[0]<0)||(tempDot1[1]<0)||(tempDot2[1]<0)){
+            throw new BadArchDeclarationException("Dots cannot have negative coordinates");
+        }
+        if (((tempDot1[0] - tempDot2[0]) < -1) || ((tempDot1[0] - tempDot2[0]) > 1) || ((tempDot1[1] - tempDot2[1]) < -1) || ((tempDot1[1] - tempDot2[1]) > 1)) {
+            throw new BadArchDeclarationException("Dots are too far one from each other");
         }
         this.dot1 = dot1;
         this.dot2 = dot2;
         this.selected = false;
     }
-
 
     public boolean getArchStatus() {
         return selected;

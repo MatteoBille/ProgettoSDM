@@ -53,7 +53,7 @@ class ArchTest {
     @Test
     void CannotSelectAnAlreadySelectedArch() {
         Dot dot1 = new Dot(2, 0);
-        Dot dot2 = new Dot(2, 2);
+        Dot dot2 = new Dot(2, 1);
 
         try {
             final Arch arch = new Arch(dot1, dot2);
