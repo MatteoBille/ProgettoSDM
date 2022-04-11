@@ -15,9 +15,6 @@ public class Arch {
         if (dot1.equals(dot2)) {
             throw new BadArchDeclarationException("Same node connection");
         }
-        if((tempDot1[0]<0)||(tempDot2[0]<0)||(tempDot1[1]<0)||(tempDot2[1]<0)){
-            throw new BadArchDeclarationException("Dots cannot have negative coordinates");
-        }
         if (((tempDot1[0] - tempDot2[0]) < -1) || ((tempDot1[0] - tempDot2[0]) > 1) || ((tempDot1[1] - tempDot2[1]) < -1) || ((tempDot1[1] - tempDot2[1]) > 1)) {
             throw new BadArchDeclarationException("Dots are too far one from each other");
         }
