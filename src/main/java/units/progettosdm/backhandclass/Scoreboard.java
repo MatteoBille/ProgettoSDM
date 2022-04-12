@@ -50,10 +50,9 @@ public class Scoreboard {
         //controllo che se l'arco selezionato chiude una casella allora assegno un'altra mossa a playerName e gli aggiungo un punto
     }
 
-    public boolean checkPoint(Box box) {
+    public boolean checkPoint() {
         for (int i = 0; i < boxes.length; i++) {
             for (int j = 0; j < boxes.length; j++) {
-                this.boxes[i][j] = box;
                 if (this.boxes[i][j].checkClosedBox()) {
                     return true;
                 }

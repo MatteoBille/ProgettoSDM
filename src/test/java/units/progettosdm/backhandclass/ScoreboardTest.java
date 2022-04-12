@@ -6,6 +6,8 @@ import units.progettosdm.projectExceptions.BadArchDeclarationException;
 import units.progettosdm.projectExceptions.BadDotDeclarationException;
 import units.progettosdm.projectExceptions.SelectArchAlreadySelectedException;
 
+import java.util.Arrays;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class ScoreboardTest {
@@ -38,7 +40,7 @@ class ScoreboardTest {
     }
 
     @Test
-    void selectArchTest() throws BadDotDeclarationException, BadArchDeclarationException, SelectArchAlreadySelectedException {
+    void selectArchTest() throws BadDotDeclarationException, BadArchDeclarationException {
         Scoreboard board = new Scoreboard(2);
         board.setArch();
         board.setBox();
@@ -47,6 +49,30 @@ class ScoreboardTest {
         board.selectArch(new Arch(dot1,dot2),"Mario");
         int index = board.totalArches.indexOf(new Arch(dot1,dot2));
         assertTrue(board.totalArches.get(index).selected);
+
+    }
+
+    @Test
+    void closedBoxTest() throws BadDotDeclarationException, BadArchDeclarationException {
+        Scoreboard board = new Scoreboard(2);
+        board.setArch();
+        board.setBox();
+        Dot dot1 = new Dot(0,0);
+        Dot dot2 = new Dot(0,1);
+        Dot dot3 = new Dot(1,1);
+        Dot dot4 = new Dot(1,0);
+        board.selectArch(new Arch(dot1,dot2),"Mario");
+        board.selectArch(new Arch(dot2,dot3),"Mario");
+        board.selectArch(new Arch(dot4,dot3),"Mario");
+        board.selectArch(new Arch(dot1,dot4),"Mario");
+
+        int index = board.totalArches.indexOf(new Arch(dot1,dot2));
+        Box box = board.getBoxes()[1][0];
+        Arch[] arch = box.getArches();
+        for(int i=0;i<4;i++){
+            System.out.println(arch[i]+" "+box.getArchStatusByIndex(i));
+        }
+        assertTrue(board.checkPoint());
 
     }
 }
