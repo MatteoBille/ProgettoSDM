@@ -38,15 +38,23 @@ public class Scoreboard {
             e.printStackTrace();
         }
         //controllo che se l'arco selezionato chiude una casella allora assegno un'altra mossa a playerName e gli aggiungo un punto
-
     }
 
+    public void selectArch(Arch selectedArch) {
+        try {
+            int index = totalArches.indexOf(selectedArch);
+            totalArches.get(index).setArchSelected();
+        } catch (SelectArchAlreadySelectedException e) {
+            e.printStackTrace();
+        }
+        //controllo che se l'arco selezionato chiude una casella allora assegno un'altra mossa a playerName e gli aggiungo un punto
+    }
 
-    public boolean checkPoint(Box box) {
+    public boolean checkPoint(String playerName) {
         for (int i = 0; i < boxes.length; i++) {
             for (int j = 0; j < boxes.length; j++) {
-                this.boxes[i][j] = box;
-                if (this.boxes[i][j].checkClosedBox()) {
+                if (this.boxes[i][j].checkClosedBox() && this.boxes[i][j].getPlayerBox()==null) {
+                    this.boxes[i][j].setPlayerBox(playerName);
                     return true;
                 }
             }
