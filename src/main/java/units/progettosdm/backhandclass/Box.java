@@ -10,6 +10,10 @@ public class Box {
         this.arches = arches;
     }
 
+    public Arch[] getArches() {
+        return arches;
+    }
+
     private Arch[] arches = new Arch[4];
     private char playerBox;
     private int x, y;
@@ -37,7 +41,6 @@ public class Box {
         boxSides[1]=new Dot[]{dots[1],dots[2]};
         boxSides[2]=new Dot[]{dots[3],dots[2]};
         boxSides[3]=new Dot[]{dots[0],dots[3]};
-        Arrays.stream(boxSides).forEach(e-> Arrays.stream(e).forEach(System.out::println));
         return boxSides;
     }
 
