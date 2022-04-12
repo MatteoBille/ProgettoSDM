@@ -1,6 +1,7 @@
 package units.progettosdm.backhandclass;
 
 import units.progettosdm.projectExceptions.BadArchDeclarationException;
+import units.progettosdm.projectExceptions.BadDotDeclarationException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -62,13 +63,26 @@ public class Scoreboard {
         totalArches = new ArrayList<>();
         for (int i = 0; i < gridSize + 1; i++) {
             for (int j = 0; j < gridSize + 1; j++) {
-                Dot dot = new Dot(i, j);
+                Dot dot = null;
+                try {
+                    dot = new Dot(i, j);
+                } catch (BadDotDeclarationException e) {
+                    e.printStackTrace();
+                }
                 try {
                     if (i + 1 < gridSize + 1) {
-                        totalArches.add(new Arch(dot, new Dot(i + 1, j)));
+                        try {
+                            totalArches.add(new Arch(dot, new Dot(i + 1, j)));
+                        } catch (BadDotDeclarationException e) {
+                            e.printStackTrace();
+                        }
                     }
                     if (j + 1 < gridSize + 1) {
-                        totalArches.add(new Arch(dot, new Dot(i, j + 1)));
+                        try {
+                            totalArches.add(new Arch(dot, new Dot(i, j + 1)));
+                        } catch (BadDotDeclarationException e) {
+                            e.printStackTrace();
+                        }
                     }
                 } catch (BadArchDeclarationException e) {
                     e.printStackTrace();
