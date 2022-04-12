@@ -1,5 +1,7 @@
 package units.progettosdm.backhandclass;
 
+import units.progettosdm.projectExceptions.BadDotDeclarationException;
+
 import java.util.Arrays;
 
 public class Dot {
@@ -20,7 +22,10 @@ public class Dot {
         return this.dotIndex[0]*1000+this.dotIndex[1]*1;
     }
 
-    public Dot(int x1, int x2) {
+    public Dot(int x1, int x2) throws BadDotDeclarationException {
+        if((x1<0)||(x2<0)){
+            throw new BadDotDeclarationException("Dots cannot have negative coordinates");
+        }
         this.dotIndex[0] = x1;
         this.dotIndex[1] = x2;
     }
@@ -31,8 +36,6 @@ public class Dot {
 
     @Override
     public String toString() {
-        return "Dot{" +
-                "dotIndex=" + Arrays.toString(dotIndex) +
-                '}';
+        return "Dot{" + "dotIndex=" + Arrays.toString(dotIndex) + '}';
     }
 }

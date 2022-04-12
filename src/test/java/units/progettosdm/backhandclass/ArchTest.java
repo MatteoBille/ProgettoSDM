@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import units.progettosdm.projectExceptions.BadArchDeclarationException;
+import units.progettosdm.projectExceptions.BadDotDeclarationException;
 import units.progettosdm.projectExceptions.SelectArchAlreadySelectedException;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -18,7 +19,7 @@ class ArchTest {
                     "2,2,2,2",
                     "0,2,4,2"}
     )
-    void SelectArch() {
+    void SelectArch() throws BadDotDeclarationException {
         Dot dot1 = new Dot(0, 0);
         Dot dot2 = new Dot(1, 0);
         Arch arch;
@@ -37,7 +38,7 @@ class ArchTest {
                     "1,1,1,1",
                     "2,2,2,2"}
     )
-    void ArchNodeMustBeDifferent(int a1, int b1, int a2, int b2) {
+    void ArchNodeMustBeDifferent(int a1, int b1, int a2, int b2) throws BadDotDeclarationException {
         Dot dot1 = new Dot(a1, b1);
         Dot dot2 = new Dot(a2, b2);
 
@@ -51,9 +52,9 @@ class ArchTest {
     }
 
     @Test
-    void CannotSelectAnAlreadySelectedArch() {
+    void CannotSelectAnAlreadySelectedArch() throws BadDotDeclarationException {
         Dot dot1 = new Dot(2, 0);
-        Dot dot2 = new Dot(2, 2);
+        Dot dot2 = new Dot(2, 1);
 
         try {
             final Arch arch = new Arch(dot1, dot2);

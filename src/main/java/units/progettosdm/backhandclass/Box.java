@@ -1,5 +1,7 @@
 package units.progettosdm.backhandclass;
 
+import units.progettosdm.projectExceptions.BadDotDeclarationException;
+
 import java.util.Arrays;
 
 public class Box {
@@ -16,10 +18,15 @@ public class Box {
     public Box(int x, int y) {
         this.x = x;
         this.y = y;
-        dots[0] = new Dot(x,y);
-        dots[1] = new Dot(x+1,y);
-        dots[2] = new Dot(x+1,y+1);
-        dots[3] = new Dot(x,y+1);
+        try {
+            dots[0] = new Dot(x,y);
+            dots[1] = new Dot(x+1,y);
+            dots[2] = new Dot(x+1,y+1);
+            dots[3] = new Dot(x,y+1);
+        } catch (BadDotDeclarationException e) {
+            e.printStackTrace();
+        }
+
         /*for (int i = 0; i < arches.length; i++) {
             this.arches[i] = arches[i];
         }*/
@@ -39,10 +46,8 @@ public class Box {
     }
 
     public boolean checkClosedBox() {
-        for (int i = 0; i < arches.length; i++) {
-            if (!arches[i].getArchStatus()) {
-                return false;
-            }
+        for (Arch arch : arches) {
+            if (!arch.getArchStatus()) return false;
         }
         return true;
     }
