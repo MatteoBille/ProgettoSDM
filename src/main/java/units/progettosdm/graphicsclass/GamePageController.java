@@ -9,6 +9,7 @@ import javafx.scene.shape.Line;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import units.progettosdm.backhandclass.Dot;
+import units.progettosdm.projectExceptions.BadDotDeclarationException;
 
 import java.util.*;
 
@@ -59,7 +60,7 @@ public class GamePageController {
     }
 
 
-    public void initializeGrid(int n, int m) {
+    public void initializeGrid(int n, int m) throws BadDotDeclarationException {
         N = n;
         M = m;
 
@@ -174,25 +175,39 @@ public class GamePageController {
 
         stage.widthProperty().addListener((obs, oldVal, newVal) -> {
             drawField();
-            setDots(N, M);
-            setLines(N, M);
+            try {
+                setDots(N, M);
+                setLines(N, M);
+            } catch (BadDotDeclarationException e) {
+                e.printStackTrace();
+            }
+
             setClickLineListener();
             setMouseHoverListener();
         });
 
         stage.heightProperty().addListener((obs, oldVal, newVal) -> {
             drawField();
-            setDots(N, M);
-            setLines(N, M);
+            try {
+                setDots(N, M);
+                setLines(N, M);
+            } catch (BadDotDeclarationException e) {
+                e.printStackTrace();
+            }
+
             System.out.println(tablePane.getChildren());
             setClickLineListener();
             setMouseHoverListener();
         });
 
-        initializeGrid(n, m);
+        try {
+            initializeGrid(n, m);
+        } catch (BadDotDeclarationException e) {
+            e.printStackTrace();
+        }
     }
 
-    private ArrayList<LineBetweenDots_Graphics> setLines(int n, int m) {
+    private ArrayList<LineBetweenDots_Graphics> setLines(int n, int m) throws BadDotDeclarationException {
         lines = new ArrayList<>();
         for (int i = 0; i < n + 1; i++) {
             for (int j = 0; j < m + 1; j++) {
@@ -228,7 +243,7 @@ public class GamePageController {
         tablePane.getChildren().add(tableLines);
     }
 
-    private Map<Dot, DotGraphics> setDots(int n, int m) {
+    private Map<Dot, DotGraphics> setDots(int n, int m) throws BadDotDeclarationException {
         double max = Math.max(n, m);
         border = widthTablePane * 0.05;
         double distanceX = (widthTablePane - border * 2) / (max);

@@ -19,7 +19,7 @@ class ScoreboardTest {
         int n=2;
         Scoreboard board = new Scoreboard(n);
         board.setArch();
-        board.setBoxes();
+        board.setBox();
         assertNotNull(board.getBoxes());
     }
 
@@ -28,7 +28,7 @@ class ScoreboardTest {
     void notNullScoreboardInitialization(){
         Scoreboard board = new Scoreboard(2);
         board.setArch();
-        board.setBoxes();
+        board.setBox();
         System.out.println(board);
         assertNotNull(board);
     }
