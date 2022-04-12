@@ -21,10 +21,19 @@ public class Game {
     public void playTurn(Arch arch) {
         scoreboard.selectArch(arch);
         scoreboard.checkPoint(playerTurn);
-        if (playerTurn == playerName1) {
-            playerTurn = playerName2;
-        } else {
-            playerTurn = playerName1;
+        if (scoreboard.checkPoint(playerTurn)) {
+            if (playerTurn.equals(playerName1)) {
+                scorePlayer1++;
+            } else {
+                scorePlayer2++;
+            }
+        }
+        if (!scoreboard.checkPoint(playerTurn)) {
+            if (playerTurn.equals(playerName1)) {
+                playerTurn = playerName2;
+            } else {
+                playerTurn = playerName1;
+            }
         }
     }
 
