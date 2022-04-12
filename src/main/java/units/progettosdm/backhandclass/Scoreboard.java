@@ -38,9 +38,16 @@ public class Scoreboard {
             e.printStackTrace();
         }
         //controllo che se l'arco selezionato chiude una casella allora assegno un'altra mossa a playerName e gli aggiungo un punto
-
     }
 
+    public void selectArch(Arch selectedArch, String playerName) {
+        try {
+            selectedArch.setArchSelected();
+        } catch (SelectArchAlreadySelectedException e) {
+            e.printStackTrace();
+        }
+        //controllo che se l'arco selezionato chiude una casella allora assegno un'altra mossa a playerName e gli aggiungo un punto
+    }
 
     public boolean checkPoint(Box box) {
         for (int i = 0; i < boxes.length; i++) {
