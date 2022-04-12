@@ -35,10 +35,7 @@ public class Dot {
 
     @Override
     public String toString() {
-<<<<<<< HEAD
         return "Dot{" + "dotIndex=" + Arrays.toString(dotIndex) + '}';
-=======
-        return Arrays.toString(dotIndex);
->>>>>>> a80c727b0a94f1f381a1ef9c24acda927357ad34
+
     }
 }
