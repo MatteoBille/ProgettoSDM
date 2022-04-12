@@ -42,7 +42,8 @@ public class Scoreboard {
 
     public void selectArch(Arch selectedArch, String playerName) {
         try {
-            selectedArch.setArchSelected();
+            int index = totalArches.indexOf(selectedArch);
+            totalArches.get(index).setArchSelected();
         } catch (SelectArchAlreadySelectedException e) {
             e.printStackTrace();
         }
