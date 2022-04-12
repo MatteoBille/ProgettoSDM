@@ -15,7 +15,7 @@ public class Box {
     }
 
     private Arch[] arches = new Arch[4];
-    private char playerBox;
+    private String playerBox;
     private int x, y;
     private Dot[] dots = new Dot[4];
 
@@ -30,6 +30,7 @@ public class Box {
         } catch (BadDotDeclarationException e) {
             e.printStackTrace();
         }
+        playerBox = null;
 
         /*for (int i = 0; i < arches.length; i++) {
             this.arches[i] = arches[i];
@@ -44,7 +45,7 @@ public class Box {
         return boxSides;
     }
 
-    public char getPlayerBox() {
+    public String getPlayerBox() {
         return playerBox;
     }
 
@@ -53,6 +54,9 @@ public class Box {
             if (!arch.getArchStatus()) return false;
         }
         return true;
+    }
+    public void setPlayerBox(String playerBox) {
+        this.playerBox = playerBox;
     }
 
     public boolean getArchStatusByIndex(int i){
