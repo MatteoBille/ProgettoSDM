@@ -46,7 +46,7 @@ class ScoreboardTest {
         board.setBox();
         Dot dot1 = new Dot(0,0);
         Dot dot2 = new Dot(0,1);
-        board.selectArch(new Arch(dot1,dot2),"Mario");
+        board.selectArch(new Arch(dot1,dot2));
         int index = board.totalArches.indexOf(new Arch(dot1,dot2));
         assertTrue(board.totalArches.get(index).selected);
 
@@ -61,18 +61,21 @@ class ScoreboardTest {
         Dot dot2 = new Dot(0,1);
         Dot dot3 = new Dot(1,1);
         Dot dot4 = new Dot(1,0);
-        board.selectArch(new Arch(dot1,dot2),"Mario");
-        board.selectArch(new Arch(dot2,dot3),"Mario");
-        board.selectArch(new Arch(dot4,dot3),"Mario");
-        board.selectArch(new Arch(dot1,dot4),"Mario");
+        board.selectArch(new Arch(dot1,dot2));
+        assertFalse(board.checkPoint("Mario"));
+        board.selectArch(new Arch(dot2,dot3));
+        assertFalse(board.checkPoint("Leandro"));
+        board.selectArch(new Arch(dot4,dot3));
+        assertFalse(board.checkPoint("Mario"));
+        board.selectArch(new Arch(dot1,dot4));
 
         int index = board.totalArches.indexOf(new Arch(dot1,dot2));
-        Box box = board.getBoxes()[1][0];
+        Box box = board.getBoxes()[0][0];
         Arch[] arch = box.getArches();
         for(int i=0;i<4;i++){
-            System.out.println(arch[i]+" "+box.getArchStatusByIndex(i));
+            System.out.println(arch[i]+" "+box.getArchStatusByIndex(i)+" "+box.getPlayerBox());
         }
-        assertTrue(board.checkPoint());
-
+        assertTrue(board.checkPoint("Leandro"));
+        System.out.println(box.getPlayerBox());
     }
 }
