@@ -1,16 +1,17 @@
 package units.progettosdm.backhandclass;
 
-import com.sun.javafx.UnmodifiableArrayList;
 import units.progettosdm.projectExceptions.BadArchDeclarationException;
 import units.progettosdm.projectExceptions.BadDotDeclarationException;
 import units.progettosdm.projectExceptions.SelectArchAlreadySelectedException;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Scoreboard {
     public List<Arch> totalArches = new ArrayList<>();
     private int gridSize;
+
 
     private Box[][] boxes;
 
@@ -25,6 +26,7 @@ public class Scoreboard {
     }*/
     public Scoreboard(int gridSize) {
         this.gridSize = gridSize;
+        boxes = new Box[gridSize][gridSize];
     }
 
 
@@ -76,13 +78,22 @@ public class Scoreboard {
         totalArches = new ArrayList<>();
         for (int i = 0; i < gridSize + 1; i++) {
             for (int j = 0; j < gridSize + 1; j++) {
+
                 try {
                     Dot dot = new Dot(i, j);
                     if (i + 1 < gridSize + 1) {
-                        totalArches.add(new Arch(dot, new Dot(i + 1, j)));
+                        try {
+                            totalArches.add(new Arch(dot, new Dot(i + 1, j)));
+                        } catch (BadDotDeclarationException e) {
+                            e.printStackTrace();
+                        }
                     }
                     if (j + 1 < gridSize + 1) {
-                        totalArches.add(new Arch(dot, new Dot(i, j + 1)));
+                        try {
+                            totalArches.add(new Arch(dot, new Dot(i, j + 1)));
+                        } catch (BadDotDeclarationException e) {
+                            e.printStackTrace();
+                        }
                     }
                 } catch (BadArchDeclarationException | BadDotDeclarationException e) {
                     e.printStackTrace();
@@ -91,4 +102,27 @@ public class Scoreboard {
         }
     }
 
+    public String getBoxesToString() {
+        String output = "";
+        for (int i = 0; i < gridSize; i++) {
+            for (int j = 0; j < gridSize; j++) {
+                output+=boxes[i][j].checkClosedBox()?"X ":"O ";
+            }
+            output+="\n";
+        }
+        return output;
+    }
+
+    @Override
+    public String toString() {
+        return "Scoreboard{" +"\n"+
+                "totalArches=" + totalArches +"\n"+
+                "gridSize=" + gridSize+"x"+gridSize +"\n"+
+                "boxes=" +"\n"+ getBoxesToString() +"\n"+
+                '}';
+    }
+
+    public Box[][] getBoxes() {
+        return boxes;
+    }
 }

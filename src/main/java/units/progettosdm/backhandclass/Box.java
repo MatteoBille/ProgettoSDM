@@ -51,4 +51,8 @@ public class Box {
         }
         return true;
     }
+
+    public boolean getArchStatusByIndex(int i){
+        return arches[i].getArchStatus();
+    }
 }
