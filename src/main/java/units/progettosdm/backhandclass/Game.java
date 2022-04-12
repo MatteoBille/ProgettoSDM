@@ -7,6 +7,7 @@ public class Game {
     private int scorePlayer2;
     private String playerTurn;
     private Scoreboard scoreboard;
+    private int n;
 
     public Game(int n, String playerName1, String playerName2) {
         this.playerName1 = playerName1;
@@ -44,7 +45,16 @@ public class Game {
         return playerName2;
     }
 
-    public void checkVictory() {
-
-    }
+    public String checkVictory() {
+        if(scorePlayer1>((scoreboard.gridSize)/2)) {
+            return playerName1;
+        }
+        else if(scorePlayer2>((scoreboard.gridSize)/2)) {
+            return playerName2;
+        }
+        else if(scorePlayer1==scorePlayer2){
+            return "Pareggio";
+        }
+        return "Continua a giocare";
+}
 }
