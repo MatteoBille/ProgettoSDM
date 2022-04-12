@@ -2,6 +2,8 @@ package units.progettosdm.backhandclass;
 
 import com.sun.javafx.UnmodifiableArrayList;
 import units.progettosdm.projectExceptions.BadArchDeclarationException;
+import units.progettosdm.projectExceptions.BadDotDeclarationException;
+import units.progettosdm.projectExceptions.SelectArchAlreadySelectedException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,23 +28,37 @@ public class Scoreboard {
     }
 
 
-    /*public void selectArch(Dot dot1, Dot dot2, ) {
-    }*/
+    public void selectArch(Dot dot1, Dot dot2, String playerName) {
+        try {
+            Arch archChosen = new Arch(dot1, dot2);
+            archChosen.setArchSelected();
+        } catch (BadArchDeclarationException | SelectArchAlreadySelectedException e) {
+            e.printStackTrace();
+        }
+        //controllo che se l'arco selezionato chiude una casella allora assegno un'altra mossa a playerName e gli aggiungo un punto
 
-
-    public boolean checkPoint() {
-        //return boxes.checkClosedBox();
-        return true;
     }
 
-    public void setBoxes() {
+
+    public boolean checkPoint(Box box) {
+        for (int i = 0; i < boxes.length; i++) {
+            for (int j = 0; j < boxes.length; j++) {
+                this.boxes[i][j] = box;
+                if (this.boxes[i][j].checkClosedBox()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public void setBox() {
         for (int i = 0; i < gridSize; i++) {
             for (int j = 0; j < gridSize; j++) {
                 boxes[i][j] = new Box(i, j);
                 Dot[][] boxSides = boxes[i][j].getCouple();
                 Arch[] arches = new Arch[4];
                 try {
-
                     for (int k = 0; k < boxSides.length; k++) {
                         Arch tempArch = new Arch(boxSides[k][0], boxSides[k][1]);
                         int index = totalArches.indexOf(tempArch);
@@ -60,15 +76,15 @@ public class Scoreboard {
         totalArches = new ArrayList<>();
         for (int i = 0; i < gridSize + 1; i++) {
             for (int j = 0; j < gridSize + 1; j++) {
-                Dot dot = new Dot(i, j);
                 try {
+                    Dot dot = new Dot(i, j);
                     if (i + 1 < gridSize + 1) {
                         totalArches.add(new Arch(dot, new Dot(i + 1, j)));
                     }
                     if (j + 1 < gridSize + 1) {
                         totalArches.add(new Arch(dot, new Dot(i, j + 1)));
                     }
-                } catch (BadArchDeclarationException e) {
+                } catch (BadArchDeclarationException | BadDotDeclarationException e) {
                     e.printStackTrace();
                 }
             }
