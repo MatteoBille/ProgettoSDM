@@ -10,7 +10,7 @@ import java.util.List;
 
 public class Scoreboard {
     public List<Arch> totalArches = new ArrayList<>();
-    private int gridSize;
+    public int gridSize;
 
 
     private Box[][] boxes;
