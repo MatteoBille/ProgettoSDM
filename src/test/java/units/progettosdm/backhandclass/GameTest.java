@@ -3,21 +3,17 @@ package units.progettosdm.backhandclass;
 import org.junit.jupiter.api.Test;
 import units.progettosdm.projectExceptions.BadArchDeclarationException;
 import units.progettosdm.projectExceptions.BadDotDeclarationException;
-import units.progettosdm.projectExceptions.SelectArchAlreadySelectedException;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class GameTest {
     @Test
-    void playTurnMethod() throws BadDotDeclarationException, BadArchDeclarationException, SelectArchAlreadySelectedException {
+    void playTurnMethod() throws BadDotDeclarationException, BadArchDeclarationException {
         Scoreboard scoreboard;
         String playerName1 = "Mario";
         String playerName2 = "Giovanni";
-        String playerTurn;
         Game newGame = new Game(3, playerName1, playerName2);
         scoreboard = newGame.getScoreboard();
         List<Arch> totalArches = scoreboard.totalArches;

@@ -5,7 +5,6 @@ import units.progettosdm.projectExceptions.BadDotDeclarationException;
 import units.progettosdm.projectExceptions.SelectArchAlreadySelectedException;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Scoreboard {
@@ -13,33 +12,13 @@ public class Scoreboard {
     public int gridSize;
 
 
-    private Box[][] boxes;
+    private final Box[][] boxes;
 
-    /*public Scoreboard(Box[][] boxes, int gridSize) {
-        this.gridSize = gridSize;
-        this.boxes = new Box[gridSize][gridSize];
-        for (int i = 0; i < gridSize; i++) {
-            for (int j = 0; j < gridSize; j++) {
-                this.boxes[i][j] = boxes[i][j];
-            }
-        }
-    }*/
     public Scoreboard(int gridSize) {
         this.gridSize = gridSize;
         boxes = new Box[gridSize][gridSize];
         setArch();
         setBox();
-    }
-
-
-    public void selectArch(Dot dot1, Dot dot2, String playerName) {
-        try {
-            Arch archChosen = new Arch(dot1, dot2);
-            archChosen.setArchSelected();
-        } catch (BadArchDeclarationException | SelectArchAlreadySelectedException e) {
-            e.printStackTrace();
-        }
-        //controllo che se l'arco selezionato chiude una casella allora assegno un'altra mossa a playerName e gli aggiungo un punto
     }
 
     public void selectArch(Arch selectedArch) {
@@ -54,11 +33,11 @@ public class Scoreboard {
 
     public int checkPoint(String playerName) {
         int count = 0;
-        for (int i = 0; i < boxes.length; i++) {
+        for (Box[] box : boxes) {
             for (int j = 0; j < boxes.length; j++) {
-                if (this.boxes[i][j].checkClosedBox() && this.boxes[i][j].getPlayerBox()==null) {
+                if (box[j].checkClosedBox() && box[j].getPlayerBox() == null) {
                     count++;
-                    this.boxes[i][j].setPlayerBox(playerName);
+                    box[j].setPlayerBox(playerName);
                 }
             }
         }
@@ -114,14 +93,14 @@ public class Scoreboard {
     }
 
     public String getBoxesToString() {
-        String output = "";
+        StringBuilder output = new StringBuilder();
         for (int i = 0; i < gridSize; i++) {
             for (int j = 0; j < gridSize; j++) {
-                output+=boxes[i][j].checkClosedBox()? boxes[i][j].getPlayerBox():"O ";
+                output.append(boxes[i][j].checkClosedBox() ? boxes[i][j].getPlayerBox() : "O ");
             }
-            output+="\n";
+            output.append("\n");
         }
-        return output;
+        return output.toString();
     }
 
 
