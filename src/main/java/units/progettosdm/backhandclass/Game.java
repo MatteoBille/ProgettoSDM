@@ -77,4 +77,7 @@ public class Game {
         this.playerTurn = playerTurn;
     }
 
+    public String getPlayerTurn() {
+        return playerTurn;
+    }
 }

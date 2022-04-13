@@ -6,9 +6,10 @@ import javafx.scene.*;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import units.progettosdm.backhandclass.Arch;
 import units.progettosdm.backhandclass.Dot;
+import units.progettosdm.backhandclass.Game;
 import units.progettosdm.projectExceptions.BadDotDeclarationException;
 
 import java.util.*;
@@ -22,23 +23,19 @@ public class GamePageController {
     @FXML
     private Pane gameViewPane;
     @FXML
-    private Stage stage;
-    @FXML
-    private Label playingTurn;
+    private Label playerTurn;
     @FXML
     private Label pointsPlayer1;
     @FXML
     private Label pointsPlayer2;
 
-    List<LineBetweenDots_Graphics> lines = new ArrayList<>();
+    List<LineBetweenDotsGraphics> lines = new ArrayList<>();
     Map<Dot, DotGraphics> dots = new HashMap<>();
     Group dotsPoint = new Group();
     Group tableLines = new Group();
 
     String player1;
     String player2;
-
-    boolean turn = true;
 
     private double parentWidth;
     private double parentHeight;
@@ -47,7 +44,7 @@ public class GamePageController {
     private double widthGameViewPane;
     private double heightGameViewPane;
     private double border;
-
+    Game match;
 
     int N;
     int M;
@@ -55,7 +52,6 @@ public class GamePageController {
     @FXML
     void initialize() {
         double dimension = Math.min(parentHeight, parentWidth);
-
 
     }
 
@@ -93,24 +89,30 @@ public class GamePageController {
         gameViewPane.setLayoutX(parentWidth / 2 - widthGameViewPane / 2);
         gameViewPane.setLayoutY(parentHeight / 2 - heightGameViewPane / 2);
 
+        playerTurn.setLayoutX(0);
+        playerTurn.setPrefHeight(17);
+        playerTurn.setLayoutY(0);
+        playerTurn.setPrefWidth(gameViewPane.getWidth());
+        playerTurn.setAlignment(Pos.CENTER);
+
         pointsPlayer1.setLayoutX(0);
         pointsPlayer1.setPrefHeight(17);
-        pointsPlayer1.setLayoutY(gameViewPane.getHeight()-pointsPlayer1.getPrefHeight());
-        pointsPlayer1.setPrefWidth(gameViewPane.getWidth()/2);
+        pointsPlayer1.setLayoutY(gameViewPane.getHeight() - pointsPlayer1.getPrefHeight());
+        pointsPlayer1.setPrefWidth(gameViewPane.getWidth() / 2);
         pointsPlayer1.setAlignment(Pos.CENTER_LEFT);
 
-        pointsPlayer2.setLayoutX(gameViewPane.getWidth()/2);
+        pointsPlayer2.setLayoutX(gameViewPane.getWidth() / 2);
         pointsPlayer2.setPrefHeight(17);
-        pointsPlayer2.setLayoutY(gameViewPane.getHeight()-pointsPlayer2.getPrefHeight());
-        pointsPlayer2.setPrefWidth(gameViewPane.getWidth()/2);
+        pointsPlayer2.setLayoutY(gameViewPane.getHeight() - pointsPlayer2.getPrefHeight());
+        pointsPlayer2.setPrefWidth(gameViewPane.getWidth() / 2);
         pointsPlayer2.setAlignment(Pos.CENTER_RIGHT);
 
+        gameViewPane.getChildren().add(playerTurn);
         gameViewPane.getChildren().add(pointsPlayer1);
         gameViewPane.getChildren().add(pointsPlayer2);
 
         gameViewPane.getChildren().add(tablePane);
 
-        System.out.println(dimension);
         tablePane.setPrefWidth(widthTablePane);
         tablePane.setPrefHeight(heightTablePane);
         tablePane.setLayoutX(widthGameViewPane / 2 - widthTablePane / 2);
@@ -132,46 +134,61 @@ public class GamePageController {
         tablePane.getChildren().add(borderLine);
 
 
-
     }
 
     private void setMouseHoverListener() {
         lines.forEach(lin -> {
-            if(!lin.isSelected()){lin.setOnMouseEntered(ev -> {
-                tablePane.getScene().setCursor(Cursor.HAND);
-            });}
+            if (!lin.isSelected()) {
+                lin.setOnMouseEntered(ev -> {
+                    tablePane.getScene().setCursor(Cursor.HAND);
+                });
+            }
         });
-        lines.forEach(lin ->  {
-            if(!lin.isSelected()){lin.setOnMouseExited(ev -> {
-                tablePane.getScene().setCursor(Cursor.DEFAULT);
-        });}});
+        lines.forEach(lin -> {
+            if (!lin.isSelected()) {
+                lin.setOnMouseExited(ev -> {
+                    tablePane.getScene().setCursor(Cursor.DEFAULT);
+                });
+            }
+        });
     }
 
     private void changeTurn() {
-        turn = turn ? false : true;
-        playingTurn.setText("Turno di " + (turn ? player1 : player2));
+        playerTurn.setText("Turno di :" + match.getPlayerTurn());
     }
 
     private void setClickLineListener() {
         lines.forEach(lin -> lin.setOnMouseClicked(ev -> {
-            lin.setOpacity(1);
-            lin.setSelected();
+            match.playTurn(lin.backhandArch);
+            refreshGraphicLines();
             lin.setOnMouseEntered(e -> {
                 tablePane.getScene().setCursor(Cursor.DEFAULT);
             });
-            System.out.println(lin);
+            pointsPlayer1.setText(player1 + match.getScorePlayer1());
+            pointsPlayer2.setText(player2 + match.getScorePlayer2());
             changeTurn();
         }));
 
     }
 
+    private void refreshGraphicLines() {
+        lines.forEach(lin -> {
+            if (lin.isSelected()) {
+                lin.setOpacity(1);
+            } else {
+                lin.setOpacity(0.2);
+            }
+        });
+    }
+
     public void initializePage(int n, int m, Stage stage, String player1, String player2) {
+        match = new Game(n, player1, player2);
         this.player1 = player1;
         this.player2 = player2;
 
         pointsPlayer1.setText("Punti " + player1 + " :");
         pointsPlayer2.setText("Punti " + player2 + " :");
-        playingTurn.setText("Turno di " + player1);
+        playerTurn.setText("Turno di " + player1);
 
         stage.widthProperty().addListener((obs, oldVal, newVal) -> {
             drawField();
@@ -195,7 +212,6 @@ public class GamePageController {
                 e.printStackTrace();
             }
 
-            System.out.println(tablePane.getChildren());
             setClickLineListener();
             setMouseHoverListener();
         });
@@ -207,39 +223,29 @@ public class GamePageController {
         }
     }
 
-    private ArrayList<LineBetweenDots_Graphics> setLines(int n, int m) throws BadDotDeclarationException {
+    private ArrayList<LineBetweenDotsGraphics> setLines(int n, int m) throws BadDotDeclarationException {
+        List<Arch> arches = match.getScoreboard().totalArches;
         lines = new ArrayList<>();
-        for (int i = 0; i < n + 1; i++) {
-            for (int j = 0; j < m + 1; j++) {
-                Dot comparingDot = new Dot(i, j);
-                DotGraphics d = dots.get(comparingDot);
-                if (d != null) {
-                    if (i + 1 < n + 1) {
-                        lines.add(new LineBetweenDots_Graphics(d, dots.get(new Dot(i + 1, j))));
-                    }
-                    if (j + 1 < m + 1) {
-                        lines.add(new LineBetweenDots_Graphics(d, dots.get(new Dot(i, j + 1))));
-                    }
-                }
-            }
-        }
+
+        arches.forEach(e -> {
+            lines.add(new LineBetweenDotsGraphics(dots.get(e.getFirstDot()), dots.get(e.getSecondDot()), e));
+        });
+
         lines.forEach(e -> {
-            if(e.isSelected()){
+            if (e.isSelected()) {
                 e.setOpacity(1);
-            }else{
+            } else {
                 e.setOpacity(0.2);
             }
         });
         drawLines();
-        return (ArrayList<LineBetweenDots_Graphics>) lines;
+        return (ArrayList<LineBetweenDotsGraphics>) lines;
     }
 
     private void drawLines() {
 
         tableLines.getChildren().clear();
-        System.out.println(tableLines.getChildren().size());
         lines.forEach(e -> tableLines.getChildren().add(e));
-        System.out.println(tableLines.getChildren().size());
         tablePane.getChildren().add(tableLines);
     }
 
@@ -265,9 +271,7 @@ public class GamePageController {
 
     private void drawDots() {
         dotsPoint.getChildren().clear();
-        System.out.println(dotsPoint.getChildren().size());
         dots.values().forEach(e -> dotsPoint.getChildren().add(e));
-        System.out.println(dotsPoint.getChildren().size());
         tablePane.getChildren().add(dotsPoint);
     }
 }
