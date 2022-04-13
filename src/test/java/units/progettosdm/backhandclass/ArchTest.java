@@ -83,4 +83,12 @@ class ArchTest {
         String expectedOutput = "Dot{dotIndex=[1, 0]}---->Dot{dotIndex=[0, 0]}";
         assertEquals(expectedOutput, arch.toString());
     }
+    @Test
+    void archIsEqualsWorkProperly() throws BadArchDeclarationException, BadDotDeclarationException {
+        Dot dot1 = new Dot(1, 0);
+        Dot dot2 = new Dot(0, 0);
+        Arch arch1 = new Arch(dot1,dot2);
+        Arch arch2 = new Arch(dot2,dot1);
+        assertEquals(arch1, arch2);
+    }
 }
