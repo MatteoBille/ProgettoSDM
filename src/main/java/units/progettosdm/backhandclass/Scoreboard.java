@@ -27,6 +27,8 @@ public class Scoreboard {
     public Scoreboard(int gridSize) {
         this.gridSize = gridSize;
         boxes = new Box[gridSize][gridSize];
+        setArch();
+        setBox();
     }
 
 
@@ -120,6 +122,7 @@ public class Scoreboard {
         }
         return output;
     }
+
 
     @Override
     public String toString() {
