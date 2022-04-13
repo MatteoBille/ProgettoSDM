@@ -61,11 +61,11 @@ class ScoreboardTest {
         Dot dot3 = new Dot(1,1);
         Dot dot4 = new Dot(1,0);
         board.selectArch(new Arch(dot1,dot2));
-        assertEquals(0,board.checkPoint("Mario"));
+        assertEquals(0,board.checkPoint("Mario",1 ));
         board.selectArch(new Arch(dot2,dot3));
-        assertEquals(0,board.checkPoint("Leandro"));
+        assertEquals(0,board.checkPoint("Leandro", 2));
         board.selectArch(new Arch(dot4,dot3));
-        assertEquals(0,board.checkPoint("Mario"));
+        assertEquals(0,board.checkPoint("Mario",1 ));
         board.selectArch(new Arch(dot1,dot4));
 
         Box box = board.getBoxes()[0][0];
@@ -73,7 +73,7 @@ class ScoreboardTest {
         for(int i=0;i<4;i++){
             System.out.println(arch[i]+" "+box.getArchStatusByIndex(i));
         }
-        assertEquals(1,board.checkPoint("Leandro"));
+        assertEquals(1,board.checkPoint("Leandro", 2));
         System.out.println(box.getPlayerBox());
     }
 
@@ -97,6 +97,6 @@ class ScoreboardTest {
         for(Arch arch : arches){
             scoreboard.selectArch(arch);
         }
-        assertEquals(2,scoreboard.checkPoint("A"));
+        assertEquals(2,scoreboard.checkPoint("A",1 ));
     }
 }

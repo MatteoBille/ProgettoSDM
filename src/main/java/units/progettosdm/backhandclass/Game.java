@@ -21,7 +21,7 @@ public class Game {
 
     public void playTurn(Arch arch) {
         scoreboard.selectArch(arch);
-        int temp = scoreboard.checkPoint(playerTurn);
+        int temp = scoreboard.checkPoint(playerTurn, playerTurn.equals(playerName1)?1:2);
         if (temp > 0) {
             if (playerTurn.equals(playerName1)) {
                 scorePlayer1+=temp;
@@ -77,4 +77,7 @@ public class Game {
         this.playerTurn = playerTurn;
     }
 
+    public String getPlayerTurn() {
+        return playerTurn;
+    }
 }

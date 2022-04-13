@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="units.progettosdm.graphicsclass.GamePageController">
+<VBox prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="units.progettosdm.graphicsclass.GamePageController">
     <children>
         <MenuBar>
             <menus>
@@ -28,13 +32,10 @@
             <children>
             <Pane fx:id="gameViewPane" layoutX="83.0" layoutY="42.0" prefHeight="393.0" prefWidth="434.0">
                <children>
-                      <Pane fx:id="tablePane" layoutX="42.0" layoutY="22.0" prefHeight="350.0" prefWidth="350.0" styleClass="tablePane">
-                     <children>
-                        <Label fx:id="playingTurn" alignment="CENTER" contentDisplay="CENTER" layoutY="6.0" prefHeight="17.0" prefWidth="350.0" text="E' il turno di :" textAlignment="CENTER" />
-                     </children>
-                  </Pane>
-                  <Label fx:id="pointsPlayer1" layoutX="1.0" layoutY="364.0" prefHeight="17.0" prefWidth="102.0" text="Punti Giocatore 1" />
-                  <Label fx:id="pointsPlayer2" alignment="CENTER_RIGHT" layoutX="318.0" layoutY="368.0" prefHeight="17.0" prefWidth="102.0" text="Punti Giocatore 2" />
+                   <Pane fx:id="tablePane" layoutX="42.0" layoutY="25.0" prefHeight="342.0" prefWidth="353.0" styleClass="tablePane" />
+                  <Label fx:id="playerTurn" alignment="CENTER" prefHeight="25.0" prefWidth="434.0" text="Label" />
+                  <Label fx:id="pointsPlayer1" layoutY="367.0" prefHeight="25.0" prefWidth="217.0" text="Label" />
+                  <Label fx:id="pointsPlayer2" alignment="CENTER_RIGHT" layoutX="217.0" layoutY="367.0" prefHeight="25.0" prefWidth="217.0" text="Label" />
                </children>
             </Pane>
             </children>

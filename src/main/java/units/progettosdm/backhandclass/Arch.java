@@ -46,4 +46,12 @@ public class Arch {
     public String toString() {
         return "[" + dot1+", "+dot2 +", "+getArchStatus() + "]";
     }
+
+    public Dot getFirstDot() {
+        return dot1;
+    }
+
+    public Dot getSecondDot() {
+        return dot2;
+    }
 }
