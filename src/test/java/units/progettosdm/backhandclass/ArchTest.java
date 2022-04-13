@@ -74,4 +74,13 @@ class ArchTest {
         }
 
     }
+
+    @Test
+    void archToStringWorkProperly() throws BadDotDeclarationException, BadArchDeclarationException {
+        Dot dot1 = new Dot(1, 0);
+        Dot dot2 = new Dot(0, 0);
+        Arch arch = new Arch(dot1, dot2);
+        String expectedOutput = "Dot{dotIndex=[1, 0]}---->Dot{dotIndex=[0, 0]}";
+        assertEquals(expectedOutput, arch.toString());
+    }
 }
