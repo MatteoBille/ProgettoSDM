@@ -31,13 +31,13 @@ public class Scoreboard {
         //controllo che se l'arco selezionato chiude una casella allora assegno un'altra mossa a playerName e gli aggiungo un punto
     }
 
-    public int checkPoint(String playerName) {
+    public int checkPoint(String playerName, int playerNumber) {
         int count = 0;
         for (Box[] box : boxes) {
             for (int j = 0; j < boxes.length; j++) {
                 if (box[j].checkClosedBox() && box[j].getPlayerBox() == null) {
                     count++;
-                    box[j].setPlayerBox(playerName);
+                    box[j].setPlayerBox(playerName, playerNumber);
                 }
             }
         }

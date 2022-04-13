@@ -1,13 +1,22 @@
 package units.progettosdm.graphicsclass;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.*;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import javafx.scene.text.Font;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
 import units.progettosdm.backhandclass.Arch;
+import units.progettosdm.backhandclass.Box;
 import units.progettosdm.backhandclass.Dot;
 import units.progettosdm.backhandclass.Game;
 import units.progettosdm.projectExceptions.BadDotDeclarationException;
@@ -31,8 +40,11 @@ public class GamePageController {
 
     List<LineBetweenDotsGraphics> lines = new ArrayList<>();
     Map<Dot, DotGraphics> dots = new HashMap<>();
+    List<PointLabelGraphics> labels = new ArrayList<>();
+
     Group dotsPoint = new Group();
     Group tableLines = new Group();
+    Group labelsGrid = new Group();
 
     String player1;
     String player2;
@@ -61,8 +73,13 @@ public class GamePageController {
         M = m;
 
         drawField();
-        dots = setDots(N, M);
-        lines = setLines(N, M);
+        setDots(N, M);
+        setLines();
+        setLabels();
+
+        drawLabels();
+        drawDots();
+        drawLines();
 
         setClickLineListener();
         setMouseHoverListener();
@@ -164,11 +181,36 @@ public class GamePageController {
             lin.setOnMouseEntered(e -> {
                 tablePane.getScene().setCursor(Cursor.DEFAULT);
             });
+            labels.forEach(lab->lab.setBoxSelected());
             pointsPlayer1.setText(player1 + match.getScorePlayer1());
             pointsPlayer2.setText(player2 + match.getScorePlayer2());
+            System.out.println(match.checkVictory());
+            if(match.checkVictory()!=null){
+                setVictory(match.checkVictory());
+            }
             changeTurn();
         }));
 
+    }
+
+    private void setVictory(String winner) {
+        Popup victoryPopup = new Popup();
+        Pane victoryPopupPane = new Pane();
+        victoryPopupPane.setPrefWidth(parentWidth*0.5);
+        victoryPopupPane.setPrefHeight(parentHeight*0.5);
+        victoryPopupPane.setBackground(new Background(new BackgroundFill(Color.rgb(255, 255, 255, 1), new CornerRadii(0.5), new Insets(0.0))));
+        victoryPopupPane.setStyle("-fx-border-color: black");
+
+        Label victoryMessage = new Label("HA VINTO "+ winner.toUpperCase(Locale.ROOT));
+        victoryMessage.setPrefWidth(victoryPopupPane.getPrefWidth());
+        victoryMessage.setPrefHeight(victoryPopupPane.getPrefHeight());
+        victoryMessage.setAlignment(Pos.CENTER);
+        victoryMessage.setFont(new Font(30));
+
+
+        victoryPopupPane.getChildren().add(victoryMessage);
+        victoryPopup.getContent().add(victoryPopupPane);
+        victoryPopup.show(parentPane.getScene().getWindow());
     }
 
     private void refreshGraphicLines() {
@@ -194,7 +236,7 @@ public class GamePageController {
             drawField();
             try {
                 setDots(N, M);
-                setLines(N, M);
+                setLines();
             } catch (BadDotDeclarationException e) {
                 e.printStackTrace();
             }
@@ -207,7 +249,7 @@ public class GamePageController {
             drawField();
             try {
                 setDots(N, M);
-                setLines(N, M);
+                setLines();
             } catch (BadDotDeclarationException e) {
                 e.printStackTrace();
             }
@@ -223,7 +265,7 @@ public class GamePageController {
         }
     }
 
-    private ArrayList<LineBetweenDotsGraphics> setLines(int n, int m) throws BadDotDeclarationException {
+    private void setLines() throws BadDotDeclarationException {
         List<Arch> arches = match.getScoreboard().totalArches;
         lines = new ArrayList<>();
 
@@ -238,8 +280,6 @@ public class GamePageController {
                 e.setOpacity(0.2);
             }
         });
-        drawLines();
-        return (ArrayList<LineBetweenDotsGraphics>) lines;
     }
 
     private void drawLines() {
@@ -249,7 +289,7 @@ public class GamePageController {
         tablePane.getChildren().add(tableLines);
     }
 
-    private Map<Dot, DotGraphics> setDots(int n, int m) throws BadDotDeclarationException {
+    private void setDots(int n, int m) throws BadDotDeclarationException {
         double max = Math.max(n, m);
         border = widthTablePane * 0.05;
         double distanceX = (widthTablePane - border * 2) / (max);
@@ -265,13 +305,27 @@ public class GamePageController {
                 dots.put(new Dot(i, j), new DotGraphics(new Dot(i, j), tempX, tempY, circleSize));
             }
         }
-        drawDots();
-        return dots;
     }
 
     private void drawDots() {
         dotsPoint.getChildren().clear();
         dots.values().forEach(e -> dotsPoint.getChildren().add(e));
         tablePane.getChildren().add(dotsPoint);
+    }
+
+    private void setLabels(){
+        labels = new ArrayList<>();
+        Box[][] boxes= match.getScoreboard().getBoxes();
+        Arrays.stream(boxes).forEach(line-> Arrays.stream(line).forEach(cell->{
+            DotGraphics firstDot = dots.get(cell.getDots()[0]);
+            DotGraphics thirdDot = dots.get(cell.getDots()[2]);
+            DotGraphics[] firstAndThirdGraphicalDots = {firstDot,thirdDot};
+            labels.add(new PointLabelGraphics(firstAndThirdGraphicalDots,cell));
+        }));
+    }
+    private void drawLabels() {
+        labelsGrid.getChildren().clear();
+        labels.forEach(e -> labelsGrid.getChildren().add(e));
+        tablePane.getChildren().add(labelsGrid);
     }
 }

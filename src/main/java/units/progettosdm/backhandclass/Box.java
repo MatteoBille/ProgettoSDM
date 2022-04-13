@@ -15,26 +15,33 @@ public class Box {
 
     private Arch[] arches = new Arch[4];
     private String playerBox;
+
+
+
+    private String playerBoxCharacter;
+
+
     private final Dot[] dots = new Dot[4];
 
     public Box(int x, int y) {
         try {
-            dots[0] = new Dot(x,y);
-            dots[1] = new Dot(x+1,y);
-            dots[2] = new Dot(x+1,y+1);
-            dots[3] = new Dot(x,y+1);
+            dots[0] = new Dot(x, y);
+            dots[1] = new Dot(x + 1, y);
+            dots[2] = new Dot(x + 1, y + 1);
+            dots[3] = new Dot(x, y + 1);
         } catch (BadDotDeclarationException e) {
             e.printStackTrace();
         }
         playerBox = null;
 
     }
-    public Dot[][] getCouple(){
+
+    public Dot[][] getCouple() {
         Dot[][] boxSides = new Dot[4][2];
-        boxSides[0]=new Dot[]{dots[0],dots[1]};
-        boxSides[1]=new Dot[]{dots[1],dots[2]};
-        boxSides[2]=new Dot[]{dots[3],dots[2]};
-        boxSides[3]=new Dot[]{dots[0],dots[3]};
+        boxSides[0] = new Dot[]{dots[0], dots[1]};
+        boxSides[1] = new Dot[]{dots[1], dots[2]};
+        boxSides[2] = new Dot[]{dots[3], dots[2]};
+        boxSides[3] = new Dot[]{dots[0], dots[3]};
         return boxSides;
     }
 
@@ -48,11 +55,23 @@ public class Box {
         }
         return true;
     }
-    public void setPlayerBox(String playerBox) {
+
+    public void setPlayerBox(String playerBox, int playerNumber) {
         this.playerBox = playerBox;
+        playerBoxCharacter= playerNumber==1?"A":"B";
     }
 
-    public boolean getArchStatusByIndex(int i){
+    public boolean getArchStatusByIndex(int i) {
         return arches[i].getArchStatus();
     }
+
+    public Dot[] getDots() {
+        return dots;
+    }
+
+    public String getPlayerBoxCharacter() {
+        return playerBoxCharacter;
+    }
+
+
 }
