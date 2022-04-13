@@ -24,7 +24,7 @@ public class GameTest {
         List<Arch> totalArches = scoreboard.totalArches;
         Dot dot1 = new Dot(0,0);
         Dot dot2 = new Dot(1,0);
-        Arch arch = new Arch(dot1,dot2);
+        Arch arch = new Arch(dot2,dot1);
         newGame.playTurn(arch);
         int index = totalArches.indexOf(arch);
         assertTrue(totalArches.get(index).getArchStatus());
