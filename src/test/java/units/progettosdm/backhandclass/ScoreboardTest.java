@@ -6,7 +6,9 @@ import units.progettosdm.projectExceptions.BadArchDeclarationException;
 import units.progettosdm.projectExceptions.BadDotDeclarationException;
 import units.progettosdm.projectExceptions.SelectArchAlreadySelectedException;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -62,11 +64,11 @@ class ScoreboardTest {
         Dot dot3 = new Dot(1,1);
         Dot dot4 = new Dot(1,0);
         board.selectArch(new Arch(dot1,dot2));
-        assertFalse(board.checkPoint("Mario"));
+        assertEquals(0,board.checkPoint("Mario"));
         board.selectArch(new Arch(dot2,dot3));
-        assertFalse(board.checkPoint("Leandro"));
+        assertEquals(0,board.checkPoint("Leandro"));
         board.selectArch(new Arch(dot4,dot3));
-        assertFalse(board.checkPoint("Mario"));
+        assertEquals(0,board.checkPoint("Mario"));
         board.selectArch(new Arch(dot1,dot4));
 
         int index = board.totalArches.indexOf(new Arch(dot1,dot2));
@@ -75,7 +77,31 @@ class ScoreboardTest {
         for(int i=0;i<4;i++){
             System.out.println(arch[i]+" "+box.getArchStatusByIndex(i)+" "+box.getPlayerBox());
         }
-        assertTrue(board.checkPoint("Leandro"));
+        assertEquals(1,board.checkPoint("Leandro"));
         System.out.println(box.getPlayerBox());
+    }
+
+    @Test
+    void checkDoublePoint() throws BadArchDeclarationException, BadDotDeclarationException {
+        Scoreboard scoreboard = new Scoreboard(2);
+        List<Arch> totalArches = scoreboard.totalArches;
+        Dot dot1 = new Dot(0, 0);
+        Dot dot2 = new Dot(0, 1);
+        Dot dot3 = new Dot(0, 2);
+        Dot dot4 = new Dot(1, 0);
+        Dot dot5 = new Dot(1, 1);
+        Dot dot6 = new Dot(1, 2);
+        List<Arch> arches = new ArrayList<>();
+        arches.add(new Arch(dot1, dot2));
+        arches.add(new Arch(dot5, dot6));
+        arches.add(new Arch(dot6, dot3));
+        arches.add(new Arch(dot2, dot3));
+        arches.add(new Arch(dot1, dot4));
+        arches.add(new Arch(dot4, dot5));
+        arches.add(new Arch(dot2, dot5));
+        for(Arch arch : arches){
+            scoreboard.selectArch(arch);
+        }
+        assertEquals(2,scoreboard.checkPoint("A"));
     }
 }

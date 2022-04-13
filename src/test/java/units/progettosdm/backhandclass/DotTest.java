@@ -47,7 +47,7 @@ class DotTest {
     @Test
     void dotToStringWorkProperly() throws BadDotDeclarationException {
         Dot dot = new Dot(1,0);
-        String expectedOutput="Dot{dotIndex=[1, 0]}";
+        String expectedOutput="(1, 0)";
         assertEquals(expectedOutput,dot.toString());
     }
 

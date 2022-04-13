@@ -15,7 +15,6 @@ public class GameTest {
     @Test
     void playTurnMethod() throws BadDotDeclarationException, BadArchDeclarationException, SelectArchAlreadySelectedException {
         Scoreboard scoreboard;
-
         String playerName1 = "Mario";
         String playerName2 = "Giovanni";
         String playerTurn;

@@ -52,16 +52,17 @@ public class Scoreboard {
         //controllo che se l'arco selezionato chiude una casella allora assegno un'altra mossa a playerName e gli aggiungo un punto
     }
 
-    public boolean checkPoint(String playerName) {
+    public int checkPoint(String playerName) {
+        int count = 0;
         for (int i = 0; i < boxes.length; i++) {
             for (int j = 0; j < boxes.length; j++) {
                 if (this.boxes[i][j].checkClosedBox() && this.boxes[i][j].getPlayerBox()==null) {
+                    count++;
                     this.boxes[i][j].setPlayerBox(playerName);
-                    return true;
                 }
             }
         }
-        return false;
+        return count;
     }
 
     public void setBox() {
@@ -116,7 +117,7 @@ public class Scoreboard {
         String output = "";
         for (int i = 0; i < gridSize; i++) {
             for (int j = 0; j < gridSize; j++) {
-                output+=boxes[i][j].checkClosedBox()?"X ":"O ";
+                output+=boxes[i][j].checkClosedBox()? boxes[i][j].getPlayerBox():"O ";
             }
             output+="\n";
         }
@@ -126,10 +127,10 @@ public class Scoreboard {
 
     @Override
     public String toString() {
-        return "Scoreboard{" +"\n"+
-                "totalArches=" + totalArches +"\n"+
-                "gridSize=" + gridSize+"x"+gridSize +"\n"+
-                "boxes=" +"\n"+ getBoxesToString() +"\n"+
+        return "Scoreboard{" + "\n" +
+                "totalArches=" + totalArches + "\n" +
+                "gridSize=" + gridSize + "x" + gridSize + "\n" +
+                "boxes=" + "\n" + getBoxesToString() + "\n" +
                 '}';
     }
 
