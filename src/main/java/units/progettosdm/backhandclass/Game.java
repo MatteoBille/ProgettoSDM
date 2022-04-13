@@ -46,9 +46,9 @@ public class Game {
     }
 
     public String checkVictory() {
-        if (scorePlayer1 > ((scoreboard.gridSize) / 2)) {
+        if (scorePlayer1 > ((scoreboard.gridSize*scoreboard.gridSize) / 2)) {
             return playerName1;
-        } else if (scorePlayer2 > ((scoreboard.gridSize) / 2)) {
+        } else if (scorePlayer2 > ((scoreboard.gridSize*scoreboard.gridSize) / 2)) {
             return playerName2;
         } else {
             return "Pareggio";
