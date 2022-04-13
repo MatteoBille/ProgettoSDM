@@ -21,15 +21,15 @@ public class Game {
     //farò un count inizializzato a zero e che si incrementa di uno ogni volta che invoco playTurn() e quando arrivo a count= (N+1)x2N faccio checkVictory()
     public void playTurn(Arch arch) {
         scoreboard.selectArch(arch);
-        scoreboard.checkPoint(playerTurn);
-        if (scoreboard.checkPoint(playerTurn)) {
+        boolean temp = scoreboard.checkPoint(playerTurn);
+        if (temp) {
             if (playerTurn.equals(playerName1)) {
                 scorePlayer1++;
             } else {
                 scorePlayer2++;
             }
         }
-        if (!scoreboard.checkPoint(playerTurn)) {
+        if (!temp) {
             if (playerTurn.equals(playerName1)) {
                 playerTurn = playerName2;
             } else {
@@ -45,16 +45,13 @@ public class Game {
         return playerName2;
     }
 
-    public String checkVictory() {
-        if(scorePlayer1>((scoreboard.gridSize*scoreboard.gridSize)/2)) {
+   public String checkVictory() {
+        if (scorePlayer1 > ((scoreboard.gridSize*scoreboard.gridSize) / 2)) {
             return playerName1;
-        }
-        else if(scorePlayer2>((scoreboard.gridSize*scoreboard.gridSize)/2)) {
+        } else if (scorePlayer2 > ((scoreboard.gridSize*scoreboard.gridSize) / 2)) {
             return playerName2;
-        }
-        else if(scorePlayer1==scorePlayer2){
+        } else {
             return "Pareggio";
         }
-        return "Continua a giocare";
-}
+    }
 }
