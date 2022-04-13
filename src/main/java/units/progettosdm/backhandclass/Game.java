@@ -1,12 +1,12 @@
 package units.progettosdm.backhandclass;
 
 public class Game {
-    private String playerName1;
-    private String playerName2;
+    private final String playerName1;
+    private final String playerName2;
     private int scorePlayer1;
     private int scorePlayer2;
     private String playerTurn;
-    private Scoreboard scoreboard;
+    private final Scoreboard scoreboard;
     private int n;
 
     public Game(int n, String playerName1, String playerName2) {
