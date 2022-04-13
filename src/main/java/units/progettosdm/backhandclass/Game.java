@@ -1,12 +1,12 @@
 package units.progettosdm.backhandclass;
 
 public class Game {
-    private String playerName1;
-    private String playerName2;
+    private final String playerName1;
+    private final String playerName2;
     private int scorePlayer1;
     private int scorePlayer2;
     private String playerTurn;
-    private Scoreboard scoreboard;
+    private final Scoreboard scoreboard;
     private int n;
 
     public Game(int n, String playerName1, String playerName2) {
@@ -46,9 +46,9 @@ public class Game {
     }
 
     public String checkVictory() {
-        if (scorePlayer1 > ((scoreboard.gridSize) / 2)) {
+        if (scorePlayer1 > ((scoreboard.gridSize*scoreboard.gridSize) / 2)) {
             return playerName1;
-        } else if (scorePlayer2 > ((scoreboard.gridSize) / 2)) {
+        } else if (scorePlayer2 > ((scoreboard.gridSize*scoreboard.gridSize) / 2)) {
             return playerName2;
         } else {
             return "Pareggio";
