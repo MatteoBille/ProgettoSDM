@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Test;
 import units.progettosdm.projectExceptions.BadArchDeclarationException;
 import units.progettosdm.projectExceptions.BadDotDeclarationException;
 
+import java.util.Arrays;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class DotTest {
@@ -40,6 +42,13 @@ class DotTest {
         String actualMessage = badDotDeclarationException.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    void dotToStringWorkProperly() throws BadDotDeclarationException {
+        Dot dot = new Dot(1,0);
+        String expectedOutput="Dot{dotIndex=[1, 0]}";
+        assertEquals(expectedOutput,dot.toString());
     }
 
 }
