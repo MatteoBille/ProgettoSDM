@@ -7,15 +7,16 @@ public class Game {
     private int scorePlayer2;
     private String playerTurn;
     private final Scoreboard scoreboard;
-    private int n;
+
+    public Scoreboard getScoreboard() {
+        return scoreboard;
+    }
 
     public Game(int n, String playerName1, String playerName2) {
         this.playerName1 = playerName1;
         this.playerName2 = playerName2;
         playerTurn = throwCoin();
         this.scoreboard = new Scoreboard(n);
-        scoreboard.setArch();
-        scoreboard.setBox();
     }
 
     //farò un count inizializzato a zero e che si incrementa di uno ogni volta che invoco playTurn() e quando arrivo a count= (N+1)x2N faccio checkVictory()
@@ -53,5 +54,20 @@ public class Game {
         } else {
             return "Pareggio";
         }
+    }
+    public int getScorePlayer1() {
+        return scorePlayer1;
+    }
+
+    public void setScorePlayer1(int scorePlayer1) {
+        this.scorePlayer1 = scorePlayer1;
+    }
+
+    public int getScorePlayer2() {
+        return scorePlayer2;
+    }
+
+    public void setScorePlayer2(int scorePlayer2) {
+        this.scorePlayer2 = scorePlayer2;
     }
 }
