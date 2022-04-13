@@ -45,7 +45,7 @@ public class Game {
         return playerName2;
     }
 
-    public String checkVictory() {
+   public String checkVictory() {
         if (scorePlayer1 > ((scoreboard.gridSize*scoreboard.gridSize) / 2)) {
             return playerName1;
         } else if (scorePlayer2 > ((scoreboard.gridSize*scoreboard.gridSize) / 2)) {
