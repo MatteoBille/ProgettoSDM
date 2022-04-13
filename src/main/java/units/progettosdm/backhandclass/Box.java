@@ -2,7 +2,6 @@ package units.progettosdm.backhandclass;
 
 import units.progettosdm.projectExceptions.BadDotDeclarationException;
 
-import java.util.Arrays;
 
 public class Box {
 
@@ -16,12 +15,9 @@ public class Box {
 
     private Arch[] arches = new Arch[4];
     private String playerBox;
-    private int x, y;
-    private Dot[] dots = new Dot[4];
+    private final Dot[] dots = new Dot[4];
 
     public Box(int x, int y) {
-        this.x = x;
-        this.y = y;
         try {
             dots[0] = new Dot(x,y);
             dots[1] = new Dot(x+1,y);
@@ -32,9 +28,6 @@ public class Box {
         }
         playerBox = null;
 
-        /*for (int i = 0; i < arches.length; i++) {
-            this.arches[i] = arches[i];
-        }*/
     }
     public Dot[][] getCouple(){
         Dot[][] boxSides = new Dot[4][2];

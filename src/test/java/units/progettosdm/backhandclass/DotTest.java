@@ -1,10 +1,7 @@
 package units.progettosdm.backhandclass;
 
 import org.junit.jupiter.api.Test;
-import units.progettosdm.projectExceptions.BadArchDeclarationException;
 import units.progettosdm.projectExceptions.BadDotDeclarationException;
-
-import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -12,13 +9,13 @@ class DotTest {
 
     @Test
     void dotInizializationIsCorrect() {
-        Dot dot= null;
         try {
-            dot = new Dot(2, 3);
+            Dot dot = new Dot(2, 3);
+            assertArrayEquals(new int[]{2, 3}, dot.getDotIndex());
         } catch (BadDotDeclarationException e) {
             e.printStackTrace();
         }
-        assertArrayEquals(new int[]{2, 3}, dot.getDotIndex());
+
     }
 
     @Test
@@ -34,9 +31,9 @@ class DotTest {
 
     @Test
     void dotCannotBeNegativeException() {
-        int x1=-1;
-        int x2=0;
-        BadDotDeclarationException badDotDeclarationException = assertThrows(BadDotDeclarationException.class, () -> new Dot(x1,x2));
+        int x=-1;
+        int y=0;
+        BadDotDeclarationException badDotDeclarationException = assertThrows(BadDotDeclarationException.class, () -> new Dot(x,y));
 
         String expectedMessage = "Dots cannot have negative coordinates";
         String actualMessage = badDotDeclarationException.getMessage();

@@ -19,18 +19,17 @@ public class Game {
         this.scoreboard = new Scoreboard(n);
     }
 
-    //farò un count inizializzato a zero e che si incrementa di uno ogni volta che invoco playTurn() e quando arrivo a count= (N+1)x2N faccio checkVictory()
     public void playTurn(Arch arch) {
         scoreboard.selectArch(arch);
         int temp = scoreboard.checkPoint(playerTurn);
-        if (temp>0) {
+        if (temp > 0) {
             if (playerTurn.equals(playerName1)) {
-                scorePlayer1++;
+                scorePlayer1+=temp;
             } else {
-                scorePlayer2++;
+                scorePlayer2+=temp;
             }
         }
-        if (temp==0) {
+        if (temp == 0) {
             if (playerTurn.equals(playerName1)) {
                 playerTurn = playerName2;
             } else {
@@ -46,15 +45,18 @@ public class Game {
         return playerName2;
     }
 
-   public String checkVictory() {
-        if (scorePlayer1 > ((scoreboard.gridSize*scoreboard.gridSize) / 2)) {
+    public String checkVictory() {
+        if ((scorePlayer1 == scorePlayer2) && ((scorePlayer1 + scorePlayer2) == scoreboard.gridSize * scoreboard.gridSize)) {
+            return "Pareggio";
+        } else if (scorePlayer1 > ((scoreboard.gridSize * scoreboard.gridSize) / 2)) {
             return playerName1;
-        } else if (scorePlayer2 > ((scoreboard.gridSize*scoreboard.gridSize) / 2)) {
+        } else if (scorePlayer2 > ((scoreboard.gridSize * scoreboard.gridSize) / 2)) {
             return playerName2;
         } else {
-            return "Pareggio";
+            return null;
         }
     }
+
     public int getScorePlayer1() {
         return scorePlayer1;
     }
@@ -70,4 +72,9 @@ public class Game {
     public void setScorePlayer2(int scorePlayer2) {
         this.scorePlayer2 = scorePlayer2;
     }
+
+    public void setPlayerTurn(String playerTurn) {
+        this.playerTurn = playerTurn;
+    }
+
 }

@@ -18,15 +18,15 @@ public class Dot {
 
     @Override
     public int hashCode() {
-        return this.dotIndex[0]*1000+this.dotIndex[1]*1;
+        return this.dotIndex[0]*1000+ this.dotIndex[1];
     }
 
-    public Dot(int x1, int x2) throws BadDotDeclarationException {
-        if((x1<0)||(x2<0)){
+    public Dot(int x, int y) throws BadDotDeclarationException {
+        if((x<0)||(y<0)){
             throw new BadDotDeclarationException("Dots cannot have negative coordinates");
         }
-        this.dotIndex[0] = x1;
-        this.dotIndex[1] = x2;
+        this.dotIndex[0] = x;
+        this.dotIndex[1] = y;
     }
 
     public int[] getDotIndex() {

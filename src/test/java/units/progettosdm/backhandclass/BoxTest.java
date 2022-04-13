@@ -5,7 +5,6 @@ import units.progettosdm.projectExceptions.BadArchDeclarationException;
 import units.progettosdm.projectExceptions.BadDotDeclarationException;
 import units.progettosdm.projectExceptions.SelectArchAlreadySelectedException;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class BoxTest {
