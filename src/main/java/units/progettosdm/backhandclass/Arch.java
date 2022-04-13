@@ -44,6 +44,6 @@ public class Arch {
 
     @Override
     public String toString() {
-        return dot1+"---->"+dot2;
+        return "[" + dot1+", "+dot2 +", "+getArchStatus() + "]";
     }
 }

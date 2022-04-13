@@ -35,7 +35,7 @@ public class Dot {
 
     @Override
     public String toString() {
-        return "Dot{" + "dotIndex=" + Arrays.toString(dotIndex) + '}';
+        return "(" + dotIndex[0] + ", "+ dotIndex[1]+ ")";
 
     }
 }
