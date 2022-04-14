@@ -1,21 +1,16 @@
 package units.progettosdm.graphicsclass;
 
-import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.*;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.Pane;
+import javafx.scene.image.Image;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import units.progettosdm.backhandclass.Arch;
 import units.progettosdm.backhandclass.Box;
 import units.progettosdm.backhandclass.Dot;
@@ -25,6 +20,9 @@ import units.progettosdm.projectExceptions.BadDotDeclarationException;
 import java.util.*;
 
 public class GamePageController {
+
+    public final Color player1Color = Color.rgb(0, 0, 255, 0.5);
+    public final Color player2Color = Color.rgb(255, 0, 0, 0.5);
 
     @FXML
     private Pane parentPane;
@@ -63,7 +61,14 @@ public class GamePageController {
     @FXML
     void initialize() {
         double dimension = Math.min(parentHeight, parentWidth);
-
+        Image img = new Image(String.valueOf(StartPageController.class.getResource("sfondoCarta1.jpg")));
+        BackgroundImage bImg = new BackgroundImage(img,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT);
+        Background bGround = new Background(bImg);
+        parentPane.setBackground(bGround);
     }
 
 
@@ -112,9 +117,9 @@ public class GamePageController {
         playerTurn.setPrefWidth(widthGameViewPane);
         playerTurn.setAlignment(Pos.CENTER);
 
-        pointsPlayer1 = new PointCounter(17,widthGameViewPane / 4,0,heightGameViewPane - 17,player1,Color.rgb(0, 0, 255, 0.5));
+        pointsPlayer1 = new PointCounter(17,widthGameViewPane / 4,0,heightGameViewPane - 17,player1, player1Color);
 
-        pointsPlayer2 = new PointCounter(17,widthGameViewPane / 4,widthGameViewPane *3 / 4 ,heightGameViewPane - 17,player2,Color.rgb(255, 0, 0, 0.5));
+        pointsPlayer2 = new PointCounter(17,widthGameViewPane / 4,widthGameViewPane *3 / 4 ,heightGameViewPane - 17,player2, player2Color);
 
         gameViewPane.getChildren().add(playerTurn);
         gameViewPane.getChildren().add(pointsPlayer1);
@@ -146,7 +151,13 @@ public class GamePageController {
         });
     }
 
-    private void changeTurn() {
+    private void changePlayerTurnOnTopLabel() {
+        if(match.getPlayerTurn().equals(player1)){
+            playerTurn.setTextFill(player1Color);
+            playerTurn.setOpacity(1);
+        }else{
+            playerTurn.setTextFill(player2Color);
+        }
         playerTurn.setText("Turno di :" + match.getPlayerTurn());
     }
 
@@ -164,7 +175,7 @@ public class GamePageController {
             if(match.checkVictory()!=null){
                 setVictory(match.checkVictory());
             }
-            changeTurn();
+            changePlayerTurnOnTopLabel();
         }));
 
     }
@@ -210,10 +221,11 @@ public class GamePageController {
             e.printStackTrace();
         }
 
-        playerTurn.setText("Turno di " + player1);
+        changePlayerTurnOnTopLabel();
 
 
     }
+
     private void setLines() throws BadDotDeclarationException {
         List<Arch> arches = match.getScoreboard().totalArches;
         lines = new ArrayList<>();
@@ -272,6 +284,7 @@ public class GamePageController {
             labels.add(new PointLabelGraphics(firstAndThirdGraphicalDots,cell));
         }));
     }
+
     private void drawLabels() {
         labelsGrid.getChildren().clear();
         labels.forEach(e -> labelsGrid.getChildren().add(e));

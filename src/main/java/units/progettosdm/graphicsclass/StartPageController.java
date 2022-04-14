@@ -8,12 +8,16 @@ import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
 public class StartPageController {
+    @FXML
+    Pane parentPane;
     @FXML
     TextField namePlayer1;
     @FXML
@@ -45,6 +49,15 @@ public class StartPageController {
 
     @FXML
     void initialize(){
+        Image img = new Image(String.valueOf(StartPageController.class.getResource("sfondoCarta1.jpg")));
+        BackgroundImage bImg = new BackgroundImage(img,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT);
+        Background bGround = new Background(bImg);
+        parentPane.setBackground(bGround);
+
         choicheGridDimensions.getItems().add("2x2");
         choicheGridDimensions.getItems().add("3x3");
         choicheGridDimensions.getItems().add("5x5");

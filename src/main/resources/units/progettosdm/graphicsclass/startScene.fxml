@@ -17,27 +17,7 @@
 
 <VBox prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="units.progettosdm.graphicsclass.StartPageController">
    <children>
-      <MenuBar>
-        <menus>
-          <Menu mnemonicParsing="false" text="File">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
-                  <MenuItem mnemonicParsing="false" text="Unspecified Action" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <items>
-              <MenuItem mnemonicParsing="false" text="About" />
-            </items>
-          </Menu>
-        </menus>
-      </MenuBar>
-      <Pane prefHeight="527.0" prefWidth="600.0">
+      <Pane fx:id="parentPane" prefHeight="527.0" prefWidth="600.0">
          <children>
             <GridPane alignment="CENTER" layoutX="91.0" layoutY="111.0" prefHeight="260.0" prefWidth="419.0">
               <columnConstraints>
@@ -52,35 +32,20 @@
               </rowConstraints>
                <children>
                   <Label alignment="CENTER" prefHeight="17.0" prefWidth="160.0" text="Nome Giocatore 2 :" textAlignment="CENTER" GridPane.rowIndex="1">
-                     <font>
-                        <Font name="Georgia" size="14.0" />
-                     </font>
                   </Label>
                   <Label alignment="CENTER" prefHeight="17.0" prefWidth="160.0" text="Nome Giocatore 1 :" textAlignment="CENTER">
-                     <font>
-                        <Font name="Georgia" size="14.0" />
-                     </font>
                   </Label>
                   <TextField fx:id="namePlayer1" prefHeight="25.0" prefWidth="144.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                      <GridPane.margin>
                         <Insets />
                      </GridPane.margin>
-                     <font>
-                        <Font name="Georgia" size="14.0" />
-                     </font>
                   </TextField>
                   <TextField fx:id="namePlayer2" prefHeight="25.0" prefWidth="144.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                      <GridPane.margin>
                         <Insets />
                      </GridPane.margin>
-                     <font>
-                        <Font name="Georgia" size="14.0" />
-                     </font>
                   </TextField>
                   <Label alignment="CENTER" prefHeight="17.0" prefWidth="160.0" text="Dimensioni campo :" textAlignment="CENTER" GridPane.rowIndex="2">
-                     <font>
-                        <Font name="Georgia" size="14.0" />
-                     </font>
                   </Label>
                   <ChoiceBox fx:id="choicheGridDimensions" prefWidth="150.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
                   <Button mnemonicParsing="false" onAction="#onStartGameButtonClick" prefHeight="25.0" prefWidth="150.0" text="Inizia Partita" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />

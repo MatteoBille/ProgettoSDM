@@ -1,3 +1,19 @@
-#playerTurn{
+@font-face {
+    font-family: 'Fredoka One';
+    src: url('font/FredokaOne-Regular.ttf');
+}
 
+.label{
+    -fx-font-family: 'Fredoka One';
+    -fx-font-size: 15;
+}
+
+.text-input{
+    -fx-font-family: 'Fredoka One';
+    -fx-font-size: 15;
+}
+
+.button{
+    -fx-font-family: 'Fredoka One';
+    -fx-font-size: 15;
 }

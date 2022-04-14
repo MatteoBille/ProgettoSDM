@@ -36,6 +36,7 @@ public class PointCounter extends HBox {
         name.setBackground(new Background(new BackgroundFill(color, new CornerRadii(0.5), new Insets(0))));
         name.setAlignment(Pos.CENTER);
         name.setText(playerName);
+        name.setFont(new Font("",15));
 
         point = new Label();
         point.setPrefHeight(this.getPrefHeight());
@@ -58,8 +59,8 @@ public class PointCounter extends HBox {
     }
 
     private void slidingEffect() {
-        TranslateTransition translateTransition = new TranslateTransition(Duration.millis(300), point);
-        translateTransition.setFromY(-20);
+        TranslateTransition translateTransition = new TranslateTransition(Duration.millis(500), point);
+        translateTransition.setFromY(-15);
         translateTransition.setToY(0);
         translateTransition.play();
     }
