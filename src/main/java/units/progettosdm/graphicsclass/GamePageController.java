@@ -21,8 +21,10 @@ import java.util.*;
 
 public class GamePageController {
 
-    public final Color player1Color = Color.rgb(0, 0, 255, 0.5);
-    public final Color player2Color = Color.rgb(255, 0, 0, 0.5);
+    public final Color player1BackgroundColor = Color.rgb(0, 0, 255, 0.5);
+    public final Color player2BackgroundColor = Color.rgb(255, 0, 0, 0.5);
+    public final Color player1TextColor = Color.rgb(0, 0, 255, 1);
+    public final Color player2TextColor = Color.rgb(255, 0, 0, 1);
 
     @FXML
     private Pane parentPane;
@@ -117,9 +119,9 @@ public class GamePageController {
         playerTurn.setPrefWidth(widthGameViewPane);
         playerTurn.setAlignment(Pos.CENTER);
 
-        pointsPlayer1 = new PointCounter(17,widthGameViewPane / 4,0,heightGameViewPane - 17,player1, player1Color);
+        pointsPlayer1 = new PointCounter(17,widthGameViewPane / 4,0,heightGameViewPane - 17,player1, player1BackgroundColor);
 
-        pointsPlayer2 = new PointCounter(17,widthGameViewPane / 4,widthGameViewPane *3 / 4 ,heightGameViewPane - 17,player2, player2Color);
+        pointsPlayer2 = new PointCounter(17,widthGameViewPane / 4,widthGameViewPane *3 / 4 ,heightGameViewPane - 17,player2, player2BackgroundColor);
 
         gameViewPane.getChildren().add(playerTurn);
         gameViewPane.getChildren().add(pointsPlayer1);
@@ -153,12 +155,12 @@ public class GamePageController {
 
     private void changePlayerTurnOnTopLabel() {
         if(match.getPlayerTurn().equals(player1)){
-            playerTurn.setTextFill(player1Color);
+            playerTurn.setTextFill(player1TextColor);
             playerTurn.setOpacity(1);
         }else{
-            playerTurn.setTextFill(player2Color);
+            playerTurn.setTextFill(player2TextColor);
         }
-        playerTurn.setText("Turno di :" + match.getPlayerTurn());
+        playerTurn.setText("Turno di " + match.getPlayerTurn());
     }
 
     private void setClickLineListener() {
