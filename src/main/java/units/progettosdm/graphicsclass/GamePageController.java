@@ -112,9 +112,9 @@ public class GamePageController {
         playerTurn.setPrefWidth(widthGameViewPane);
         playerTurn.setAlignment(Pos.CENTER);
 
-        pointsPlayer1 = new PointCounter(17,widthGameViewPane / 4,0,heightGameViewPane - 17,player2);
+        pointsPlayer1 = new PointCounter(17,widthGameViewPane / 4,0,heightGameViewPane - 17,player1,Color.rgb(0, 0, 255, 0.5));
 
-        pointsPlayer2 = new PointCounter(17,widthGameViewPane / 4,widthGameViewPane *3 / 4 ,heightGameViewPane - 17,player2);
+        pointsPlayer2 = new PointCounter(17,widthGameViewPane / 4,widthGameViewPane *3 / 4 ,heightGameViewPane - 17,player2,Color.rgb(255, 0, 0, 0.5));
 
         gameViewPane.getChildren().add(playerTurn);
         gameViewPane.getChildren().add(pointsPlayer1);
@@ -126,22 +126,6 @@ public class GamePageController {
         tablePane.setPrefHeight(heightTablePane);
         tablePane.setLayoutX(widthGameViewPane / 2 - widthTablePane / 2);
         tablePane.setLayoutY(heightGameViewPane / 2 - heightTablePane / 2);
-
-        Group borderLine = new Group();
-
-
-        Line line1 = new Line(0, 0, 0, heightTablePane);
-        Line line2 = new Line(0, 0, widthTablePane, 0);
-        Line line3 = new Line(widthTablePane, 0, widthTablePane, heightTablePane);
-        Line line4 = new Line(0, heightTablePane, widthTablePane, heightTablePane);
-        borderLine.getChildren().add(line1);
-        borderLine.getChildren().add(line2);
-        borderLine.getChildren().add(line3);
-        borderLine.getChildren().add(line4);
-
-        borderLine.getChildren().forEach(e -> ((Line) e).setStrokeWidth(widthTablePane * 0.01));
-        tablePane.getChildren().add(borderLine);
-
 
     }
 
@@ -176,8 +160,6 @@ public class GamePageController {
             labels.forEach(lab->lab.setBoxSelected());
             pointsPlayer1.setPoint(match.getScorePlayer1());
             pointsPlayer2.setPoint(match.getScorePlayer2());
-            slidingEffect(pointsPlayer1);
-            slidingEffect(pointsPlayer2);
             System.out.println(match.checkVictory());
             if(match.checkVictory()!=null){
                 setVictory(match.checkVictory());
@@ -230,50 +212,8 @@ public class GamePageController {
 
         playerTurn.setText("Turno di " + player1);
 
-        slidingEffect(playerTurn);
-        slidingEffect(pointsPlayer1);
-        slidingEffect(pointsPlayer2);
-        //System.out.println(pointsPlayer1.getLayoutY());
-        //System.out.println(pointsPlayer1.getLayoutX());
-        //slidingEffect(pointsPlayer2);
-
-        /*stage.widthProperty().addListener((obs, oldVal, newVal) -> {
-            drawField();
-            try {
-                setDots(N, M);
-                setLines();
-            } catch (BadDotDeclarationException e) {
-                e.printStackTrace();
-            }
-
-            setClickLineListener();
-            setMouseHoverListener();
-        });
-
-        stage.heightProperty().addListener((obs, oldVal, newVal) -> {
-            drawField();
-            try {
-                setDots(N, M);
-                setLines();
-            } catch (BadDotDeclarationException e) {
-                e.printStackTrace();
-            }
-
-            setClickLineListener();
-            setMouseHoverListener();
-        });*/
-
 
     }
-
-    private void slidingEffect(Node node) {
-        TranslateTransition translateTransition = new TranslateTransition(Duration.millis(300),node);
-        System.out.println(node);
-        translateTransition.setFromY(-40);
-        translateTransition.setToY(0);
-        translateTransition.play();
-    }
-
     private void setLines() throws BadDotDeclarationException {
         List<Arch> arches = match.getScoreboard().totalArches;
         lines = new ArrayList<>();
