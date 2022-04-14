@@ -8,17 +8,16 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.TextAlignment;
 import units.progettosdm.backhandclass.Box;
 import units.progettosdm.backhandclass.Dot;
 
-public class PointLabelGraphics extends Label {
+public class GraphicalBoxLabel extends Label {
     Box backhandBox;
     Dot[] dots;
     String player1 = "A";
     String player2 = "B";
 
-    public PointLabelGraphics(DotGraphics[] dots, Box box) {
+    public GraphicalBoxLabel(GraphicalDot[] dots, Box box) {
         super();
         this.backhandBox=box;
         this.setLayoutX(dots[0].getCenterX());

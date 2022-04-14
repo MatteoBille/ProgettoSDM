@@ -4,14 +4,14 @@ import javafx.scene.shape.Rectangle;
 import units.progettosdm.backhandclass.Arch;
 import units.progettosdm.projectExceptions.SelectArchAlreadySelectedException;
 
-class LineBetweenDotsGraphics extends Rectangle {
-    DotGraphics dot1;
-    DotGraphics dot2;
+class GraphicalArchesBetweenDots extends Rectangle {
+    GraphicalDot dot1;
+    GraphicalDot dot2;
     String direction;
     private boolean selected = false;
     Arch backhandArch;
 
-    public LineBetweenDotsGraphics(DotGraphics dot1, DotGraphics dot2, Arch backhandArch) {
+    public GraphicalArchesBetweenDots(GraphicalDot dot1, GraphicalDot dot2, Arch backhandArch) {
         this.backhandArch = backhandArch;
         if (dot1.getCenterX() == dot2.getCenterX()) {
             setLayoutX(dot1.getCenterX() - dot1.getRadius() / 2);
@@ -35,7 +35,7 @@ class LineBetweenDotsGraphics extends Rectangle {
 
     @Override
     public String toString() {
-        return "LineBetweenDotsGraphics{" +
+        return "GraphicalArchesBetweenDots{" +
                 "xStart=" + getLayoutX() +
                 ", yStart=" + getLayoutY() +
                 ",width=" + getWidth() +
