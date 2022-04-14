@@ -29,22 +29,41 @@ public class StartPageController {
 
     @FXML
     protected void onStartGameButtonClick(ActionEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(StartPageController.class.getResource("gamePage.fxml"));
-        int n,m;
-        String[] values = choicheGridDimensions.getValue().toString().split("x");
-        n=Integer.parseInt(values[0]);
-        m=Integer.parseInt(values[1]);
+            if(validateTextField()) {
+                FXMLLoader fxmlLoader = new FXMLLoader(StartPageController.class.getResource("gamePage.fxml"));
+                int n, m;
+                String[] values = choicheGridDimensions.getValue().toString().split("x");
+                n = Integer.parseInt(values[0]);
+                m = Integer.parseInt(values[1]);
 
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(fxmlLoader.load());
-        scene.getStylesheets().add(StartPageController.class.getResource("style.css")+"");
-        stage.setScene(scene);
-        stage.show();
-        GamePageController controller = fxmlLoader.getController();
+                stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                Scene scene = new Scene(fxmlLoader.load());
+                scene.getStylesheets().add(StartPageController.class.getResource("style.css") + "");
+                stage.setScene(scene);
+                stage.show();
+                GamePageController controller = fxmlLoader.getController();
 
-        controller.initializePage(n,m,stage,namePlayer1.getText(),namePlayer2.getText());
+                controller.initializePage(n, m, stage, namePlayer1.getText(), namePlayer2.getText());
+            }
     }
 
+    private boolean validateTextField() {
+        boolean response=true;
+        if(namePlayer1.getText().equals("")){
+            namePlayer1.getStyleClass().add("error");
+            response=false;
+        }
+        if(namePlayer2.getText().equals("")){
+            namePlayer2.getStyleClass().add("error");
+            response=false;
+        }
+        if(namePlayer1.getText().equals(namePlayer2.getText())){
+            namePlayer1.getStyleClass().add("error");
+            namePlayer2.getStyleClass().add("error");
+            response=false;
+        }
+        return response;
+    }
 
 
     @FXML
@@ -65,3 +84,4 @@ public class StartPageController {
         choicheGridDimensions.getSelectionModel().selectFirst();
     }
 }
+

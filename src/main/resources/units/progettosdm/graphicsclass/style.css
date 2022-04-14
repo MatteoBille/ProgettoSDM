@@ -12,6 +12,10 @@
     -fx-font-family: 'Fredoka One';
     -fx-font-size: 15;
 }
+.text-input.error{
+    -fx-text-box-border: red ;
+    -fx-focus-color: red ;
+}
 
 .button{
     -fx-font-family: 'Fredoka One';
