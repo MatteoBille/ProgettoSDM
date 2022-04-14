@@ -34,8 +34,8 @@ public class GamePageController {
     private Pane gameViewPane;
 
     private Label playerTurn;
-    private Label pointsPlayer1;
-    private Label pointsPlayer2;
+    private PointCounter pointsPlayer1;
+    private PointCounter pointsPlayer2;
 
     List<LineBetweenDotsGraphics> lines = new ArrayList<>();
     Map<Dot, DotGraphics> dots = new HashMap<>();
@@ -111,21 +111,10 @@ public class GamePageController {
         playerTurn.setLayoutY(0);
         playerTurn.setPrefWidth(widthGameViewPane);
         playerTurn.setAlignment(Pos.CENTER);
-        playerTurn.setStyle( "-fx-background-color: rgb(252,252,252)");
 
-        pointsPlayer1 = new Label();
-        pointsPlayer1.setLayoutX(0);
-        pointsPlayer1.setPrefHeight(17);
-        pointsPlayer1.setLayoutY(heightGameViewPane - pointsPlayer1.getPrefHeight());
-        pointsPlayer1.setPrefWidth(widthGameViewPane / 2);
-        pointsPlayer1.setAlignment(Pos.CENTER_LEFT);
+        pointsPlayer1 = new PointCounter(17,widthGameViewPane / 4,0,heightGameViewPane - 17,player2);
 
-        pointsPlayer2 = new Label();
-        pointsPlayer2.setLayoutX(widthGameViewPane / 2);
-        pointsPlayer2.setPrefHeight(17);
-        pointsPlayer2.setLayoutY(heightGameViewPane - pointsPlayer2.getPrefHeight());
-        pointsPlayer2.setPrefWidth(widthGameViewPane / 2);
-        pointsPlayer2.setAlignment(Pos.CENTER_RIGHT);
+        pointsPlayer2 = new PointCounter(17,widthGameViewPane / 4,widthGameViewPane *3 / 4 ,heightGameViewPane - 17,player2);
 
         gameViewPane.getChildren().add(playerTurn);
         gameViewPane.getChildren().add(pointsPlayer1);
@@ -185,8 +174,8 @@ public class GamePageController {
                 tablePane.getScene().setCursor(Cursor.DEFAULT);
             });
             labels.forEach(lab->lab.setBoxSelected());
-            pointsPlayer1.setText(player1 + match.getScorePlayer1());
-            pointsPlayer2.setText(player2 + match.getScorePlayer2());
+            pointsPlayer1.setPoint(match.getScorePlayer1());
+            pointsPlayer2.setPoint(match.getScorePlayer2());
             slidingEffect(pointsPlayer1);
             slidingEffect(pointsPlayer2);
             System.out.println(match.checkVictory());
@@ -239,8 +228,6 @@ public class GamePageController {
             e.printStackTrace();
         }
 
-        pointsPlayer1.setText("Punti " + player1 + " :");
-        pointsPlayer2.setText("Punti " + player2 + " :");
         playerTurn.setText("Turno di " + player1);
 
         slidingEffect(playerTurn);
