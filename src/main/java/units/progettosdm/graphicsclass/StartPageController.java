@@ -9,6 +9,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
@@ -32,6 +33,7 @@ public class StartPageController {
 
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(fxmlLoader.load());
+        scene.getStylesheets().add(StartPageController.class.getResource("style.css")+"");
         stage.setScene(scene);
         stage.show();
         GamePageController controller = fxmlLoader.getController();

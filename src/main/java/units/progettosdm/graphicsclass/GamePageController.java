@@ -1,10 +1,10 @@
 package units.progettosdm.graphicsclass;
 
+import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.*;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -15,6 +15,7 @@ import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import units.progettosdm.backhandclass.Arch;
 import units.progettosdm.backhandclass.Box;
 import units.progettosdm.backhandclass.Dot;
@@ -31,11 +32,9 @@ public class GamePageController {
     private Pane tablePane;
     @FXML
     private Pane gameViewPane;
-    @FXML
+
     private Label playerTurn;
-    @FXML
     private Label pointsPlayer1;
-    @FXML
     private Label pointsPlayer2;
 
     List<LineBetweenDotsGraphics> lines = new ArrayList<>();
@@ -106,22 +105,26 @@ public class GamePageController {
         gameViewPane.setLayoutX(parentWidth / 2 - widthGameViewPane / 2);
         gameViewPane.setLayoutY(parentHeight / 2 - heightGameViewPane / 2);
 
+        playerTurn = new Label();
         playerTurn.setLayoutX(0);
         playerTurn.setPrefHeight(17);
         playerTurn.setLayoutY(0);
-        playerTurn.setPrefWidth(gameViewPane.getWidth());
+        playerTurn.setPrefWidth(widthGameViewPane);
         playerTurn.setAlignment(Pos.CENTER);
+        playerTurn.setStyle( "-fx-background-color: rgb(252,252,252)");
 
+        pointsPlayer1 = new Label();
         pointsPlayer1.setLayoutX(0);
         pointsPlayer1.setPrefHeight(17);
-        pointsPlayer1.setLayoutY(gameViewPane.getHeight() - pointsPlayer1.getPrefHeight());
-        pointsPlayer1.setPrefWidth(gameViewPane.getWidth() / 2);
+        pointsPlayer1.setLayoutY(heightGameViewPane - pointsPlayer1.getPrefHeight());
+        pointsPlayer1.setPrefWidth(widthGameViewPane / 2);
         pointsPlayer1.setAlignment(Pos.CENTER_LEFT);
 
-        pointsPlayer2.setLayoutX(gameViewPane.getWidth() / 2);
+        pointsPlayer2 = new Label();
+        pointsPlayer2.setLayoutX(widthGameViewPane / 2);
         pointsPlayer2.setPrefHeight(17);
-        pointsPlayer2.setLayoutY(gameViewPane.getHeight() - pointsPlayer2.getPrefHeight());
-        pointsPlayer2.setPrefWidth(gameViewPane.getWidth() / 2);
+        pointsPlayer2.setLayoutY(heightGameViewPane - pointsPlayer2.getPrefHeight());
+        pointsPlayer2.setPrefWidth(widthGameViewPane / 2);
         pointsPlayer2.setAlignment(Pos.CENTER_RIGHT);
 
         gameViewPane.getChildren().add(playerTurn);
@@ -184,6 +187,8 @@ public class GamePageController {
             labels.forEach(lab->lab.setBoxSelected());
             pointsPlayer1.setText(player1 + match.getScorePlayer1());
             pointsPlayer2.setText(player2 + match.getScorePlayer2());
+            slidingEffect(pointsPlayer1);
+            slidingEffect(pointsPlayer2);
             System.out.println(match.checkVictory());
             if(match.checkVictory()!=null){
                 setVictory(match.checkVictory());
@@ -228,11 +233,24 @@ public class GamePageController {
         this.player1 = player1;
         this.player2 = player2;
 
+        try {
+            initializeGrid(n, m);
+        } catch (BadDotDeclarationException e) {
+            e.printStackTrace();
+        }
+
         pointsPlayer1.setText("Punti " + player1 + " :");
         pointsPlayer2.setText("Punti " + player2 + " :");
         playerTurn.setText("Turno di " + player1);
 
-        stage.widthProperty().addListener((obs, oldVal, newVal) -> {
+        slidingEffect(playerTurn);
+        slidingEffect(pointsPlayer1);
+        slidingEffect(pointsPlayer2);
+        //System.out.println(pointsPlayer1.getLayoutY());
+        //System.out.println(pointsPlayer1.getLayoutX());
+        //slidingEffect(pointsPlayer2);
+
+        /*stage.widthProperty().addListener((obs, oldVal, newVal) -> {
             drawField();
             try {
                 setDots(N, M);
@@ -256,13 +274,17 @@ public class GamePageController {
 
             setClickLineListener();
             setMouseHoverListener();
-        });
+        });*/
 
-        try {
-            initializeGrid(n, m);
-        } catch (BadDotDeclarationException e) {
-            e.printStackTrace();
-        }
+
+    }
+
+    private void slidingEffect(Node node) {
+        TranslateTransition translateTransition = new TranslateTransition(Duration.millis(300),node);
+        System.out.println(node);
+        translateTransition.setFromY(-40);
+        translateTransition.setToY(0);
+        translateTransition.play();
     }
 
     private void setLines() throws BadDotDeclarationException {
