@@ -7,6 +7,11 @@
     -fx-font-family: 'Fredoka One';
     -fx-font-size: 15;
 }
+
+.boxes{
+    -fx-font-family: 'Fredoka One';
+    -fx-font-size: 50;
+}
 #errorPlayer1{
     -fx-font-size: 10;
     -fx-text-fill:red;

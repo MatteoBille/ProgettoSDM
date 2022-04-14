@@ -47,6 +47,8 @@ public class GamePageController {
 
     String player1;
     String player2;
+    String player1Token;
+    String player2Token;
 
     private double parentWidth;
     private double parentHeight;
@@ -79,6 +81,8 @@ public class GamePageController {
 
         this.player1 = player1;
         this.player2 = player2;
+        player1Token="A";
+        player2Token="B";
 
         try {
             initializeDotArchesAndLabels();
@@ -170,7 +174,6 @@ public class GamePageController {
     private void changePlayerNameOnTopLabel() {
         System.out.println(nameOfplayerThatPlayTheTurn.playerName+" "+actualMatch.getPlayerTurn());
         if (nameOfplayerThatPlayTheTurn.playerName==null || !nameOfplayerThatPlayTheTurn.playerName.equals(actualMatch.getPlayerTurn())) {
-            System.out.println("CIAOOOO");
             if (actualMatch.getPlayerTurn().equals(player1)) {
                 nameOfplayerThatPlayTheTurn.setTextFill(player1TextColor);
 
@@ -273,7 +276,7 @@ public class GamePageController {
             GraphicalDot firstDot = mapOfDotsAndGraphicalDots.get(cell.getDots()[0]);
             GraphicalDot thirdDot = mapOfDotsAndGraphicalDots.get(cell.getDots()[2]);
             GraphicalDot[] firstAndThirdGraphicalDots = {firstDot, thirdDot};
-            listOfLabels.add(new GraphicalBoxLabel(firstAndThirdGraphicalDots, cell));
+            listOfLabels.add(new GraphicalBoxLabel(firstAndThirdGraphicalDots, cell,player1Token,player2Token));
         }));
     }
 
