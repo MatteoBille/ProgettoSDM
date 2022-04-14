@@ -8,11 +8,17 @@ import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
+import java.util.Collections;
 
 public class StartPageController {
+    @FXML
+    Pane parentPane;
     @FXML
     TextField namePlayer1;
     @FXML
@@ -20,29 +26,88 @@ public class StartPageController {
     @FXML
     ChoiceBox choicheGridDimensions;
     @FXML
+    Label errorPlayer1;
+    @FXML
+    Label errorPlayer2;
+    @FXML
     private Stage stage;
 
     @FXML
     protected void onStartGameButtonClick(ActionEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(StartPageController.class.getResource("gamePage.fxml"));
-        int n,m;
-        String[] values = choicheGridDimensions.getValue().toString().split("x");
-        n=Integer.parseInt(values[0]);
-        m=Integer.parseInt(values[1]);
+        if (validateTextField()) {
+            FXMLLoader fxmlLoader = new FXMLLoader(StartPageController.class.getResource("gamePage.fxml"));
+            int n, m;
+            String[] values = choicheGridDimensions.getValue().toString().split("x");
+            n = Integer.parseInt(values[0]);
+            m = Integer.parseInt(values[1]);
 
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(fxmlLoader.load());
-        stage.setScene(scene);
-        stage.show();
-        GamePageController controller = fxmlLoader.getController();
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(fxmlLoader.load());
+            scene.getStylesheets().add(StartPageController.class.getResource("style.css") + "");
+            stage.setScene(scene);
+            stage.show();
+            GamePageController controller = fxmlLoader.getController();
 
-        controller.initializePage(n,m,stage,namePlayer1.getText(),namePlayer2.getText());
+            controller.initializePage(n, m, namePlayer1.getText(), namePlayer2.getText());
+        }
+    }
+
+    private boolean validateTextField() {
+        boolean response = true;
+        if (namePlayer1.getStyleClass().contains("error")) {
+            namePlayer1.getStyleClass().removeAll(Collections.singleton("error"));
+            errorPlayer1.setText("");
+        }
+        if (namePlayer2.getStyleClass().contains("error")) {
+            namePlayer2.getStyleClass().removeAll(Collections.singleton("error"));
+            errorPlayer2.setText("");
+        }
+
+        if (namePlayer1.getText().equals("")) {
+            namePlayer1.getStyleClass().add("error");
+            errorPlayer1.setText("Inserisci un nome");
+            //errorPlayer1.setStyle("-fx-font-size:10");
+            //errorPlayer1.setStyle("-fx-text-fill:red");
+            response = false;
+        }
+        if (namePlayer2.getText().
+
+                equals("")) {
+            namePlayer2.getStyleClass().add("error");
+            errorPlayer2.setText("Inserisci un nome");
+            //errorPlayer2.setStyle("-fx-font-size:10");
+            //errorPlayer2.setStyle("-fx-text-fill:red");
+            response = false;
+        }
+        if (namePlayer1.getText().
+
+                equals(namePlayer2.getText())) {
+            namePlayer1.getStyleClass().add("error");
+            namePlayer2.getStyleClass().add("error");
+            errorPlayer1.setText("Inserisci un nome diverso dall'altro giocatore");
+            errorPlayer2.setText("Inserisci un nome diverso dall'altro giocatore");
+            //errorPlayer1.setStyle("-fx-font-size:10");
+            //errorPlayer2.setStyle("-fx-font-size:10");
+            //errorPlayer1.setStyle("-fx-text-fill:red");
+            //errorPlayer2.setStyle("-fx-text-fill:red");
+
+            response = false;
+        }
+        return response;
     }
 
 
-
     @FXML
-    void initialize(){
+    void initialize() {
+        Image img = new Image(String.valueOf(StartPageController.class.getResource("sfondoCarta1.jpg")));
+        BackgroundImage bImg = new BackgroundImage(img,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT);
+        Background bGround = new Background(bImg);
+        parentPane.setBackground(bGround);
+
         choicheGridDimensions.getItems().add("2x2");
         choicheGridDimensions.getItems().add("3x3");
         choicheGridDimensions.getItems().add("5x5");
@@ -50,3 +115,4 @@ public class StartPageController {
         choicheGridDimensions.getSelectionModel().selectFirst();
     }
 }
+

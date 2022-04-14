@@ -80,4 +80,8 @@ public class Game {
     public String getPlayerTurn() {
         return playerTurn;
     }
+
+    public int[] getScoreboardSize(){
+        return new int[]{scoreboard.gridSize,scoreboard.gridSize};
+    }
 }

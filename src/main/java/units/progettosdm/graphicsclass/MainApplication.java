@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
@@ -12,6 +13,8 @@ public class MainApplication extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("startScene.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 600, 500);
+        scene.getStylesheets().add(StartPageController.class.getResource("style.css")+"");
+        stage.setResizable(false);
         stage.setTitle("TRIS!");
         stage.setScene(scene);
         stage.show();

@@ -9,33 +9,11 @@
 
 <VBox prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="units.progettosdm.graphicsclass.GamePageController">
     <children>
-        <MenuBar>
-            <menus>
-                <Menu mnemonicParsing="false" text="File">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="Close" />
-                    </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Edit">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="Delete" />
-                    </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Help">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="About" />
-                    </items>
-                </Menu>
-            </menus>
-        </MenuBar>
         <Pane fx:id="parentPane" prefHeight="477.0" prefWidth="600.0" styleClass="parentPane" VBox.vgrow="ALWAYS">
             <children>
             <Pane fx:id="gameViewPane" layoutX="83.0" layoutY="42.0" prefHeight="393.0" prefWidth="434.0">
                <children>
                    <Pane fx:id="tablePane" layoutX="42.0" layoutY="25.0" prefHeight="342.0" prefWidth="353.0" styleClass="tablePane" />
-                  <Label fx:id="playerTurn" alignment="CENTER" prefHeight="25.0" prefWidth="434.0" text="Label" />
-                  <Label fx:id="pointsPlayer1" layoutY="367.0" prefHeight="25.0" prefWidth="217.0" text="Label" />
-                  <Label fx:id="pointsPlayer2" alignment="CENTER_RIGHT" layoutX="217.0" layoutY="367.0" prefHeight="25.0" prefWidth="217.0" text="Label" />
                </children>
             </Pane>
             </children>
