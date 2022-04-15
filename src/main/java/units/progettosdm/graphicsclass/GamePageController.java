@@ -260,53 +260,39 @@ public class GamePageController {
         String winnerTitle;
         if(winner.equals(player1)){
             winnerColorText=player1TextColor;
-            firstPlayerRectangle.setLayoutY(firstPlayerRectangle.getLayoutY()-76);
-            secondPlayerRectangle.setLayoutY(secondPlayerRectangle.getLayoutY()-46);
-            firstPlayerRectangle.setHeight(76);
-            secondPlayerRectangle.setHeight(46);
-
-            labelPointsPlayer1.setLayoutY(firstPlayerRectangle.getLayoutY() + firstPlayerRectangle.getHeight()/2-labelPointsPlayer1.getPrefHeight()/2);
-            labelPointsPlayer2.setLayoutY(secondPlayerRectangle.getLayoutY() + secondPlayerRectangle.getHeight()/2-labelPointsPlayer2.getPrefHeight()/2);
-            cirlePlayer1.setLayoutY(firstPlayerRectangle.getLayoutY()+firstPlayerRectangle.getHeight()/2);
-            cirlePlayer2.setLayoutY(secondPlayerRectangle.getLayoutY()+secondPlayerRectangle.getHeight()/2);
-
+            setRectanglesHeight(firstPlayerRectangle, secondPlayerRectangle, firstPlayerRectangle.getLayoutY(), 76, 46);
             winnerTitle ="HA VINTO "+ winner.toUpperCase(Locale.ROOT);
         }else if(winner.equals(player2)){
             winnerColorText=player2TextColor;
-            secondPlayerRectangle.setLayoutY(firstPlayerRectangle.getLayoutY()-76);
-            firstPlayerRectangle.setLayoutY(firstPlayerRectangle.getLayoutY()-46);
-            secondPlayerRectangle.setHeight(76);
-            firstPlayerRectangle.setHeight(46);
-            labelPointsPlayer1.setLayoutY(firstPlayerRectangle.getLayoutY() + firstPlayerRectangle.getHeight()/2-labelPointsPlayer1.getPrefHeight()/2);
-            labelPointsPlayer2.setLayoutY(secondPlayerRectangle.getLayoutY() + secondPlayerRectangle.getHeight()/2-labelPointsPlayer2.getPrefHeight()/2);
-            cirlePlayer1.setLayoutY(firstPlayerRectangle.getLayoutY()+firstPlayerRectangle.getHeight()/2);
-            cirlePlayer2.setLayoutY(secondPlayerRectangle.getLayoutY()+secondPlayerRectangle.getHeight()/2);
+            setRectanglesHeight(secondPlayerRectangle, firstPlayerRectangle, firstPlayerRectangle.getLayoutY(), 76, 46);
             winnerTitle = "HA VINTO "+winner.toUpperCase(Locale.ROOT);
         }else{
             winnerColorText=Color.GREEN;
-            secondPlayerRectangle.setLayoutY(firstPlayerRectangle.getLayoutY()-60);
-            firstPlayerRectangle.setLayoutY(firstPlayerRectangle.getLayoutY()-60);
-            secondPlayerRectangle.setHeight(60);
-            firstPlayerRectangle.setHeight(60);
-            labelPointsPlayer1.setLayoutY(firstPlayerRectangle.getLayoutY() + firstPlayerRectangle.getHeight()/2-labelPointsPlayer1.getPrefHeight()/2);
-            labelPointsPlayer2.setLayoutY(secondPlayerRectangle.getLayoutY() + secondPlayerRectangle.getHeight()/2-labelPointsPlayer2.getPrefHeight()/2);
-            cirlePlayer1.setLayoutY(firstPlayerRectangle.getLayoutY()+firstPlayerRectangle.getHeight()/2);
-            cirlePlayer2.setLayoutY(secondPlayerRectangle.getLayoutY()+secondPlayerRectangle.getHeight()/2);
+            setRectanglesHeight(secondPlayerRectangle, firstPlayerRectangle, firstPlayerRectangle.getLayoutY(), 60, 60);
             winnerTitle = winner.toUpperCase(Locale.ROOT);
         }
+
+        labelPointsPlayer1.setLayoutY(firstPlayerRectangle.getLayoutY() + firstPlayerRectangle.getHeight()/2-labelPointsPlayer1.getPrefHeight()/2);
+        labelPointsPlayer2.setLayoutY(secondPlayerRectangle.getLayoutY() + secondPlayerRectangle.getHeight()/2-labelPointsPlayer2.getPrefHeight()/2);
+        cirlePlayer1.setLayoutY(firstPlayerRectangle.getLayoutY()+firstPlayerRectangle.getHeight()/2);
+        cirlePlayer2.setLayoutY(secondPlayerRectangle.getLayoutY()+secondPlayerRectangle.getHeight()/2);
 
         Label winnerLabel = (Label)popupPane.lookup("#winnerTitle");
         winnerLabel.setText(winnerTitle);
         winnerLabel.setTextFill(winnerColorText);
-
-
-
 
         Button newMatchButton= (Button) popupPane.lookup("#newMatch");
         newMatchButton.setOnMouseClicked(event -> newMatch());
 
         gameViewPane.getChildren().add(popupPane);
 
+    }
+
+    private void setRectanglesHeight(Rectangle firstPlayerRectangle, Rectangle secondPlayerRectangle, double layoutY, int i, int i2) {
+        firstPlayerRectangle.setLayoutY(layoutY - i);
+        secondPlayerRectangle.setLayoutY(secondPlayerRectangle.getLayoutY() - i2);
+        firstPlayerRectangle.setHeight(i);
+        secondPlayerRectangle.setHeight(i2);
     }
 
 
