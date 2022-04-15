@@ -199,6 +199,7 @@ public class GamePageController {
                 victoryPopup(actualMatch.checkVictory());
             }
             changePlayerNameOnTopLabel();
+            lin.setOnMouseClicked(null);
         }));
 
     }
