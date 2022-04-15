@@ -24,7 +24,9 @@ public class StartPageController {
     @FXML
     TextField namePlayer2;
     @FXML
-    ChoiceBox choicheGridDimensions;
+    TextField nDimension;
+    @FXML
+    TextField mDimension;
     @FXML
     Label errorPlayer1;
     @FXML
@@ -37,12 +39,11 @@ public class StartPageController {
         if (validateTextField()) {
             FXMLLoader fxmlLoader = new FXMLLoader(StartPageController.class.getResource("gamePage.fxml"));
             int n, m;
-            String[] values = choicheGridDimensions.getValue().toString().split("x");
-            n = Integer.parseInt(values[0]);
-            m = Integer.parseInt(values[1]);
+            n = Integer.parseInt(nDimension.getText());
+            m = Integer.parseInt(mDimension.getText());
 
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            Scene scene = new Scene(fxmlLoader.load());
+            Scene scene = new Scene(fxmlLoader.load(), Math.max(n,m) >= 10 ? 1200 : 600, Math.max(n,m) >= 10 ? 1000 : 500);
             scene.getStylesheets().add(StartPageController.class.getResource("style.css") + "");
             stage.setScene(scene);
             stage.show();
@@ -64,36 +65,26 @@ public class StartPageController {
         }
 
         if (namePlayer1.getText().equals("")) {
-            namePlayer1.getStyleClass().add("error");
-            errorPlayer1.setText("Inserisci un nome");
-            //errorPlayer1.setStyle("-fx-font-size:10");
-            //errorPlayer1.setStyle("-fx-text-fill:red");
-            response = false;
+            response = noNameError(namePlayer1, errorPlayer1);
         }
-        if (namePlayer2.getText().
-
-                equals("")) {
-            namePlayer2.getStyleClass().add("error");
-            errorPlayer2.setText("Inserisci un nome");
-            //errorPlayer2.setStyle("-fx-font-size:10");
-            //errorPlayer2.setStyle("-fx-text-fill:red");
-            response = false;
+        if (namePlayer2.getText().equals("")) {
+            response = noNameError(namePlayer2, errorPlayer2);
         }
-        if (namePlayer1.getText().
-
-                equals(namePlayer2.getText())) {
+        if (namePlayer1.getText().equals(namePlayer2.getText())) {
             namePlayer1.getStyleClass().add("error");
             namePlayer2.getStyleClass().add("error");
             errorPlayer1.setText("Inserisci un nome diverso dall'altro giocatore");
             errorPlayer2.setText("Inserisci un nome diverso dall'altro giocatore");
-            //errorPlayer1.setStyle("-fx-font-size:10");
-            //errorPlayer2.setStyle("-fx-font-size:10");
-            //errorPlayer1.setStyle("-fx-text-fill:red");
-            //errorPlayer2.setStyle("-fx-text-fill:red");
 
             response = false;
         }
         return response;
+    }
+
+    private boolean noNameError(TextField namePlayer2, Label errorPlayer2) {
+        namePlayer2.getStyleClass().add("error");
+        errorPlayer2.setText("Inserisci un nome");
+        return false;
     }
 
 
@@ -107,12 +98,6 @@ public class StartPageController {
                 BackgroundSize.DEFAULT);
         Background bGround = new Background(bImg);
         parentPane.setBackground(bGround);
-
-        choicheGridDimensions.getItems().add("2x2");
-        choicheGridDimensions.getItems().add("3x3");
-        choicheGridDimensions.getItems().add("5x5");
-        choicheGridDimensions.getItems().add("10x10");
-        choicheGridDimensions.getSelectionModel().selectFirst();
     }
 }
 

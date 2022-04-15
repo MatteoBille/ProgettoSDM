@@ -2,11 +2,11 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
@@ -45,7 +45,13 @@
                   </TextField>
                   <Label alignment="CENTER" prefHeight="17.0" prefWidth="160.0" text="Dimensioni campo :" textAlignment="CENTER" GridPane.rowIndex="4">
                   </Label>
-                  <ChoiceBox fx:id="choicheGridDimensions" prefWidth="150.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                     <children>
+                        <TextField fx:id="nDimension" maxHeight="25.0" maxWidth="40.0" />
+                        <Label alignment="CENTER" prefWidth="30.0" text="X" />
+                        <TextField fx:id="mDimension" maxHeight="25.0" maxWidth="40.0" />
+                     </children>
+                  </HBox>
                   <Button mnemonicParsing="false" onAction="#onStartGameButtonClick" prefHeight="25.0" prefWidth="150.0" text="Inizia Partita" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
                   <Label fx:id="errorPlayer1" prefHeight="17.0" prefWidth="230.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <Label fx:id="errorPlayer2" prefHeight="17.0" prefWidth="230.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
