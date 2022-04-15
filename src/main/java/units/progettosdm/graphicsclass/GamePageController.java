@@ -1,21 +1,28 @@
 package units.progettosdm.graphicsclass;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.*;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.SplitPane;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.stage.Popup;
+import javafx.stage.Stage;
 import units.progettosdm.backhandclass.Arch;
 import units.progettosdm.backhandclass.Box;
 import units.progettosdm.backhandclass.Dot;
 import units.progettosdm.backhandclass.Game;
 import units.progettosdm.projectExceptions.BadDotDeclarationException;
 
+import java.io.IOException;
 import java.util.*;
 
 public class GamePageController {
@@ -33,7 +40,6 @@ public class GamePageController {
     private Pane gameViewPane;
 
     private PlayerTurnSlider nameOfplayerThatPlayTheTurn;
-    private boolean playerHasChanged;
     private PointCounter totalPointsOfPlayer1;
     private PointCounter totalPointsOfPlayer2;
 
@@ -81,8 +87,8 @@ public class GamePageController {
 
         this.player1 = player1;
         this.player2 = player2;
-        player1Token="A";
-        player2Token="B";
+        player1Token = "A";
+        player2Token = "B";
 
         try {
             initializeDotArchesAndLabels();
@@ -107,6 +113,7 @@ public class GamePageController {
 
         setClickLineListenerOnArches();
         setMouseHoverArchesListener();
+
     }
 
     private void drawGameField() {
@@ -172,8 +179,8 @@ public class GamePageController {
     }
 
     private void changePlayerNameOnTopLabel() {
-        System.out.println(nameOfplayerThatPlayTheTurn.playerName+" "+actualMatch.getPlayerTurn());
-        if (nameOfplayerThatPlayTheTurn.playerName==null || !nameOfplayerThatPlayTheTurn.playerName.equals(actualMatch.getPlayerTurn())) {
+        System.out.println(nameOfplayerThatPlayTheTurn.playerName + " " + actualMatch.getPlayerTurn());
+        if (nameOfplayerThatPlayTheTurn.playerName == null || !nameOfplayerThatPlayTheTurn.playerName.equals(actualMatch.getPlayerTurn())) {
             if (actualMatch.getPlayerTurn().equals(player1)) {
                 nameOfplayerThatPlayTheTurn.setTextFill(player1TextColor);
 
@@ -205,23 +212,76 @@ public class GamePageController {
     }
 
     private void victoryPopup(String winner) {
-        Popup victoryPopup = new Popup();
-        Pane victoryPopupPane = new Pane();
-        victoryPopupPane.setPrefWidth(parentWidth * 0.5);
-        victoryPopupPane.setPrefHeight(parentHeight * 0.5);
-        victoryPopupPane.setBackground(new Background(new BackgroundFill(Color.rgb(255, 255, 255, 1), new CornerRadii(0.5), new Insets(0.0))));
-        victoryPopupPane.setStyle("-fx-border-color: black");
+        String loser;
 
-        Label victoryMessage = new Label("HA VINTO " + winner.toUpperCase(Locale.ROOT));
-        victoryMessage.setPrefWidth(victoryPopupPane.getPrefWidth());
-        victoryMessage.setPrefHeight(victoryPopupPane.getPrefHeight());
-        victoryMessage.setAlignment(Pos.CENTER);
-        victoryMessage.setFont(new Font(30));
+        Pane popupPane=null;
+        try {
+            popupPane = FXMLLoader.load(getClass().getResource("winnerPopup.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        popupPane.setLayoutY(tablePane.getHeight()/2-popupPane.getPrefHeight()/2);
+        popupPane.setLayoutX(tablePane.getWidth()/2-popupPane.getPrefWidth()/2);
 
 
-        victoryPopupPane.getChildren().add(victoryMessage);
-        victoryPopup.getContent().add(victoryPopupPane);
-        victoryPopup.show(parentPane.getScene().getWindow());
+        Color winnerColorText;
+        Color loserColorText;
+        Color winnerColorColumn;
+        Color loserColorColumn;
+
+        if(winner.equals(player1)){
+            loser=player2;
+            winnerColorText=player1TextColor;
+            loserColorText=player2TextColor;
+            winnerColorColumn=player1BackgroundColor;
+            loserColorColumn=player2BackgroundColor;
+        }else{
+            loser=player1;
+            loserColorText=player1TextColor;
+            winnerColorText=player2TextColor;
+            loserColorColumn=player1BackgroundColor;
+            winnerColorColumn=player2BackgroundColor;
+        }
+
+        Label winnerLabel = (Label)popupPane.lookup("#winnerTitle");
+        winnerLabel.setText("HA VINTO "+winner.toUpperCase(Locale.ROOT));
+        winnerLabel.setTextFill(winnerColorText);
+
+        Label winnerName = (Label)popupPane.lookup("#nameWinner");
+        winnerName.setText(winner);
+        winnerName.setTextFill(winnerColorText);
+        Label loserName= (Label)popupPane.lookup("#nameLoser");
+        loserName.setText(loser);
+        loserName.setTextFill(loserColorText);
+
+        Rectangle winnerRectangle= (Rectangle) popupPane.lookup("#columnWinner");
+        winnerRectangle.setFill(winnerColorColumn);
+        Rectangle loserRectangle= (Rectangle) popupPane.lookup("#columnLoser");
+        loserRectangle.setFill(loserColorColumn);
+        tablePane.getChildren().add(popupPane);
+
+        Button newMatchButton= (Button) popupPane.lookup("#newMatch");
+        newMatchButton.setOnMouseClicked(event -> newMatch());
+
+    }
+
+    public void newMatch(){
+        FXMLLoader fxmlLoader = new FXMLLoader(GamePageController.class.getResource("startScene.fxml"));
+        Stage stage = (Stage)gameViewPane.getScene().getWindow();
+        Scene scene = null;
+        try {
+            scene = new Scene(fxmlLoader.load());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        scene.getStylesheets().add(GamePageController.class.getResource("style.css") + "");
+        stage.setScene(scene);
+        stage.show();
+
+        StartPageController startPage = fxmlLoader.getController();
+
+
     }
 
     private void changeColorIfArchIsSelected() {
@@ -277,7 +337,7 @@ public class GamePageController {
             GraphicalDot firstDot = mapOfDotsAndGraphicalDots.get(cell.getDots()[0]);
             GraphicalDot thirdDot = mapOfDotsAndGraphicalDots.get(cell.getDots()[2]);
             GraphicalDot[] firstAndThirdGraphicalDots = {firstDot, thirdDot};
-            listOfLabels.add(new GraphicalBoxLabel(firstAndThirdGraphicalDots, cell,player1Token,player2Token));
+            listOfLabels.add(new GraphicalBoxLabel(firstAndThirdGraphicalDots, cell, player1Token, player2Token));
         }));
     }
 

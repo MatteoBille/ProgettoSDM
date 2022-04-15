@@ -20,6 +20,11 @@
     -fx-font-size: 10;
     -fx-text-fill:red;
 }
+#finishGamePopup{
+    -fx-background-color:white;
+    -fx-border-color: black ;
+    -fx-border-width: 2;
+}
 
 .text-input{
     -fx-font-family: 'Fredoka One';
