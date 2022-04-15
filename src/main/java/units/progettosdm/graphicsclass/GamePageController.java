@@ -12,6 +12,7 @@ import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.stage.Popup;
@@ -221,50 +222,93 @@ public class GamePageController {
             e.printStackTrace();
         }
 
-        popupPane.setLayoutY(tablePane.getHeight()/2-popupPane.getPrefHeight()/2);
-        popupPane.setLayoutX(tablePane.getWidth()/2-popupPane.getPrefWidth()/2);
-
+        popupPane.setLayoutY(gameViewPane.getHeight()/2-popupPane.getPrefHeight()/2);
+        popupPane.setLayoutX(gameViewPane.getWidth()/2-popupPane.getPrefWidth()/2);
+        int winnerPoints;
+        int loserPoints;
 
         Color winnerColorText;
         Color loserColorText;
         Color winnerColorColumn;
-        Color loserColorColumn;
 
+
+        Color loserColorColumn;
+        Label winnerName = (Label)popupPane.lookup("#nameWinner");
+        winnerName.setText(player1);
+        winnerName.setTextFill(player1TextColor);
+        Label loserName= (Label)popupPane.lookup("#nameLoser");
+        loserName.setText(player2);
+        loserName.setTextFill(player2TextColor);
+
+        Rectangle firstPlayerRectangle= (Rectangle) popupPane.lookup("#columnPlayer1");
+        firstPlayerRectangle.setFill(player1BackgroundColor);
+        Rectangle secondPlayerRectangle= (Rectangle) popupPane.lookup("#columnPlayer2");
+        secondPlayerRectangle.setFill(player2BackgroundColor);
+        firstPlayerRectangle.setHeight(0);
+        secondPlayerRectangle.setHeight(0);
+
+        Label labelPointsPlayer1 = (Label)popupPane.lookup("#player1Points");
+        labelPointsPlayer1.setText(actualMatch.getScorePlayer1()+"");
+        labelPointsPlayer1.setTextFill(player1TextColor);
+        Label labelPointsPlayer2 = (Label)popupPane.lookup("#player2Points");
+        labelPointsPlayer2.setText(actualMatch.getScorePlayer2()+"");
+        labelPointsPlayer2.setTextFill(player2TextColor);
+
+        Circle cirlePlayer1 =(Circle)popupPane.lookup("#circlePlayer1");
+        Circle cirlePlayer2 =(Circle)popupPane.lookup("#circlePlayer2");
+
+        String winnerTitle;
         if(winner.equals(player1)){
-            loser=player2;
             winnerColorText=player1TextColor;
-            loserColorText=player2TextColor;
-            winnerColorColumn=player1BackgroundColor;
-            loserColorColumn=player2BackgroundColor;
-        }else{
-            loser=player1;
-            loserColorText=player1TextColor;
+            firstPlayerRectangle.setLayoutY(firstPlayerRectangle.getLayoutY()-76);
+            secondPlayerRectangle.setLayoutY(secondPlayerRectangle.getLayoutY()-46);
+            firstPlayerRectangle.setHeight(76);
+            secondPlayerRectangle.setHeight(46);
+
+            labelPointsPlayer1.setLayoutY(firstPlayerRectangle.getLayoutY() + firstPlayerRectangle.getHeight()/2-labelPointsPlayer1.getPrefHeight()/2);
+            labelPointsPlayer2.setLayoutY(secondPlayerRectangle.getLayoutY() + secondPlayerRectangle.getHeight()/2-labelPointsPlayer2.getPrefHeight()/2);
+            cirlePlayer1.setLayoutY(firstPlayerRectangle.getLayoutY()+firstPlayerRectangle.getHeight()/2);
+            cirlePlayer2.setLayoutY(secondPlayerRectangle.getLayoutY()+secondPlayerRectangle.getHeight()/2);
+
+            winnerTitle ="HA VINTO "+ winner.toUpperCase(Locale.ROOT);
+        }else if(winner.equals(player2)){
             winnerColorText=player2TextColor;
-            loserColorColumn=player1BackgroundColor;
-            winnerColorColumn=player2BackgroundColor;
+            secondPlayerRectangle.setLayoutY(firstPlayerRectangle.getLayoutY()-76);
+            firstPlayerRectangle.setLayoutY(firstPlayerRectangle.getLayoutY()-46);
+            secondPlayerRectangle.setHeight(76);
+            firstPlayerRectangle.setHeight(46);
+            labelPointsPlayer1.setLayoutY(firstPlayerRectangle.getLayoutY() + firstPlayerRectangle.getHeight()/2-labelPointsPlayer1.getPrefHeight()/2);
+            labelPointsPlayer2.setLayoutY(secondPlayerRectangle.getLayoutY() + secondPlayerRectangle.getHeight()/2-labelPointsPlayer2.getPrefHeight()/2);
+            cirlePlayer1.setLayoutY(firstPlayerRectangle.getLayoutY()+firstPlayerRectangle.getHeight()/2);
+            cirlePlayer2.setLayoutY(secondPlayerRectangle.getLayoutY()+secondPlayerRectangle.getHeight()/2);
+            winnerTitle = "HA VINTO "+winner.toUpperCase(Locale.ROOT);
+        }else{
+            winnerColorText=Color.GREEN;
+            secondPlayerRectangle.setLayoutY(firstPlayerRectangle.getLayoutY()-60);
+            firstPlayerRectangle.setLayoutY(firstPlayerRectangle.getLayoutY()-60);
+            secondPlayerRectangle.setHeight(60);
+            firstPlayerRectangle.setHeight(60);
+            labelPointsPlayer1.setLayoutY(firstPlayerRectangle.getLayoutY() + firstPlayerRectangle.getHeight()/2-labelPointsPlayer1.getPrefHeight()/2);
+            labelPointsPlayer2.setLayoutY(secondPlayerRectangle.getLayoutY() + secondPlayerRectangle.getHeight()/2-labelPointsPlayer2.getPrefHeight()/2);
+            cirlePlayer1.setLayoutY(firstPlayerRectangle.getLayoutY()+firstPlayerRectangle.getHeight()/2);
+            cirlePlayer2.setLayoutY(secondPlayerRectangle.getLayoutY()+secondPlayerRectangle.getHeight()/2);
+            winnerTitle = winner.toUpperCase(Locale.ROOT);
         }
 
         Label winnerLabel = (Label)popupPane.lookup("#winnerTitle");
-        winnerLabel.setText("HA VINTO "+winner.toUpperCase(Locale.ROOT));
+        winnerLabel.setText(winnerTitle);
         winnerLabel.setTextFill(winnerColorText);
 
-        Label winnerName = (Label)popupPane.lookup("#nameWinner");
-        winnerName.setText(winner);
-        winnerName.setTextFill(winnerColorText);
-        Label loserName= (Label)popupPane.lookup("#nameLoser");
-        loserName.setText(loser);
-        loserName.setTextFill(loserColorText);
 
-        Rectangle winnerRectangle= (Rectangle) popupPane.lookup("#columnWinner");
-        winnerRectangle.setFill(winnerColorColumn);
-        Rectangle loserRectangle= (Rectangle) popupPane.lookup("#columnLoser");
-        loserRectangle.setFill(loserColorColumn);
-        tablePane.getChildren().add(popupPane);
+
 
         Button newMatchButton= (Button) popupPane.lookup("#newMatch");
         newMatchButton.setOnMouseClicked(event -> newMatch());
 
+        gameViewPane.getChildren().add(popupPane);
+
     }
+
 
     public void newMatch(){
         FXMLLoader fxmlLoader = new FXMLLoader(GamePageController.class.getResource("startScene.fxml"));
