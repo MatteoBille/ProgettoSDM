@@ -1,0 +1,31 @@
+@font-face {
+    font-family: 'Fredoka One';
+    src: url('font/FredokaOne-Regular.ttf');
+}
+
+.label{
+    -fx-font-family: 'Fredoka One';
+    -fx-font-size: 30;
+}
+
+.boxes{
+    -fx-font-family: 'Fredoka One';
+}
+
+#finishGamePopup{
+    -fx-background-color:white;
+    -fx-border-color: black ;
+    -fx-border-width: 2;
+}
+
+.text-input{
+    -fx-font-family: 'Fredoka One';
+    -fx-font-size: 15;
+}
+
+.button{
+    -fx-font-family: 'Fredoka One';
+    -fx-font-size: 15;
+}
+
+

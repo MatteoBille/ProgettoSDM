@@ -82,7 +82,7 @@ public class GamePageController {
     }
 
     public void initializePage(int n, int m, String player1, String player2) {
-        actualMatch = new Game(n, player1, player2);
+        actualMatch = new Game(n,m, player1, player2);
         N = actualMatch.getScoreboardSize()[0];
         M = actualMatch.getScoreboardSize()[1];
 
@@ -224,15 +224,10 @@ public class GamePageController {
 
         popupPane.setLayoutY(gameViewPane.getHeight()/2-popupPane.getPrefHeight()/2);
         popupPane.setLayoutX(gameViewPane.getWidth()/2-popupPane.getPrefWidth()/2);
-        int winnerPoints;
-        int loserPoints;
+
 
         Color winnerColorText;
-        Color loserColorText;
-        Color winnerColorColumn;
 
-
-        Color loserColorColumn;
         Label winnerName = (Label)popupPane.lookup("#nameWinner");
         winnerName.setText(player1);
         winnerName.setTextFill(player1TextColor);
@@ -305,7 +300,7 @@ public class GamePageController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        scene.getStylesheets().add(GamePageController.class.getResource("style.css") + "");
+        scene.getStylesheets().add(GamePageController.class.getResource("styleStartPage.css") + "");
         stage.setScene(scene);
         stage.show();
 
@@ -328,7 +323,7 @@ public class GamePageController {
     private void createGraphicalArchesFromBackhandArches() throws BadDotDeclarationException {
         List<Arch> arches = actualMatch.getScoreboard().totalArches;
         listOfGraphicalArches = new ArrayList<>();
-
+        mapOfDotsAndGraphicalDots.values().forEach(e-> System.out.println(e.getLayoutX()+" "+e.getLayoutY()));
         arches.forEach(e -> {
             listOfGraphicalArches.add(new GraphicalArchesBetweenDots(mapOfDotsAndGraphicalDots.get(e.getFirstDot()), mapOfDotsAndGraphicalDots.get(e.getSecondDot()), e));
         });
@@ -358,11 +353,17 @@ public class GamePageController {
                 mapOfDotsAndGraphicalDots.put(new Dot(i, j), new GraphicalDot(new Dot(i, j), tempX, tempY, circleSize));
             }
         }
+        if(N<M){
+            mapOfDotsAndGraphicalDots.values().forEach(circle->circle.setCenterX(circle.getCenterX()+widthTablePane/2-(N+1)*distanceX/2));
+        }else if(M<N){
+            mapOfDotsAndGraphicalDots.values().forEach(circle->circle.setCenterY(circle.getCenterY()+heightTablePane/2-(M+1)*distanceY/2));
+        }
     }
 
     private void createGraphicalLabelsFromBackhandBoxes() {
         listOfLabels = new ArrayList<>();
         Box[][] boxes = actualMatch.getScoreboard().getBoxes();
+        Arrays.stream(boxes).forEach(line -> Arrays.stream(line).forEach(cell -> System.out.println(cell)));
         Arrays.stream(boxes).forEach(line -> Arrays.stream(line).forEach(cell -> {
             GraphicalDot firstDot = mapOfDotsAndGraphicalDots.get(cell.getDots()[0]);
             GraphicalDot thirdDot = mapOfDotsAndGraphicalDots.get(cell.getDots()[2]);

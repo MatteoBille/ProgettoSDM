@@ -13,7 +13,7 @@ class ScoreboardTest {
     @Test
     void correctNumberOfArches(){
         int n=2;
-        Scoreboard board = new Scoreboard(n);
+        Scoreboard board = new Scoreboard(n,n);
         board.setArch();
         board.totalArches.forEach(System.out::println);
         assertEquals((n+1)*2*n, board.totalArches.size());
@@ -22,7 +22,7 @@ class ScoreboardTest {
     @Test
     void notNullInitializationOfBoxes(){
         int n=2;
-        Scoreboard board = new Scoreboard(n);
+        Scoreboard board = new Scoreboard(n,n);
         board.setArch();
         board.setBox();
         assertNotNull(board.getBoxes());
@@ -31,7 +31,7 @@ class ScoreboardTest {
 
     @Test
     void notNullScoreboardInitialization(){
-        Scoreboard board = new Scoreboard(2);
+        Scoreboard board = new Scoreboard(2,2);
         board.setArch();
         board.setBox();
         System.out.println(board);
@@ -40,7 +40,7 @@ class ScoreboardTest {
 
     @Test
     void selectArchTest() throws BadDotDeclarationException, BadArchDeclarationException {
-        Scoreboard board = new Scoreboard(2);
+        Scoreboard board = new Scoreboard(2,2);
         board.setArch();
         board.setBox();
         Dot dot1 = new Dot(0,0);
@@ -53,7 +53,7 @@ class ScoreboardTest {
 
     @Test
     void closedBoxTest() throws BadDotDeclarationException, BadArchDeclarationException {
-        Scoreboard board = new Scoreboard(2);
+        Scoreboard board = new Scoreboard(2,2);
         board.setArch();
         board.setBox();
         Dot dot1 = new Dot(0,0);
@@ -79,7 +79,7 @@ class ScoreboardTest {
 
     @Test
     void checkDoublePoint() throws BadArchDeclarationException, BadDotDeclarationException {
-        Scoreboard scoreboard = new Scoreboard(2);
+        Scoreboard scoreboard = new Scoreboard(2,2);
         Dot dot1 = new Dot(0, 0);
         Dot dot2 = new Dot(0, 1);
         Dot dot3 = new Dot(0, 2);

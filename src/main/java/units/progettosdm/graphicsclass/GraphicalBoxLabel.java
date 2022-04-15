@@ -13,8 +13,8 @@ import units.progettosdm.backhandclass.Dot;
 
 public class GraphicalBoxLabel extends Label {
     Box backhandBox;
-    private String player1Token;
-    private String player2Token;
+    private final String player1Token;
+    private final String player2Token;
     Dot[] dots;
 
 
