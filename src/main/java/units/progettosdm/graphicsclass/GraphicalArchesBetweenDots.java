@@ -8,7 +8,7 @@ class GraphicalArchesBetweenDots extends Rectangle {
     GraphicalDot dot1;
     GraphicalDot dot2;
     String direction;
-    private boolean selected = false;
+    private final boolean selected = false;
     Arch backhandArch;
 
     public GraphicalArchesBetweenDots(GraphicalDot dot1, GraphicalDot dot2, Arch backhandArch) {

@@ -13,8 +13,8 @@ import units.progettosdm.backhandclass.Dot;
 
 public class GraphicalBoxLabel extends Label {
     Box backhandBox;
-    private String player1Token;
-    private String player2Token;
+    private final String player1Token;
+    private final String player2Token;
     Dot[] dots;
 
 
@@ -39,13 +39,13 @@ public class GraphicalBoxLabel extends Label {
         if (backhandBox.checkClosedBox()) {
             if (backhandBox.getPlayerBoxCharacter().equals(player1Token)) {
                 this.setBackground(new Background(new BackgroundFill(Color.rgb(0, 0, 255, 0.5), new CornerRadii(0.5), new Insets(0.0))));
+                this.setTextFill(Color.rgb(0, 0, 255, 1));
             } else if (backhandBox.getPlayerBoxCharacter().equals(player2Token)) {
                 this.setBackground(new Background(new BackgroundFill(Color.rgb(255, 0, 00, 0.5), new CornerRadii(0.5), new Insets(0.0))));
+                this.setTextFill(Color.rgb(255, 0, 0, 1));
             }
             this.setText(backhandBox.getPlayerBoxCharacter());
-            System.out.println(getHeight());
             this.setStyle("-fx-font-size:"+getHeight()*0.7);
-            System.out.println(getFont());
         }
     }
 }

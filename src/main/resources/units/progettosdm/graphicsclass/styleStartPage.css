@@ -8,10 +8,6 @@
     -fx-font-size: 15;
 }
 
-.boxes{
-    -fx-font-family: 'Fredoka One';
-}
-
 #errorPlayer1{
     -fx-font-size: 10;
     -fx-text-fill:red;
@@ -19,11 +15,6 @@
 #errorPlayer2{
     -fx-font-size: 10;
     -fx-text-fill:red;
-}
-#finishGamePopup{
-    -fx-background-color:white;
-    -fx-border-color: black ;
-    -fx-border-width: 2;
 }
 
 .text-input{

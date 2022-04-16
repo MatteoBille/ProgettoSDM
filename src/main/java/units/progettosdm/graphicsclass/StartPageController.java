@@ -43,8 +43,8 @@ public class StartPageController {
             m = Integer.parseInt(mDimension.getText());
 
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            Scene scene = new Scene(fxmlLoader.load(), Math.max(n,m) >= 10 ? 1200 : 600, Math.max(n,m) >= 10 ? 1000 : 500);
-            scene.getStylesheets().add(StartPageController.class.getResource("style.css") + "");
+            Scene scene = new Scene(fxmlLoader.load(),  1200 ,  1000 );
+            scene.getStylesheets().add(StartPageController.class.getResource("styleGamePage.css") + "");
             stage.setScene(scene);
             stage.show();
             GamePageController controller = fxmlLoader.getController();

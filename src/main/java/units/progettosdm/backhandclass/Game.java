@@ -12,11 +12,11 @@ public class Game {
         return scoreboard;
     }
 
-    public Game(int n, String playerName1, String playerName2) {
+    public Game(int n,int m, String playerName1, String playerName2) {
         this.playerName1 = playerName1;
         this.playerName2 = playerName2;
         playerTurn = throwCoin();
-        this.scoreboard = new Scoreboard(n);
+        this.scoreboard = new Scoreboard(n,m);
     }
 
     public void playTurn(Arch arch) {
@@ -46,11 +46,11 @@ public class Game {
     }
 
     public String checkVictory() {
-        if ((scorePlayer1 == scorePlayer2) && ((scorePlayer1 + scorePlayer2) == scoreboard.gridSize * scoreboard.gridSize)) {
+        if ((scorePlayer1 == scorePlayer2) && ((scorePlayer1 + scorePlayer2) == scoreboard.gridNSize * scoreboard.gridMSize)) {
             return "Pareggio";
-        } else if (scorePlayer1 > ((scoreboard.gridSize * scoreboard.gridSize) / 2)) {
+        } else if (scorePlayer1 > ((scoreboard.gridNSize * scoreboard.gridMSize) / 2)) {
             return playerName1;
-        } else if (scorePlayer2 > ((scoreboard.gridSize * scoreboard.gridSize) / 2)) {
+        } else if (scorePlayer2 > ((scoreboard.gridNSize * scoreboard.gridMSize) / 2)) {
             return playerName2;
         } else {
             return null;
@@ -82,6 +82,6 @@ public class Game {
     }
 
     public int[] getScoreboardSize(){
-        return new int[]{scoreboard.gridSize,scoreboard.gridSize};
+        return new int[]{scoreboard.gridNSize,scoreboard.gridMSize};
     }
 }

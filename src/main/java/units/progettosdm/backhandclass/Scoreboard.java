@@ -9,14 +9,15 @@ import java.util.List;
 
 public class Scoreboard {
     public List<Arch> totalArches = new ArrayList<>();
-    public int gridSize;
-
+    public int gridNSize;
+    public int gridMSize;
 
     private final Box[][] boxes;
 
-    public Scoreboard(int gridSize) {
-        this.gridSize = gridSize;
-        boxes = new Box[gridSize][gridSize];
+    public Scoreboard(int nSize,int mSize) {
+        this.gridNSize = nSize;
+        this.gridMSize = mSize;
+        boxes = new Box[nSize][mSize];
         setArch();
         setBox();
     }
@@ -34,7 +35,7 @@ public class Scoreboard {
     public int checkPoint(String playerName, int playerNumber) {
         int count = 0;
         for (Box[] box : boxes) {
-            for (int j = 0; j < boxes.length; j++) {
+            for (int j = 0; j < box.length; j++) {
                 if (box[j].checkClosedBox() && box[j].getPlayerBox() == null) {
                     count++;
                     box[j].setPlayerBox(playerName, playerNumber);
@@ -45,8 +46,8 @@ public class Scoreboard {
     }
 
     public void setBox() {
-        for (int i = 0; i < gridSize; i++) {
-            for (int j = 0; j < gridSize; j++) {
+        for (int i = 0; i < gridNSize; i++) {
+            for (int j = 0; j < gridMSize; j++) {
                 boxes[i][j] = new Box(i, j);
                 Dot[][] boxSides = boxes[i][j].getCouple();
                 Arch[] arches = new Arch[4];
@@ -66,19 +67,19 @@ public class Scoreboard {
 
     public void setArch() {
         totalArches = new ArrayList<>();
-        for (int i = 0; i < gridSize + 1; i++) {
-            for (int j = 0; j < gridSize + 1; j++) {
+        for (int i = 0; i < gridNSize + 1; i++) {
+            for (int j = 0; j < gridMSize + 1; j++) {
 
                 try {
                     Dot dot = new Dot(i, j);
-                    if (i + 1 < gridSize + 1) {
+                    if (i + 1 < gridNSize + 1) {
                         try {
                             totalArches.add(new Arch(dot, new Dot(i + 1, j)));
                         } catch (BadDotDeclarationException e) {
                             e.printStackTrace();
                         }
                     }
-                    if (j + 1 < gridSize + 1) {
+                    if (j + 1 < gridMSize + 1) {
                         try {
                             totalArches.add(new Arch(dot, new Dot(i, j + 1)));
                         } catch (BadDotDeclarationException e) {
@@ -94,8 +95,8 @@ public class Scoreboard {
 
     public String getBoxesToString() {
         StringBuilder output = new StringBuilder();
-        for (int i = 0; i < gridSize; i++) {
-            for (int j = 0; j < gridSize; j++) {
+        for (int i = 0; i < gridNSize; i++) {
+            for (int j = 0; j < gridMSize; j++) {
                 output.append(boxes[i][j].checkClosedBox() ? boxes[i][j].getPlayerBox() : "O ");
             }
             output.append("\n");
@@ -108,7 +109,7 @@ public class Scoreboard {
     public String toString() {
         return "Scoreboard{" + "\n" +
                 "totalArches=" + totalArches + "\n" +
-                "gridSize=" + gridSize + "x" + gridSize + "\n" +
+                "gridSize=" + gridNSize + "x" + gridMSize + "\n" +
                 "boxes=" + "\n" + getBoxesToString() + "\n" +
                 '}';
     }

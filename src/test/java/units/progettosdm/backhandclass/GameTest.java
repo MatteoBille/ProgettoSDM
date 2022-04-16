@@ -14,7 +14,7 @@ public class GameTest {
         Scoreboard scoreboard;
         String playerName1 = "Mario";
         String playerName2 = "Giovanni";
-        Game newGame = new Game(3, playerName1, playerName2);
+        Game newGame = new Game(3,3, playerName1, playerName2);
         scoreboard = newGame.getScoreboard();
         List<Arch> totalArches = scoreboard.totalArches;
         Dot dot1 = new Dot(0,0);
@@ -29,7 +29,7 @@ public class GameTest {
         int gridSize = 10;
         String playerName1 = "mario";
         String playerName2 = "Giovanni";
-        Game game = new Game(gridSize, playerName1, playerName2);
+        Game game = new Game(gridSize,gridSize, playerName1, playerName2);
         game.setScorePlayer1(20);
         game.setScorePlayer2(60);
         game.checkVictory();
