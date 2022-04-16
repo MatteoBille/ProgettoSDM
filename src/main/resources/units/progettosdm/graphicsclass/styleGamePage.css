@@ -3,9 +3,19 @@
     src: url('font/FredokaOne-Regular.ttf');
 }
 
+.button{
+    -fx-font-family: 'Fredoka One';
+    -fx-font-size: 15;
+}
+
 .label{
     -fx-font-family: 'Fredoka One';
     -fx-font-size: 30;
+}
+
+.label-victoryPopup{
+    -fx-font-family: 'Fredoka One';
+    -fx-font-size: 15;
 }
 
 .boxes{
@@ -18,14 +28,7 @@
     -fx-border-width: 2;
 }
 
-.text-input{
+.circle + .label{
     -fx-font-family: 'Fredoka One';
-    -fx-font-size: 15;
+    -fx-font-size: 20;
 }
-
-.button{
-    -fx-font-family: 'Fredoka One';
-    -fx-font-size: 15;
-}
-
-

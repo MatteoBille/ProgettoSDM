@@ -128,10 +128,10 @@ public class GamePageController {
         double dimension = Math.min(parentHeight, parentWidth);
 
 
-        widthTablePane = dimension * 0.7;
-        heightTablePane = dimension * 0.7;
-        widthGameViewPane = dimension * 0.8;
-        heightGameViewPane = dimension * 0.8;
+        widthTablePane = dimension * 0.8;
+        heightTablePane = dimension * 0.8;
+        widthGameViewPane = dimension * 0.9;
+        heightGameViewPane = dimension * 0.9;
 
         gameViewPane.setPrefWidth(widthGameViewPane);
         gameViewPane.setPrefHeight(heightGameViewPane);
@@ -180,7 +180,6 @@ public class GamePageController {
     }
 
     private void changePlayerNameOnTopLabel() {
-        System.out.println(nameOfplayerThatPlayTheTurn.playerName + " " + actualMatch.getPlayerTurn());
         if (nameOfplayerThatPlayTheTurn.playerName == null || !nameOfplayerThatPlayTheTurn.playerName.equals(actualMatch.getPlayerTurn())) {
             if (actualMatch.getPlayerTurn().equals(player1)) {
                 nameOfplayerThatPlayTheTurn.setTextFill(player1TextColor);
@@ -202,7 +201,6 @@ public class GamePageController {
             listOfLabels.forEach(lab -> lab.setBoxSelected());
             totalPointsOfPlayer1.setPoint(actualMatch.getScorePlayer1());
             totalPointsOfPlayer2.setPoint(actualMatch.getScorePlayer2());
-            System.out.println(actualMatch.checkVictory());
             if (actualMatch.checkVictory() != null) {
                 victoryPopup(actualMatch.checkVictory());
             }
@@ -228,12 +226,15 @@ public class GamePageController {
 
         Color winnerColorText;
 
-        Label winnerName = (Label)popupPane.lookup("#nameWinner");
-        winnerName.setText(player1);
-        winnerName.setTextFill(player1TextColor);
-        Label loserName= (Label)popupPane.lookup("#nameLoser");
-        loserName.setText(player2);
-        loserName.setTextFill(player2TextColor);
+        Label player1Name = (Label)popupPane.lookup("#player1Name");
+        player1Name.setText(player1);
+        player1Name.setTextFill(player1TextColor);
+        player1Name.getStyleClass().add("label-victoryPopup");
+        Label player2Name= (Label)popupPane.lookup("#player2Name");
+        player2Name.setText(player2);
+        player2Name.setTextFill(player2TextColor);
+        player2Name.getStyleClass().add("label-victoryPopup");
+
 
         Rectangle firstPlayerRectangle= (Rectangle) popupPane.lookup("#columnPlayer1");
         firstPlayerRectangle.setFill(player1BackgroundColor);
@@ -249,8 +250,8 @@ public class GamePageController {
         labelPointsPlayer2.setText(actualMatch.getScorePlayer2()+"");
         labelPointsPlayer2.setTextFill(player2TextColor);
 
-        Circle cirlePlayer1 =(Circle)popupPane.lookup("#circlePlayer1");
-        Circle cirlePlayer2 =(Circle)popupPane.lookup("#circlePlayer2");
+        Circle circlePlayer1 =(Circle)popupPane.lookup("#circlePlayer1");
+        Circle circlePlayer2 =(Circle)popupPane.lookup("#circlePlayer2");
 
         String winnerTitle;
         if(winner.equals(player1)){
@@ -267,19 +268,26 @@ public class GamePageController {
             winnerTitle = winner.toUpperCase(Locale.ROOT);
         }
 
-        labelPointsPlayer1.setLayoutY(firstPlayerRectangle.getLayoutY() + firstPlayerRectangle.getHeight()/2-labelPointsPlayer1.getPrefHeight()/2);
-        labelPointsPlayer2.setLayoutY(secondPlayerRectangle.getLayoutY() + secondPlayerRectangle.getHeight()/2-labelPointsPlayer2.getPrefHeight()/2);
-        cirlePlayer1.setLayoutY(firstPlayerRectangle.getLayoutY()+firstPlayerRectangle.getHeight()/2);
-        cirlePlayer2.setLayoutY(secondPlayerRectangle.getLayoutY()+secondPlayerRectangle.getHeight()/2);
+        circlePlayer1.setLayoutY(firstPlayerRectangle.getLayoutY()+firstPlayerRectangle.getHeight()/2);
+        circlePlayer2.setLayoutY(secondPlayerRectangle.getLayoutY()+secondPlayerRectangle.getHeight()/2);
+
+        labelPointsPlayer1.setLayoutY(circlePlayer1.getLayoutY()-circlePlayer2.getRadius());
+        labelPointsPlayer1.setPrefWidth(circlePlayer1.getRadius()*2);
+        labelPointsPlayer1.setPrefHeight(circlePlayer1.getRadius()*2);
+        labelPointsPlayer2.setLayoutY(circlePlayer2.getLayoutY()-circlePlayer2.getRadius());
+        labelPointsPlayer2.setPrefWidth(circlePlayer2.getRadius()*2);
+        labelPointsPlayer2.setPrefHeight(circlePlayer2.getRadius()*2);
 
         Label winnerLabel = (Label)popupPane.lookup("#winnerTitle");
         winnerLabel.setText(winnerTitle);
         winnerLabel.setTextFill(winnerColorText);
+        winnerLabel.getStyleClass().add("label-victoryPopup");
 
         Button newMatchButton= (Button) popupPane.lookup("#newMatch");
         newMatchButton.setOnMouseClicked(event -> newMatch());
 
         gameViewPane.getChildren().add(popupPane);
+
 
     }
 
@@ -306,7 +314,6 @@ public class GamePageController {
 
         StartPageController startPage = fxmlLoader.getController();
 
-
     }
 
     private void changeColorIfArchIsSelected() {
@@ -323,7 +330,6 @@ public class GamePageController {
     private void createGraphicalArchesFromBackhandArches() throws BadDotDeclarationException {
         List<Arch> arches = actualMatch.getScoreboard().totalArches;
         listOfGraphicalArches = new ArrayList<>();
-        mapOfDotsAndGraphicalDots.values().forEach(e-> System.out.println(e.getLayoutX()+" "+e.getLayoutY()));
         arches.forEach(e -> {
             listOfGraphicalArches.add(new GraphicalArchesBetweenDots(mapOfDotsAndGraphicalDots.get(e.getFirstDot()), mapOfDotsAndGraphicalDots.get(e.getSecondDot()), e));
         });
@@ -335,6 +341,7 @@ public class GamePageController {
                 e.setOpacity(0.2);
             }
         });
+        System.out.println("ARCHI CREATI");
     }
 
 
@@ -358,18 +365,19 @@ public class GamePageController {
         }else if(M<N){
             mapOfDotsAndGraphicalDots.values().forEach(circle->circle.setCenterY(circle.getCenterY()+heightTablePane/2-(M+1)*distanceY/2));
         }
+        System.out.println("DOT CREATI");
     }
 
     private void createGraphicalLabelsFromBackhandBoxes() {
         listOfLabels = new ArrayList<>();
         Box[][] boxes = actualMatch.getScoreboard().getBoxes();
-        Arrays.stream(boxes).forEach(line -> Arrays.stream(line).forEach(cell -> System.out.println(cell)));
         Arrays.stream(boxes).forEach(line -> Arrays.stream(line).forEach(cell -> {
             GraphicalDot firstDot = mapOfDotsAndGraphicalDots.get(cell.getDots()[0]);
             GraphicalDot thirdDot = mapOfDotsAndGraphicalDots.get(cell.getDots()[2]);
             GraphicalDot[] firstAndThirdGraphicalDots = {firstDot, thirdDot};
             listOfLabels.add(new GraphicalBoxLabel(firstAndThirdGraphicalDots, cell, player1Token, player2Token));
         }));
+        System.out.println("LABEL CREATE");
     }
 
     private void drawListOfNodeObjectAndInsertInAGroupTheList(List<? extends Node> graphicalList, Group graphicalGroup) {

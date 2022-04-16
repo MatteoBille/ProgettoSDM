@@ -13,7 +13,6 @@ class GraphicalArchesBetweenDots extends Rectangle {
 
     public GraphicalArchesBetweenDots(GraphicalDot dot1, GraphicalDot dot2, Arch backhandArch) {
         this.backhandArch = backhandArch;
-        System.out.println(dot1.getLayoutX()+" "+dot1.getCenterX());
         if (dot1.getCenterX() == dot2.getCenterX()) {
             setLayoutX(dot1.getCenterX() - dot1.getRadius() / 2);
             setLayoutY(dot1.getCenterY() + dot1.getRadius() * 2);
