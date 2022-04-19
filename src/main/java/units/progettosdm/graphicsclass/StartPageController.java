@@ -5,16 +5,19 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.util.Collections;
+
+import javafx.geometry.Rectangle2D;
+import javafx.stage.Screen;
+
 
 public class StartPageController {
     @FXML
@@ -43,11 +46,14 @@ public class StartPageController {
             m = Integer.parseInt(mDimension.getText());
 
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            Scene scene = new Scene(fxmlLoader.load(),  1200 ,  1000 );
+            Scene scene = new Scene(fxmlLoader.load());
             scene.getStylesheets().add(StartPageController.class.getResource("styleGamePage.css") + "");
             stage.setScene(scene);
             stage.show();
             GamePageController controller = fxmlLoader.getController();
+            stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
+            stage.setFullScreen(true);
+
 
             controller.initializePage(n, m, namePlayer1.getText(), namePlayer2.getText());
         }
