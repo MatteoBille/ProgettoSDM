@@ -15,7 +15,7 @@ public class MainApplication extends Application {
         Scene scene = new Scene(fxmlLoader.load(), 600, 500);
         scene.getStylesheets().add(StartPageController.class.getResource("styleStartPage.css")+"");
         stage.setResizable(false);
-        stage.setTitle("DOT AND BOXES !!");
+        stage.setTitle("DOT AND BOXES");
         stage.setScene(scene);
         stage.show();
     }
