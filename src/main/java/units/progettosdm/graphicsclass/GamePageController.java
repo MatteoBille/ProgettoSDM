@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -87,6 +88,9 @@ public class GamePageController {
 
     public void initializePage(int n, int m, String player1, String player2) throws BadBoardSizeDeclarationException {
         actualMatch = new Game(n, m, player1, player2);
+        Stage stage = (Stage) parentPane.getScene().getWindow();
+        stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
+        stage.setFullScreen(true);
         N = actualMatch.getScoreboardSize()[0];
         M = actualMatch.getScoreboardSize()[1];
 
@@ -144,8 +148,8 @@ public class GamePageController {
 
         exitButton.setPrefHeight(17);
         exitButton.setPrefWidth(widthGameViewPane / 3);
-        exitButton.setLayoutX(parentWidth - exitButton.getPrefWidth()-50);
-        exitButton.setLayoutY(parentHeight - parentHeight * 0.05-17);
+        exitButton.setLayoutX(parentWidth - exitButton.getPrefWidth() - 50);
+        exitButton.setLayoutY(parentHeight - parentHeight * 0.05 - 17);
 
         exitButton.getStyleClass().add("exit");
         exitButton.setOnAction(e -> Platform.exit());

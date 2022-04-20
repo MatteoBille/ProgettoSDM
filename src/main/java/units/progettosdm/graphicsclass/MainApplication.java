@@ -13,7 +13,7 @@ public class MainApplication extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("startScene.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 600, 500);
-        scene.getStylesheets().add(StartPageController.class.getResource("styleStartPage.css")+"");
+        scene.getStylesheets().add(StartPageController.class.getResource("styleStartPage.css") + "");
         stage.setResizable(false);
         stage.setTitle("DOT AND BOXES");
         stage.setScene(scene);

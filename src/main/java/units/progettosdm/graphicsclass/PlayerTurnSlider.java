@@ -6,6 +6,7 @@ import javafx.util.Duration;
 
 public class PlayerTurnSlider extends Label {
     public String playerName;
+
     public PlayerTurnSlider(String text) {
         super(text);
     }
@@ -14,10 +15,11 @@ public class PlayerTurnSlider extends Label {
     }
 
     public void setPlayerAndSlide(String text) {
-        playerName=text;
-        setText("Turno di "+text);
+        playerName = text;
+        setText("Turno di " + text);
         slidingEffect();
     }
+
     private void slidingEffect() {
         TranslateTransition translateTransition = new TranslateTransition(Duration.millis(500), this);
         translateTransition.setFromY(-15);
