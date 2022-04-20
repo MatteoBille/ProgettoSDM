@@ -143,8 +143,8 @@ public class GamePageController {
         gameViewPane.setLayoutY(parentHeight / 2 - heightGameViewPane / 2);
 
         exitButton.setPrefHeight(17);
-        exitButton.setPrefWidth(widthGameViewPane / 4);
-        exitButton.setLayoutX(parentWidth - exitButton.getPrefWidth());
+        exitButton.setPrefWidth(widthGameViewPane / 3);
+        exitButton.setLayoutX(parentWidth - exitButton.getPrefWidth()-50);
         exitButton.setLayoutY(parentHeight - parentHeight * 0.05-17);
 
         exitButton.getStyleClass().add("exit");
