@@ -49,7 +49,7 @@
                   <Button mnemonicParsing="false" onAction="#onStartGameButtonClick" prefHeight="25.0" prefWidth="150.0" text="Inizia Partita" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="BOTTOM" />
                   <Label fx:id="errorPlayer1" prefHeight="17.0" prefWidth="230.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <Label fx:id="errorPlayer2" prefHeight="17.0" prefWidth="230.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <Label fx:id="errorGridDimension" alignment="CENTER" prefHeight="17.0" prefWidth="230.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <Label fx:id="errorGridSize" alignment="CENTER" prefHeight="17.0" prefWidth="230.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                </children>
             </GridPane>
          </children>

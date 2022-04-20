@@ -2,6 +2,7 @@ package units.progettosdm.backhandclass;
 
 import org.junit.jupiter.api.Test;
 import units.progettosdm.projectExceptions.BadArchDeclarationException;
+import units.progettosdm.projectExceptions.BadBoardSizeDeclarationException;
 import units.progettosdm.projectExceptions.BadDotDeclarationException;
 
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PlayMatchTest {
     @Test
-    void playMatchDraw() throws BadDotDeclarationException {
+    void playMatchDraw() throws BadDotDeclarationException, BadBoardSizeDeclarationException {
         Scoreboard scoreboard;
         String playerName1 = "A ";
         String playerName2 = "B ";
@@ -53,7 +54,7 @@ public class PlayMatchTest {
     }
 
     @Test
-    void playMatchAWin() throws BadDotDeclarationException {
+    void playMatchAWin() throws BadDotDeclarationException, BadBoardSizeDeclarationException {
         Scoreboard scoreboard;
         String playerName1 = "A ";
         String playerName2 = "B ";
@@ -98,7 +99,7 @@ public class PlayMatchTest {
     }
 
     @Test
-    void playMatchBWin() throws BadDotDeclarationException {
+    void playMatchBWin() throws BadDotDeclarationException, BadBoardSizeDeclarationException {
         Scoreboard scoreboard;
         String playerName1 = "A ";
         String playerName2 = "B ";

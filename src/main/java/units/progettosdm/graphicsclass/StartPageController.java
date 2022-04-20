@@ -17,6 +17,7 @@ import java.util.Collections;
 
 import javafx.geometry.Rectangle2D;
 import javafx.stage.Screen;
+import units.progettosdm.projectExceptions.BadBoardSizeDeclarationException;
 
 
 public class StartPageController {
@@ -37,6 +38,7 @@ public class StartPageController {
     @FXML
     private Stage stage;
 
+
     @FXML
     protected void onStartGameButtonClick(ActionEvent event) throws IOException {
         if (validateTextField()) {
@@ -55,7 +57,11 @@ public class StartPageController {
             stage.setFullScreen(true);
 
 
-            controller.initializePage(n, m, namePlayer1.getText(), namePlayer2.getText());
+            try {
+                controller.initializePage(n, m, namePlayer1.getText(), namePlayer2.getText());
+            } catch (BadBoardSizeDeclarationException e) {
+                e.printStackTrace();
+            }
         }
     }
 
