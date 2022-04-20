@@ -1,6 +1,7 @@
 package units.progettosdm.backhandclass;
 
 import units.progettosdm.projectExceptions.BadArchDeclarationException;
+import units.progettosdm.projectExceptions.BadBoardSizeDeclarationException;
 import units.progettosdm.projectExceptions.BadDotDeclarationException;
 import units.progettosdm.projectExceptions.SelectArchAlreadySelectedException;
 
@@ -14,7 +15,10 @@ public class Scoreboard {
 
     private final Box[][] boxes;
 
-    public Scoreboard(int nSize,int mSize) {
+    public Scoreboard(int nSize,int mSize) throws BadBoardSizeDeclarationException {
+        if ((nSize<2)&&(mSize<2)){
+            throw new BadBoardSizeDeclarationException("Cannot create a board with a size less than 2");
+        }
         this.gridNSize = nSize;
         this.gridMSize = mSize;
         boxes = new Box[nSize][mSize];
