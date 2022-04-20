@@ -33,7 +33,6 @@ public class Scoreboard {
         } catch (SelectArchAlreadySelectedException e) {
             e.printStackTrace();
         }
-        //controllo che se l'arco selezionato chiude una casella allora assegno un'altra mossa a playerName e gli aggiungo un punto
     }
 
     public int checkPoint(String playerName, int playerNumber) {
