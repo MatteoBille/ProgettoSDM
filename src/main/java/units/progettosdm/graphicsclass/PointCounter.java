@@ -20,7 +20,7 @@ public class PointCounter extends HBox {
     Label name;
     Label point;
 
-    public PointCounter(double height, double width, double layoutX, double layoutY, String player,Color color) {
+    public PointCounter(double height, double width, double layoutX, double layoutY, String player, Color color) {
         super();
         this.setLayoutX(layoutX);
         this.setLayoutY(layoutY);
@@ -36,7 +36,7 @@ public class PointCounter extends HBox {
         name.setBackground(new Background(new BackgroundFill(color, new CornerRadii(0.5), new Insets(0))));
         name.setAlignment(Pos.CENTER);
         name.setText(playerName);
-        name.setFont(new Font("",15));
+        name.setFont(new Font("", 15));
 
         point = new Label();
         point.setPrefHeight(this.getPrefHeight());

@@ -39,12 +39,12 @@ public class Arch {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Arch arch = (Arch) o;
-        return (this.dot1.equals(arch.dot1) && this.dot2.equals(arch.dot2))||(this.dot1.equals(arch.dot2) && this.dot2.equals(arch.dot1));
+        return (this.dot1.equals(arch.dot1) && this.dot2.equals(arch.dot2)) || (this.dot1.equals(arch.dot2) && this.dot2.equals(arch.dot1));
     }
 
     @Override
     public String toString() {
-        return "[" + dot1+", "+dot2 +", "+getArchStatus() + "]";
+        return "[" + dot1 + ", " + dot2 + ", " + getArchStatus() + "]";
     }
 
     public Dot getFirstDot() {

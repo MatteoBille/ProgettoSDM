@@ -15,8 +15,8 @@ public class Scoreboard {
 
     private final Box[][] boxes;
 
-    public Scoreboard(int nSize,int mSize) throws BadBoardSizeDeclarationException {
-        if ((nSize<2)&&(mSize<2)){
+    public Scoreboard(int nSize, int mSize) throws BadBoardSizeDeclarationException {
+        if ((nSize < 2) || (mSize < 2)) {
             throw new BadBoardSizeDeclarationException("Cannot create a board with a size less than 2");
         }
         this.gridNSize = nSize;
