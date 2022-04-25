@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
@@ -8,5 +9,6 @@
             <Pane fx:id="gameViewPane" layoutX="83.0" layoutY="42.0" prefHeight="393.0" prefWidth="434.0">
                    <Pane fx:id="scoreboardAndLabelsPane" layoutX="42.0" layoutY="25.0" prefHeight="342.0" prefWidth="353.0" styleClass="tablePane" />
             </Pane>
+                <Button fx:id="exitButton" mnemonicParsing="false" text="Esci dal gioco" />
         </Pane>
 </VBox>

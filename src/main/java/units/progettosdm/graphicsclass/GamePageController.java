@@ -1,5 +1,6 @@
 package units.progettosdm.graphicsclass;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -7,6 +8,8 @@ import javafx.scene.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCombination;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -16,6 +19,7 @@ import units.progettosdm.backhandclass.Arch;
 import units.progettosdm.backhandclass.Box;
 import units.progettosdm.backhandclass.Dot;
 import units.progettosdm.backhandclass.Game;
+import units.progettosdm.projectExceptions.BadBoardSizeDeclarationException;
 import units.progettosdm.projectExceptions.BadDotDeclarationException;
 
 import java.io.IOException;
@@ -33,6 +37,8 @@ public class GamePageController {
 
     @FXML
     private Pane gameViewPane;
+    @FXML
+    private Button exitButton;
 
     @FXML
     private Pane scoreboardAndLabelsPane;
@@ -76,10 +82,14 @@ public class GamePageController {
         allWindowPane.setBackground(bGround);
     }
 
+
     public void initializeGame(int n, int m, String player1, String player2) {
         actualMatch = new Game(n, m, player1, player2);
         columnSize = actualMatch.getScoreboardSize()[0];
         rowSize = actualMatch.getScoreboardSize()[1];
+        Stage stage = (Stage) parentPane.getScene().getWindow();
+        stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
+        stage.setFullScreen(true);
 
         this.player1Name = player1;
         this.player2Name = player2;
@@ -178,24 +188,35 @@ public class GamePageController {
         gameViewPane.setLayoutX(parentWidth / 2 - widthGameViewPane / 2);
         gameViewPane.setLayoutY(parentHeight / 2 - heightGameViewPane / 2);
 
+        exitButton.setPrefHeight(17);
+        exitButton.setPrefWidth(widthGameViewPane / 3);
+        exitButton.setLayoutX(parentWidth - exitButton.getPrefWidth() - 50);
+        exitButton.setLayoutY(parentHeight - parentHeight * 0.05 - 17);
+
+        exitButton.getStyleClass().add("exit");
+        exitButton.setOnAction(e -> Platform.exit());
+
         nameOfplayerThatPlayTheTurn = new PlayerTurnSlider();
         nameOfplayerThatPlayTheTurn.setLayoutX(0);
         nameOfplayerThatPlayTheTurn.setLayoutY(0);
         nameOfplayerThatPlayTheTurn.setPrefSize(widthGameViewPane, 17);
         nameOfplayerThatPlayTheTurn.setAlignment(Pos.CENTER);
-
+      
 
         totalPointsOfPlayer1 = new PointCounter(17, widthGameViewPane / 4, 0, heightGameViewPane - 17, player1Name, player1BackgroundColor);
         totalPointsOfPlayer2 = new PointCounter(17, widthGameViewPane / 4, widthGameViewPane * 3 / 4, heightGameViewPane - 17, player2Name, player2BackgroundColor);
 
+
         gameViewPane.getChildren().add(nameOfplayerThatPlayTheTurn);
         gameViewPane.getChildren().add(totalPointsOfPlayer1);
         gameViewPane.getChildren().add(totalPointsOfPlayer2);
+
         gameViewPane.getChildren().add(scoreboardAndLabelsPane);
 
         scoreboardAndLabelsPane.setPrefSize(widthTablePane, heightTablePane);
         scoreboardAndLabelsPane.setLayoutX(widthGameViewPane / 2 - widthTablePane / 2);
         scoreboardAndLabelsPane.setLayoutY(heightGameViewPane / 2 - heightTablePane / 2);
+
 
     }
 
@@ -248,8 +269,10 @@ public class GamePageController {
                 nameOfplayerThatPlayTheTurn.setTextFill(player2TextColor);
             }
             nameOfplayerThatPlayTheTurn.setPlayerAndSlide(actualMatch.getPlayerTurn());
+
         }
     }
+
 
     private void drawListOfNodeObjectAndInsertIntoAGroupTheList(List<? extends Node> graphicalList, Group graphicalGroup) {
         graphicalGroup.getChildren().clear();
@@ -313,6 +336,7 @@ public class GamePageController {
             circlePlayer1.setLayoutY(firstPlayerRectangle.getLayoutY() + firstPlayerRectangle.getHeight() / 2);
             circlePlayer2.setLayoutY(secondPlayerRectangle.getLayoutY() + secondPlayerRectangle.getHeight() / 2);
 
+
             labelPointsPlayer1.setLayoutY(circlePlayer1.getLayoutY() - circlePlayer2.getRadius());
             labelPointsPlayer1.setPrefWidth(circlePlayer1.getRadius() * 2);
             labelPointsPlayer1.setPrefHeight(circlePlayer1.getRadius() * 2);
@@ -355,7 +379,6 @@ public class GamePageController {
             scene.getStylesheets().add(GamePageController.class.getResource("styleStartPage.css") + "");
             stage.setScene(scene);
             stage.show();
-
 
         } catch (IOException e) {
             e.printStackTrace();

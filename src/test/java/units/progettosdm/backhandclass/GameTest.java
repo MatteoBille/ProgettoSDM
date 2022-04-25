@@ -2,6 +2,7 @@ package units.progettosdm.backhandclass;
 
 import org.junit.jupiter.api.Test;
 import units.progettosdm.projectExceptions.BadArchDeclarationException;
+import units.progettosdm.projectExceptions.BadBoardSizeDeclarationException;
 import units.progettosdm.projectExceptions.BadDotDeclarationException;
 
 import java.util.List;
@@ -10,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class GameTest {
     @Test
-    void playTurnMethod() throws BadDotDeclarationException, BadArchDeclarationException {
+    void playTurnMethod() throws BadDotDeclarationException, BadArchDeclarationException, BadBoardSizeDeclarationException {
         Scoreboard scoreboard;
         String playerName1 = "Mario";
         String playerName2 = "Giovanni";
@@ -25,7 +26,7 @@ public class GameTest {
         assertTrue(totalArches.get(index).getArchStatus());
     }
     @Test
-    void checkVictoryWorkProperly(){
+    void checkVictoryWorkProperly() throws BadBoardSizeDeclarationException {
         int gridSize = 10;
         String playerName1 = "mario";
         String playerName2 = "Giovanni";

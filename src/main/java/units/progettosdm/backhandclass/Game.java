@@ -1,5 +1,7 @@
 package units.progettosdm.backhandclass;
 
+import units.progettosdm.projectExceptions.BadBoardSizeDeclarationException;
+
 public class Game {
     private final String playerName1;
     private final String playerName2;
@@ -12,21 +14,21 @@ public class Game {
         return scoreboard;
     }
 
-    public Game(int n,int m, String playerName1, String playerName2) {
+    public Game(int n, int m, String playerName1, String playerName2) throws BadBoardSizeDeclarationException {
         this.playerName1 = playerName1;
         this.playerName2 = playerName2;
         playerTurn = throwCoin();
-        this.scoreboard = new Scoreboard(n,m);
+        this.scoreboard = new Scoreboard(n, m);
     }
 
     public void playTurn(Arch arch) {
         scoreboard.selectArch(arch);
-        int temp = scoreboard.checkPoint(playerTurn, playerTurn.equals(playerName1)?1:2);
+        int temp = scoreboard.checkPoint(playerTurn, playerTurn.equals(playerName1) ? 1 : 2);
         if (temp > 0) {
             if (playerTurn.equals(playerName1)) {
-                scorePlayer1+=temp;
+                scorePlayer1 += temp;
             } else {
-                scorePlayer2+=temp;
+                scorePlayer2 += temp;
             }
         }
         if (temp == 0) {
@@ -81,7 +83,7 @@ public class Game {
         return playerTurn;
     }
 
-    public int[] getScoreboardSize(){
-        return new int[]{scoreboard.gridNSize,scoreboard.gridMSize};
+    public int[] getScoreboardSize() {
+        return new int[]{scoreboard.gridNSize, scoreboard.gridMSize};
     }
 }

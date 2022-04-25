@@ -14,10 +14,11 @@ public class GraphicalBoxLabel extends Label {
     private final String player1Token;
     private final String player2Token;
 
-
+  
     public GraphicalBoxLabel(GraphicalDot[] dots, Box box,String player1Token,String player2Token) {
+
         super();
-        this.backhandBox=box;
+        this.backhandBox = box;
         this.player1Token = player1Token;
         this.player2Token = player2Token;
         this.setLayoutX(dots[0].getCenterX());
@@ -40,7 +41,7 @@ public class GraphicalBoxLabel extends Label {
                 this.setTextFill(Color.rgb(255, 0, 0, 1));
             }
             this.setText(backhandBox.getPlayerBoxCharacter());
-            this.setStyle("-fx-font-size:"+getHeight()*0.7);
+            this.setStyle("-fx-font-size:" + getHeight() * 0.7);
         }
     }
 }

@@ -16,6 +16,11 @@ import java.io.IOException;
 import java.util.Collections;
 
 
+import javafx.geometry.Rectangle2D;
+import javafx.stage.Screen;
+import units.progettosdm.projectExceptions.BadBoardSizeDeclarationException;
+
+
 public class StartPageController {
     @FXML
     Pane mainPane;
@@ -31,9 +36,13 @@ public class StartPageController {
     Label errorPlayer2;
 
     @FXML
+
     TextField numberOfColumn;
     @FXML
     TextField numberOfRows;
+
+    @FXML
+    Label errorGridSize;
 
 
     @FXML
@@ -41,20 +50,26 @@ public class StartPageController {
         if (validateTextField()) {
             FXMLLoader fxmlLoader = new FXMLLoader(StartPageController.class.getResource("gamePage.fxml"));
             int n, m;
-            n = Integer.parseInt(numberOfColumn.getText());
-            m = Integer.parseInt(numberOfRows.getText());
 
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            Scene scene = new Scene(fxmlLoader.load());
-            scene.getStylesheets().add(StartPageController.class.getResource("styleGamePage.css") + "");
-            stage.setScene(scene);
+            n = Integer.parseInt(nDimension.getText());
+            m = Integer.parseInt(mDimension.getText());
+            Scene scene;
+            try {
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                scene = new Scene(fxmlLoader.load());
+                scene.getStylesheets().add(StartPageController.class.getResource("styleGamePage.css") + "");
+                stage.setScene(scene);
+                stage.show();
+                GamePageController controller = fxmlLoader.getController();
+                stage.setScene(scene);
+                controller.initializePage(n, m, namePlayer1.getText(), namePlayer2.getText());
+            } catch (BadBoardSizeDeclarationException e) {
+                e.printStackTrace();
+                errorGridSize.setText("La dimensione della griglia è minore di due");
+                scene = parentPane.getScene();
+                stage.setScene(scene);
+            }
             stage.show();
-            GamePageController controller = fxmlLoader.getController();
-            stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
-            stage.setFullScreen(true);
-
-
-            controller.initializeGame(n, m, namePlayer1.getText(), namePlayer2.getText());
         }
     }
 

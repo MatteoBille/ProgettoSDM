@@ -12,13 +12,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class ArchTest {
 
 
-    @ParameterizedTest
-    @CsvSource(
-            {"0,0,1,0",
-                    "1,1,1,3",
-                    "2,2,2,2",
-                    "0,2,4,2"}
-    )
+    @Test
+
     void SelectArch() throws BadDotDeclarationException {
         Dot dot1 = new Dot(0, 0);
         Dot dot2 = new Dot(1, 0);

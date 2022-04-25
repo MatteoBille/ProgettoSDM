@@ -18,11 +18,11 @@ public class Dot {
 
     @Override
     public int hashCode() {
-        return this.dotIndex[0]*1000+ this.dotIndex[1];
+        return this.dotIndex[0] * 1000 + this.dotIndex[1];
     }
 
     public Dot(int x, int y) throws BadDotDeclarationException {
-        if((x<0)||(y<0)){
+        if ((x < 0) || (y < 0)) {
             throw new BadDotDeclarationException("Dots cannot have negative coordinates");
         }
         this.dotIndex[0] = x;
@@ -35,7 +35,7 @@ public class Dot {
 
     @Override
     public String toString() {
-        return "(" + dotIndex[0] + ", "+ dotIndex[1]+ ")";
+        return "(" + dotIndex[0] + ", " + dotIndex[1] + ")";
 
     }
 }
