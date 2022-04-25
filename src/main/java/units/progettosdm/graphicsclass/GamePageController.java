@@ -214,7 +214,7 @@ public class GamePageController {
 
     private void setClickLineListenerOnArches() {
         listOfGraphicalArches.forEach(lin -> lin.setOnMouseClicked(ev -> {
-            actualMatch.playTurn(lin.backhandArch);
+            actualMatch.playTurn(lin.getBackhandArch());
             changeColorIfArchIsSelected();
             lin.setOnMouseEntered(e -> scoreboardAndLabelsPane.getScene().setCursor(Cursor.DEFAULT));
             listOfLabels.forEach(GraphicalBoxLabel::setBoxSelected);

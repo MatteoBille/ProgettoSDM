@@ -5,11 +5,11 @@ import units.progettosdm.backhandclass.Arch;
 import units.progettosdm.projectExceptions.SelectArchAlreadySelectedException;
 
 class GraphicalArchesBetweenDots extends Rectangle {
-    GraphicalDot dot1;
-    GraphicalDot dot2;
-    String direction;
-    private final boolean selected = false;
-    Arch backhandArch;
+
+    private final GraphicalDot dot1;
+    private final GraphicalDot dot2;
+    private final String direction;
+    private final Arch backhandArch;
 
     public GraphicalArchesBetweenDots(GraphicalDot dot1, GraphicalDot dot2, Arch backhandArch) {
         this.backhandArch = backhandArch;
@@ -18,15 +18,15 @@ class GraphicalArchesBetweenDots extends Rectangle {
             setLayoutY(dot1.getCenterY() + dot1.getRadius() * 2);
             setHeight(dot2.getCenterY() - dot1.getCenterY() - dot1.getRadius() * 4);
             setWidth(dot1.getRadius());
-            direction = "vertical";
+            this.direction = "vertical";
 
-        } else if (dot1.getCenterY() == dot2.getCenterY()) {
+        } else {
 
             setLayoutX(dot1.getCenterX() + dot1.getRadius() * 2);
             setLayoutY(dot1.getCenterY() - dot1.getRadius() / 2);
             setHeight(dot1.getRadius());
             setWidth(dot2.getCenterX() - dot1.getCenterX() - dot1.getRadius() * 4);
-            direction = "horizontal";
+            this.direction = "horizontal";
         }
 
         this.dot1 = dot1;
@@ -44,12 +44,8 @@ class GraphicalArchesBetweenDots extends Rectangle {
                 '}';
     }
 
-    public void setSelected() {
-        try {
-            backhandArch.setArchSelected();
-        } catch (SelectArchAlreadySelectedException e) {
-            e.printStackTrace();
-        }
+    public Arch getBackhandArch() {
+        return backhandArch;
     }
 
     public boolean isSelected() {
