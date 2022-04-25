@@ -3,7 +3,6 @@ package units.progettosdm.graphicsclass;
 import javafx.animation.TranslateTransition;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -14,11 +13,11 @@ import javafx.scene.text.Font;
 import javafx.util.Duration;
 
 public class PointCounter extends HBox {
-    String playerName;
-    int points;
+    private final String playerName;
+    private int points;
 
-    Label name;
-    Label point;
+    private final Label name;
+    private final Label point;
 
     public PointCounter(double height, double width, double layoutX, double layoutY, String player, Color color) {
         super();
@@ -31,23 +30,23 @@ public class PointCounter extends HBox {
         this.points = 0;
 
         name = new Label();
-        name.setPrefHeight(this.getPrefHeight());
-        name.setPrefWidth(this.getPrefWidth() * 0.75);
-        name.setBackground(new Background(new BackgroundFill(color, new CornerRadii(0.5), new Insets(0))));
-        name.setAlignment(Pos.CENTER);
-        name.setText(playerName);
-        name.setFont(new Font("", 15));
+        setLabelParameters(name,color,0.75,playerName,15);
 
         point = new Label();
-        point.setPrefHeight(this.getPrefHeight());
-        point.setPrefWidth(this.getPrefWidth() * 0.25);
-        point.setBackground(new Background(new BackgroundFill(Color.AQUA, new CornerRadii(0.5), new Insets(0))));
-        point.setAlignment(Pos.CENTER);
-        point.setText(Integer.toString(points));
+        setLabelParameters(point,color,0.25,Integer.toString(points),12);
 
         this.getChildren().add(name);
         this.getChildren().add(point);
 
+    }
+
+    private void setLabelParameters(Label labelToSet,Color color,double widthPercentage,String textInsideLabel,int fontSize) {
+        labelToSet.setPrefHeight(this.getPrefHeight());
+        labelToSet.setPrefWidth(this.getPrefWidth() * widthPercentage);
+        labelToSet.setBackground(new Background(new BackgroundFill(color, new CornerRadii(0.5), new Insets(0))));
+        labelToSet.setAlignment(Pos.CENTER);
+        labelToSet.setText(textInsideLabel);
+        labelToSet.setFont(new Font("",fontSize));
     }
 
     public void setPoint(int score) {
