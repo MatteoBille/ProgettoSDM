@@ -83,11 +83,11 @@ public class GamePageController {
     }
 
 
-    public void initializeGame(int n, int m, String player1, String player2) {
+    public void initializeGame(int n, int m, String player1, String player2) throws BadBoardSizeDeclarationException {
         actualMatch = new Game(n, m, player1, player2);
         columnSize = actualMatch.getScoreboardSize()[0];
         rowSize = actualMatch.getScoreboardSize()[1];
-        Stage stage = (Stage) parentPane.getScene().getWindow();
+        Stage stage = (Stage) allWindowPane.getScene().getWindow();
         stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
         stage.setFullScreen(true);
 
