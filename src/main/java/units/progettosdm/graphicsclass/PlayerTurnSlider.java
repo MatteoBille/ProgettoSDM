@@ -6,9 +6,6 @@ import javafx.util.Duration;
 
 public class PlayerTurnSlider extends Label {
     public String playerName;
-    public PlayerTurnSlider(String text) {
-        super(text);
-    }
 
     public PlayerTurnSlider() {
     }
