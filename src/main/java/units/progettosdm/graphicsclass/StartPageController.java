@@ -54,7 +54,7 @@ public class StartPageController {
             stage.setFullScreen(true);
 
 
-            controller.initializePage(n, m, namePlayer1.getText(), namePlayer2.getText());
+            controller.initializeGame(n, m, namePlayer1.getText(), namePlayer2.getText());
         }
     }
 
