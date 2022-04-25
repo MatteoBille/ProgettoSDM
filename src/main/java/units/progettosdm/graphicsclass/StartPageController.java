@@ -13,7 +13,10 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
+import java.util.regex.Pattern;
 
 
 import javafx.geometry.Rectangle2D;
@@ -45,9 +48,10 @@ public class StartPageController {
     Label errorGridSize;
 
     Stage stage;
+
     @FXML
     protected void onStartGameButtonClick(ActionEvent event) throws IOException {
-        if (validateTextField()) {
+        if (validateTextField() && validateGridSizeInput()) {
             FXMLLoader fxmlLoader = new FXMLLoader(StartPageController.class.getResource("gamePage.fxml"));
             int n, m;
 
@@ -65,7 +69,8 @@ public class StartPageController {
                 controller.initializeGame(n, m, namePlayer1.getText(), namePlayer2.getText());
             } catch (BadBoardSizeDeclarationException e) {
                 e.printStackTrace();
-                errorGridSize.setText("La dimensione della griglia è minore di due");
+                setErrorStyleAndErrorText(numberOfColumn,errorGridSize,"La dimensione della griglia è minore di due");
+                setErrorStyleAndErrorText(numberOfRows,errorGridSize,"La dimensione della griglia è minore di due");
                 scene = mainPane.getScene();
                 stage.setScene(scene);
             }
@@ -83,19 +88,71 @@ public class StartPageController {
         }
 
         if (textInTextFieldIsEqual(namePlayer1, "")) {
-            setErrorStyleAndErrorText(namePlayer1, errorPlayer1,"Inserisci un nome");
+            setErrorStyleAndErrorText(namePlayer1, errorPlayer1, "Inserisci un nome");
             response = false;
         }
         if (textInTextFieldIsEqual(namePlayer2, "")) {
-            setErrorStyleAndErrorText(namePlayer2, errorPlayer2,"Inserisci un nome");
+            setErrorStyleAndErrorText(namePlayer2, errorPlayer2, "Inserisci un nome");
+            response = false;
+        }
+        if (namePlayer1.getText().length() >= 10) {
+            setErrorStyleAndErrorText(namePlayer1, errorPlayer1, "Nome troppo lungo");
+            response = false;
+        }
+        if (namePlayer2.getText().length() >= 10) {
+            setErrorStyleAndErrorText(namePlayer2, errorPlayer2, "Nome troppo lungo");
             response = false;
         }
         if (textInTextFieldIsEqual(namePlayer1, namePlayer2.getText())) {
-            setErrorStyleAndErrorText(namePlayer1, errorPlayer1,"Inserisci un nome diverso dall'altro giocatore");
-            setErrorStyleAndErrorText(namePlayer2, errorPlayer2,"Inserisci un nome diverso dall'altro giocatore");
+            setErrorStyleAndErrorText(namePlayer1, errorPlayer1, "Inserisci un nome diverso dall'altro giocatore");
+            setErrorStyleAndErrorText(namePlayer2, errorPlayer2, "Inserisci un nome diverso dall'altro giocatore");
 
             response = false;
         }
+
+
+        return response;
+    }
+
+    private boolean validateGridSizeInput() {
+        boolean response=true;
+        int maxSize=20;
+        if (containErrorStyle(numberOfColumn)) {
+            removeErrorStyleAndSetErrorLabelEmpty(numberOfColumn, errorGridSize);
+        }
+        if (containErrorStyle(numberOfRows)) {
+            removeErrorStyleAndSetErrorLabelEmpty(numberOfRows, errorGridSize);
+        }
+
+        Pattern pattern = Pattern.compile("-?\\d+(\\.\\d+)?");
+        if (numberOfColumn.getText().equals("")) {
+            setErrorStyleAndErrorText(numberOfColumn, errorGridSize, "Inserisci dei valori per la dimensione della griglia");
+            return false;
+        }
+        if (numberOfRows.getText().equals("")) {
+            setErrorStyleAndErrorText(numberOfRows, errorGridSize, "Inserisci dei valori per la dimensione della griglia");
+            return false;
+        }
+        if (!pattern.matcher(numberOfColumn.getText()).matches()) {
+            setErrorStyleAndErrorText(numberOfColumn, errorGridSize, "Il valore inserito non è un numero");
+            response=false;
+        } else {
+            if (Integer.parseInt(numberOfColumn.getText()) > maxSize) {
+                setErrorStyleAndErrorText(numberOfColumn, errorGridSize, "Il valore inserito è maggiore di "+maxSize);
+                response=false;
+            }
+        }
+        if (!pattern.matcher(numberOfRows.getText()).matches()) {
+            setErrorStyleAndErrorText(numberOfRows, errorGridSize, "Il valore inserito non è un numero");
+            response=false;
+        } else {
+            if (Integer.parseInt(numberOfRows.getText()) > maxSize) {
+                setErrorStyleAndErrorText(numberOfRows, errorGridSize, "Il valore inserito è maggiore di "+maxSize);
+                response=false;
+            }
+        }
+
+
         return response;
     }
 
@@ -112,7 +169,7 @@ public class StartPageController {
         return namePlayer1.getStyleClass().contains("error");
     }
 
-    private void setErrorStyleAndErrorText(TextField namePlayer2, Label errorPlayer2,String text) {
+    private void setErrorStyleAndErrorText(TextField namePlayer2, Label errorPlayer2, String text) {
         namePlayer2.getStyleClass().add("error");
         errorPlayer2.setText(text);
     }

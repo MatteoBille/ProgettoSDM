@@ -57,7 +57,7 @@ public class Box {
 
     public void setPlayerBox(String playerBox, int playerNumber) {
         this.playerBox = playerBox;
-        playerBoxCharacter = playerNumber == 1 ? "A" : "B";
+        playerBoxCharacter = playerNumber == 1 ? "B" : "R";
     }
 
     public boolean getArchStatusByIndex(int i) {
