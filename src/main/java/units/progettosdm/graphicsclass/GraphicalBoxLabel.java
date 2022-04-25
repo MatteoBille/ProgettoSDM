@@ -7,18 +7,13 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import units.progettosdm.backhandclass.Box;
-import units.progettosdm.backhandclass.Dot;
 
 public class GraphicalBoxLabel extends Label {
-    Box backhandBox;
+    private final Box backhandBox;
     private final String player1Token;
     private final String player2Token;
-    Dot[] dots;
 
-
-    Color color;
 
     public GraphicalBoxLabel(GraphicalDot[] dots, Box box,String player1Token,String player2Token) {
         super();
@@ -41,7 +36,7 @@ public class GraphicalBoxLabel extends Label {
                 this.setBackground(new Background(new BackgroundFill(Color.rgb(0, 0, 255, 0.5), new CornerRadii(0.5), new Insets(0.0))));
                 this.setTextFill(Color.rgb(0, 0, 255, 1));
             } else if (backhandBox.getPlayerBoxCharacter().equals(player2Token)) {
-                this.setBackground(new Background(new BackgroundFill(Color.rgb(255, 0, 00, 0.5), new CornerRadii(0.5), new Insets(0.0))));
+                this.setBackground(new Background(new BackgroundFill(Color.rgb(255, 0, 0, 0.5), new CornerRadii(0.5), new Insets(0.0))));
                 this.setTextFill(Color.rgb(255, 0, 0, 1));
             }
             this.setText(backhandBox.getPlayerBoxCharacter());
