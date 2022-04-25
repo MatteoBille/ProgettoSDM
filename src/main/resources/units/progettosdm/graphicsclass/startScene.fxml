@@ -6,7 +6,6 @@
 
 
 <VBox prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="units.progettosdm.graphicsclass.StartPageController">
-   <children>
       <Pane fx:id="mainPane" prefHeight="527.0" prefWidth="600.0">
             <GridPane alignment="CENTER" layoutX="91.0" layoutY="111.0" prefHeight="308.0" prefWidth="419.0">
               <columnConstraints>

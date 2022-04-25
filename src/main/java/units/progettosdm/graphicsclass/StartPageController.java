@@ -44,29 +44,29 @@ public class StartPageController {
     @FXML
     Label errorGridSize;
 
-
+    Stage stage;
     @FXML
     protected void onStartGameButtonClick(ActionEvent event) throws IOException {
         if (validateTextField()) {
             FXMLLoader fxmlLoader = new FXMLLoader(StartPageController.class.getResource("gamePage.fxml"));
             int n, m;
 
-            n = Integer.parseInt(nDimension.getText());
-            m = Integer.parseInt(mDimension.getText());
+            n = Integer.parseInt(numberOfColumn.getText());
+            m = Integer.parseInt(numberOfRows.getText());
             Scene scene;
             try {
-                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 scene = new Scene(fxmlLoader.load());
                 scene.getStylesheets().add(StartPageController.class.getResource("styleGamePage.css") + "");
                 stage.setScene(scene);
                 stage.show();
                 GamePageController controller = fxmlLoader.getController();
                 stage.setScene(scene);
-                controller.initializePage(n, m, namePlayer1.getText(), namePlayer2.getText());
+                controller.initializeGame(n, m, namePlayer1.getText(), namePlayer2.getText());
             } catch (BadBoardSizeDeclarationException e) {
                 e.printStackTrace();
                 errorGridSize.setText("La dimensione della griglia è minore di due");
-                scene = parentPane.getScene();
+                scene = mainPane.getScene();
                 stage.setScene(scene);
             }
             stage.show();
