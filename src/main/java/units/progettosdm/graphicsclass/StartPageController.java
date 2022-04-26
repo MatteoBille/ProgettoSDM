@@ -69,8 +69,8 @@ public class StartPageController {
                 controller.initializeGame(n, m, namePlayer1.getText(), namePlayer2.getText());
             } catch (BadBoardSizeDeclarationException e) {
                 e.printStackTrace();
-                setErrorStyleAndErrorText(numberOfColumn,errorGridSize,"La dimensione della griglia è minore di due");
-                setErrorStyleAndErrorText(numberOfRows,errorGridSize,"La dimensione della griglia è minore di due");
+                setErrorStyleAndErrorText(numberOfColumn, errorGridSize, "La dimensione della griglia è minore di due");
+                setErrorStyleAndErrorText(numberOfRows, errorGridSize, "La dimensione della griglia è minore di due");
                 scene = mainPane.getScene();
                 stage.setScene(scene);
             }
@@ -103,13 +103,13 @@ public class StartPageController {
             setErrorStyleAndErrorText(namePlayer2, errorPlayer2, "Nome troppo lungo");
             response = false;
         }
-        String namePlayer1toString = namePlayer1.getText();
-        if (!namePlayer1toString.matches("[a-zA-Z]+")) {
+
+        if (!namePlayer1.getText().matches("[a-zA-Z]+")) {
             setErrorStyleAndErrorText(namePlayer1, errorPlayer1, "Il nome può contenere solo lettere");
             response = false;
         }
-        String namePlayer2toString = namePlayer2.getText();
-        if (!namePlayer2toString.matches("[a-zA-Z]+")) {
+
+        if (!namePlayer2.getText().matches("[a-zA-Z]+")) {
             setErrorStyleAndErrorText(namePlayer2, errorPlayer2, "Il nome può contenere solo lettere");
             response = false;
         }
@@ -126,8 +126,8 @@ public class StartPageController {
     }
 
     private boolean validateGridSizeInput() {
-        boolean response=true;
-        int maxSize=20;
+        boolean response = true;
+        int maxSize = 20;
         if (containErrorStyle(numberOfColumn)) {
             removeErrorStyleAndSetErrorLabelEmpty(numberOfColumn, errorGridSize);
         }
@@ -146,20 +146,20 @@ public class StartPageController {
         }
         if (!pattern.matcher(numberOfColumn.getText()).matches()) {
             setErrorStyleAndErrorText(numberOfColumn, errorGridSize, "Il valore inserito non è un numero");
-            response=false;
+            response = false;
         } else {
             if (Integer.parseInt(numberOfColumn.getText()) > maxSize) {
-                setErrorStyleAndErrorText(numberOfColumn, errorGridSize, "Il valore inserito è maggiore di "+maxSize);
-                response=false;
+                setErrorStyleAndErrorText(numberOfColumn, errorGridSize, "Il valore inserito è maggiore di " + maxSize);
+                response = false;
             }
         }
         if (!pattern.matcher(numberOfRows.getText()).matches()) {
             setErrorStyleAndErrorText(numberOfRows, errorGridSize, "Il valore inserito non è un numero");
-            response=false;
+            response = false;
         } else {
             if (Integer.parseInt(numberOfRows.getText()) > maxSize) {
-                setErrorStyleAndErrorText(numberOfRows, errorGridSize, "Il valore inserito è maggiore di "+maxSize);
-                response=false;
+                setErrorStyleAndErrorText(numberOfRows, errorGridSize, "Il valore inserito è maggiore di " + maxSize);
+                response = false;
             }
         }
 
