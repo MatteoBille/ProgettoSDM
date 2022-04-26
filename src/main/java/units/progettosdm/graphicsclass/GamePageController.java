@@ -39,6 +39,8 @@ public class GamePageController {
     private Pane gameViewPane;
     @FXML
     private Button exitButton;
+    @FXML
+    private Button backwardsButton;
 
     @FXML
     private Pane scoreboardAndLabelsPane;
@@ -190,11 +192,20 @@ public class GamePageController {
 
         exitButton.setPrefHeight(17);
         exitButton.setPrefWidth(widthGameViewPane / 3);
-        exitButton.setLayoutX(parentWidth - exitButton.getPrefWidth() - 50);
+        exitButton.setLayoutX(parentWidth - exitButton.getPrefWidth());
         exitButton.setLayoutY(parentHeight - parentHeight * 0.05 - 17);
 
         exitButton.getStyleClass().add("exit");
         exitButton.setOnAction(e -> Platform.exit());
+
+        backwardsButton.setPrefHeight(17);
+        backwardsButton.setPrefWidth(widthGameViewPane / 3);
+        backwardsButton.setLayoutX(parentWidth - backwardsButton.getPrefWidth());
+        backwardsButton.setLayoutY(parentHeight - parentHeight * 0.05 - 57);
+
+        backwardsButton.getStyleClass().add("backwards");
+        backwardsButton.setOnAction(e -> newMatch());
+
 
         nameOfplayerThatPlayTheTurn = new PlayerTurnSlider();
         nameOfplayerThatPlayTheTurn.setLayoutX(0);

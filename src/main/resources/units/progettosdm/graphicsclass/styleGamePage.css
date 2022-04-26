@@ -13,6 +13,11 @@
     -fx-font-size: 23;
     -fx-background-color: transparent;
 }
+.backwards{
+    -fx-font-family: 'Fredoka One';
+    -fx-font-size: 23;
+    -fx-background-color: transparent;
+}
 
 .button:hover
 {
