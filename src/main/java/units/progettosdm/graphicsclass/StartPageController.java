@@ -126,11 +126,11 @@ public class StartPageController {
 
         Pattern pattern = Pattern.compile("-?\\d+(\\.\\d+)?");
         if (numberOfColumn.getText().equals("")) {
-            setErrorStyleAndErrorText(numberOfColumn, errorGridSize, "Inserisci dei valori per la dimensione della griglia");
+            setErrorStyleAndErrorText(numberOfColumn, errorGridSize, "Inserisci la dimensione della griglia");
             return false;
         }
         if (numberOfRows.getText().equals("")) {
-            setErrorStyleAndErrorText(numberOfRows, errorGridSize, "Inserisci dei valori per la dimensione della griglia");
+            setErrorStyleAndErrorText(numberOfRows, errorGridSize, "Inserisci la dimensione della griglia");
             return false;
         }
         if (!pattern.matcher(numberOfColumn.getText()).matches()) {
