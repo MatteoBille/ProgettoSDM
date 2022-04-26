@@ -103,13 +103,13 @@ public class StartPageController {
             setErrorStyleAndErrorText(namePlayer2, errorPlayer2, "Nome troppo lungo");
             response = false;
         }
-        String namePlayer1toString = namePlayer1.getText();
-        if (!namePlayer1toString.matches("[a-zA-Z]+")) {
+
+        if (!namePlayer1.getText().matches("[a-zA-Z]+")) {
             setErrorStyleAndErrorText(namePlayer1, errorPlayer1, "Il nome può contenere solo lettere");
             response = false;
         }
-        String namePlayer2toString = namePlayer2.getText();
-        if (!namePlayer2toString.matches("[a-zA-Z]+")) {
+
+        if (!namePlayer2.getText().matches("[a-zA-Z]+")) {
             setErrorStyleAndErrorText(namePlayer2, errorPlayer2, "Il nome può contenere solo lettere");
             response = false;
         }
