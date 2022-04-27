@@ -13,7 +13,8 @@ public class Arch {
         if (dot1.equals(dot2)) {
             throw new BadArchDeclarationException("Same node connection");
         }
-        if (((dot1.getDotIndex()[0] - dot2.getDotIndex()[0]) < -1) || ((dot1.getDotIndex()[0] - dot2.getDotIndex()[0]) > 1) || ((dot1.getDotIndex()[1] - dot2.getDotIndex()[1]) < -1) || ((dot1.getDotIndex()[1] - dot2.getDotIndex()[1]) > 1)) {
+        if (((dot1.getDotIndexes()[0] - dot2.getDotIndexes()[0]) < -1) || ((dot1.getDotIndexes()[0] - dot2.getDotIndexes()[0]) > 1) || ((dot1.getDotIndexes()[1] - dot2.getDotIndexes()[1]) < -1) || ((dot1.getDotIndexes()[1] - dot2.getDotIndexes()[1]) > 1)) {
+
             throw new BadArchDeclarationException("Dots are too far one from each other");
         }
         this.dot1 = dot1;

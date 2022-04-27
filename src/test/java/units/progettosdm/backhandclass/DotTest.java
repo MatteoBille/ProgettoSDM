@@ -11,7 +11,7 @@ class DotTest {
     void dotInizializationIsCorrect() {
         try {
             Dot dot = new Dot(2, 3);
-            assertArrayEquals(new int[]{2, 3}, dot.getDotIndex());
+            assertArrayEquals(new int[]{2, 3}, dot.getDotIndexes());
         } catch (BadDotDeclarationException e) {
             e.printStackTrace();
         }
