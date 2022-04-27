@@ -14,6 +14,7 @@ public class Arch {
             throw new BadArchDeclarationException("Same node connection");
         }
         if (((dot1.getDotIndexes()[0] - dot2.getDotIndexes()[0]) < -1) || ((dot1.getDotIndexes()[0] - dot2.getDotIndexes()[0]) > 1) || ((dot1.getDotIndexes()[1] - dot2.getDotIndexes()[1]) < -1) || ((dot1.getDotIndexes()[1] - dot2.getDotIndexes()[1]) > 1)) {
+
             throw new BadArchDeclarationException("Dots are too far one from each other");
         }
         this.dot1 = dot1;
