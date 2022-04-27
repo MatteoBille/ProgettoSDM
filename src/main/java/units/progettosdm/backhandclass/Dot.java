@@ -36,6 +36,5 @@ public class Dot {
     @Override
     public String toString() {
         return "(" + dotIndexes[0] + ", " + dotIndexes[1] + ")";
-
     }
 }
