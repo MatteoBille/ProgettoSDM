@@ -1,5 +1,6 @@
 package units.progettosdm.backhandclass;
 
+import units.progettosdm.projectExceptions.BadArchDeclarationException;
 import units.progettosdm.projectExceptions.BadBoardSizeDeclarationException;
 
 public class Game {
@@ -14,7 +15,7 @@ public class Game {
         return scoreboard;
     }
 
-    public Game(int n, int m, String playerName1, String playerName2) throws BadBoardSizeDeclarationException {
+    public Game(int n, int m, String playerName1, String playerName2) throws BadBoardSizeDeclarationException, BadArchDeclarationException {
         this.playerName1 = playerName1;
         this.playerName2 = playerName2;
         playerTurn = throwCoin();

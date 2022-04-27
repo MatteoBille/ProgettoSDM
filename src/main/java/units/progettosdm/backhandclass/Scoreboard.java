@@ -15,7 +15,7 @@ public class Scoreboard {
 
     private final Box[][] boxes;
 
-    public Scoreboard(int nSize, int mSize) throws BadBoardSizeDeclarationException {
+    public Scoreboard(int nSize, int mSize) throws BadBoardSizeDeclarationException, BadArchDeclarationException {
         if ((nSize < 2) || (mSize < 2)) {
             throw new BadBoardSizeDeclarationException("Cannot create a board with a size less than 2");
         }
@@ -38,32 +38,28 @@ public class Scoreboard {
     public int checkPoint(String playerName, int playerNumber) {
         int count = 0;
         for (Box[] box : boxes) {
-            for (int j = 0; j < box.length; j++) {
-                if (box[j].checkClosedBox() && box[j].getPlayerBox() == null) {
+            for (Box value : box) {
+                if (value.checkClosedBox() && value.getPlayerBox() == null) {
                     count++;
-                    box[j].setPlayerBox(playerName, playerNumber);
+                    value.setPlayerBox(playerName, playerNumber);
                 }
             }
         }
         return count;
     }
 
-    public void setBox() {
+    public void setBox() throws BadArchDeclarationException {
         for (int i = 0; i < gridNSize; i++) {
             for (int j = 0; j < gridMSize; j++) {
                 boxes[i][j] = new Box(i, j);
-                Dot[][] boxSides = boxes[i][j].getCouple();
+                Arch[] boxSides = boxes[i][j].getBoxSides();
                 Arch[] arches = new Arch[4];
-                try {
-                    for (int k = 0; k < boxSides.length; k++) {
-                        Arch tempArch = new Arch(boxSides[k][0], boxSides[k][1]);
-                        int index = totalArches.indexOf(tempArch);
-                        arches[k] = totalArches.get(index);
-                    }
-                    boxes[i][j].setArches(arches);
-                } catch (BadArchDeclarationException e) {
-                    e.printStackTrace();
+                for (int k = 0; k < boxSides.length; k++) {
+                    Arch tempArch = boxSides[k];
+                    int index = totalArches.indexOf(tempArch);
+                    arches[k] = totalArches.get(index);
                 }
+                boxes[i][j].setArches(arches);
             }
         }
     }

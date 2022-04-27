@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PlayMatchTest {
     @Test
-    void playMatchDraw() throws BadDotDeclarationException, BadBoardSizeDeclarationException {
+    void playMatchDraw() throws BadDotDeclarationException, BadBoardSizeDeclarationException, BadArchDeclarationException {
         Scoreboard scoreboard;
         String playerName1 = "A ";
         String playerName2 = "B ";
@@ -54,7 +54,7 @@ public class PlayMatchTest {
     }
 
     @Test
-    void playMatchAWin() throws BadDotDeclarationException, BadBoardSizeDeclarationException {
+    void playMatchAWin() throws BadDotDeclarationException, BadBoardSizeDeclarationException, BadArchDeclarationException {
         Scoreboard scoreboard;
         String playerName1 = "A ";
         String playerName2 = "B ";
@@ -99,7 +99,7 @@ public class PlayMatchTest {
     }
 
     @Test
-    void playMatchBWin() throws BadDotDeclarationException, BadBoardSizeDeclarationException {
+    void playMatchBWin() throws BadDotDeclarationException, BadBoardSizeDeclarationException, BadArchDeclarationException {
         Scoreboard scoreboard;
         String playerName1 = "A ";
         String playerName2 = "B ";

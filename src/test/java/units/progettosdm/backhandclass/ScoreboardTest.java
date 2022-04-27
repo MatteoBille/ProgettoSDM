@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ScoreboardTest {
     @Test
-    void correctNumberOfArches() throws BadBoardSizeDeclarationException {
+    void correctNumberOfArches() throws BadBoardSizeDeclarationException, BadArchDeclarationException {
         int n = 2;
         Scoreboard board = new Scoreboard(n, n);
         board.setArch();
@@ -21,7 +21,7 @@ class ScoreboardTest {
     }
 
     @Test
-    void notNullInitializationOfBoxes() throws BadBoardSizeDeclarationException {
+    void notNullInitializationOfBoxes() throws BadBoardSizeDeclarationException, BadArchDeclarationException {
         int n = 2;
         Scoreboard board = new Scoreboard(n, n);
         board.setArch();
@@ -31,7 +31,7 @@ class ScoreboardTest {
 
 
     @Test
-    void notNullScoreboardInitialization() throws BadBoardSizeDeclarationException {
+    void notNullScoreboardInitialization() throws BadBoardSizeDeclarationException, BadArchDeclarationException {
         Scoreboard board = new Scoreboard(2, 2);
         board.setArch();
         board.setBox();
