@@ -104,12 +104,12 @@ public class StartPageController {
             response = false;
         }
 
-        if ((!namePlayer1.getText().matches("[a-zA-Z]+"))&&(namePlayer1.getText()!="")) {
+        if ((!namePlayer1.getText().matches("[a-zA-Z]+"))&&(!namePlayer1.getText().equals(""))) {
             setErrorStyleAndErrorText(namePlayer1, errorPlayer1, "Il nome può contenere solo lettere");
             response = false;
         }
 
-        if ((!namePlayer2.getText().matches("[a-zA-Z]+"))&&(namePlayer2.getText()!="")) {
+        if ((!namePlayer2.getText().matches("[a-zA-Z]+"))&&(!namePlayer2.getText().equals(""))) {
             setErrorStyleAndErrorText(namePlayer2, errorPlayer2, "Il nome può contenere solo lettere");
             response = false;
         }
