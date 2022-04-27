@@ -15,7 +15,7 @@ class ScoreboardTest {
     void correctNumberOfArches() throws BadBoardSizeDeclarationException, BadArchDeclarationException {
         int n = 2;
         Scoreboard board = new Scoreboard(n, n);
-        board.setArch();
+        board.createAllArches();
         board.totalArches.forEach(System.out::println);
         assertEquals((n + 1) * 2 * n, board.totalArches.size());
     }
@@ -24,8 +24,8 @@ class ScoreboardTest {
     void notNullInitializationOfBoxes() throws BadBoardSizeDeclarationException, BadArchDeclarationException {
         int n = 2;
         Scoreboard board = new Scoreboard(n, n);
-        board.setArch();
-        board.setBox();
+        board.createAllArches();
+        board.createAllBoxes();
         assertNotNull(board.getBoxes());
     }
 
@@ -33,8 +33,8 @@ class ScoreboardTest {
     @Test
     void notNullScoreboardInitialization() throws BadBoardSizeDeclarationException, BadArchDeclarationException {
         Scoreboard board = new Scoreboard(2, 2);
-        board.setArch();
-        board.setBox();
+        board.createAllArches();
+        board.createAllBoxes();
         System.out.println(board);
         assertNotNull(board);
     }
@@ -42,8 +42,8 @@ class ScoreboardTest {
     @Test
     void selectArchTest() throws BadDotDeclarationException, BadArchDeclarationException, BadBoardSizeDeclarationException {
         Scoreboard board = new Scoreboard(2, 2);
-        board.setArch();
-        board.setBox();
+        board.createAllArches();
+        board.createAllBoxes();
         Dot dot1 = new Dot(0, 0);
         Dot dot2 = new Dot(0, 1);
         board.selectArch(new Arch(dot1, dot2));
@@ -55,18 +55,18 @@ class ScoreboardTest {
     @Test
     void closedBoxTest() throws BadDotDeclarationException, BadArchDeclarationException, BadBoardSizeDeclarationException {
         Scoreboard board = new Scoreboard(2, 2);
-        board.setArch();
-        board.setBox();
+        board.createAllArches();
+        board.createAllBoxes();
         Dot dot1 = new Dot(0, 0);
         Dot dot2 = new Dot(0, 1);
         Dot dot3 = new Dot(1, 1);
         Dot dot4 = new Dot(1, 0);
         board.selectArch(new Arch(dot1, dot2));
-        assertEquals(0, board.checkPoint("Mario", 1));
+        assertEquals(0, board.checkClosedBoxAndGivePoints("Mario", 1));
         board.selectArch(new Arch(dot2, dot3));
-        assertEquals(0, board.checkPoint("Leandro", 2));
+        assertEquals(0, board.checkClosedBoxAndGivePoints("Leandro", 2));
         board.selectArch(new Arch(dot4, dot3));
-        assertEquals(0, board.checkPoint("Mario", 1));
+        assertEquals(0, board.checkClosedBoxAndGivePoints("Mario", 1));
         board.selectArch(new Arch(dot1, dot4));
 
         Box box = board.getBoxes()[0][0];
@@ -74,7 +74,7 @@ class ScoreboardTest {
         for (int i = 0; i < 4; i++) {
             System.out.println(arch[i] + " " + box.getArchStatusByIndex(i));
         }
-        assertEquals(1, board.checkPoint("Leandro", 2));
+        assertEquals(1, board.checkClosedBoxAndGivePoints("Leandro", 2));
         System.out.println(box.getPlayerBox());
     }
 
@@ -98,7 +98,7 @@ class ScoreboardTest {
         for (Arch arch : arches) {
             scoreboard.selectArch(arch);
         }
-        assertEquals(2, scoreboard.checkPoint("A", 1));
+        assertEquals(2, scoreboard.checkClosedBoxAndGivePoints("A", 1));
     }
 
     @Test
