@@ -5,7 +5,7 @@ import units.progettosdm.projectExceptions.BadDotDeclarationException;
 import java.util.Arrays;
 
 public class Dot {
-    final private int[] dotIndex = new int[2];
+    final private int[] dotIndexes = new int[2];
 
     @Override
     public boolean equals(Object o) {
@@ -13,29 +13,29 @@ public class Dot {
         if (o == null || getClass() != o.getClass()) return false;
         Dot dot = (Dot) o;
 
-        return Arrays.equals(dotIndex, dot.dotIndex);
+        return Arrays.equals(dotIndexes, dot.dotIndexes);
     }
 
     @Override
     public int hashCode() {
-        return this.dotIndex[0] * 1000 + this.dotIndex[1];
+        return this.dotIndexes[0] * 1000 + this.dotIndexes[1];
     }
 
     public Dot(int x, int y) throws BadDotDeclarationException {
         if ((x < 0) || (y < 0)) {
             throw new BadDotDeclarationException("Dots cannot have negative coordinates");
         }
-        this.dotIndex[0] = x;
-        this.dotIndex[1] = y;
+        this.dotIndexes[0] = x;
+        this.dotIndexes[1] = y;
     }
 
-    public int[] getDotIndex() {
-        return dotIndex;
+    public int[] getDotIndexes() {
+        return dotIndexes;
     }
 
     @Override
     public String toString() {
-        return "(" + dotIndex[0] + ", " + dotIndex[1] + ")";
+        return "(" + dotIndexes[0] + ", " + dotIndexes[1] + ")";
 
     }
 }

@@ -10,8 +10,8 @@ public class Arch {
     boolean selected;
 
     public Arch(Dot dot1, Dot dot2) throws BadArchDeclarationException {
-        int[] tempDot1 = dot1.getDotIndex();
-        int[] tempDot2 = dot2.getDotIndex();
+        int[] tempDot1 = dot1.getDotIndexes();
+        int[] tempDot2 = dot2.getDotIndexes();
         if (dot1.equals(dot2)) {
             throw new BadArchDeclarationException("Same node connection");
         }
