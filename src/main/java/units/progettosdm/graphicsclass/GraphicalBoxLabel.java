@@ -33,14 +33,14 @@ public class GraphicalBoxLabel extends Label {
 
     public void setBoxSelected() {
         if (backhandBox.checkClosedBox()) {
-            if (backhandBox.getPlayerBoxCharacter().equals(player1Token)) {
+            if (backhandBox.getBoxCharacter().equals(player1Token)) {
                 this.setBackground(new Background(new BackgroundFill(Color.rgb(0, 0, 255, 0.5), new CornerRadii(0.5), new Insets(0.0))));
                 this.setTextFill(Color.rgb(0, 0, 255, 1));
-            } else if (backhandBox.getPlayerBoxCharacter().equals(player2Token)) {
+            } else if (backhandBox.getBoxCharacter().equals(player2Token)) {
                 this.setBackground(new Background(new BackgroundFill(Color.rgb(255, 0, 0, 0.5), new CornerRadii(0.5), new Insets(0.0))));
                 this.setTextFill(Color.rgb(255, 0, 0, 1));
             }
-            this.setText(backhandBox.getPlayerBoxCharacter());
+            this.setText(backhandBox.getBoxCharacter());
             this.setStyle("-fx-font-size:" + getHeight() * 0.7);
         }
     }

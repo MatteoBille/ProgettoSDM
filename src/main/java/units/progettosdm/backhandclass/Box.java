@@ -5,29 +5,21 @@ import units.progettosdm.projectExceptions.BadDotDeclarationException;
 
 public class Box {
 
-    public void setArches(Arch[] arches) {
-        this.arches = arches;
-    }
-
-    public Arch[] getArches() {
-        return arches;
-    }
-
     private Arch[] arches = new Arch[4];
     private String playerBox;
 
 
-    private String playerBoxCharacter;
+    private String boxCharacter;
 
 
-    private final Dot[] dots = new Dot[4];
+    private final Dot[] boxVertexes = new Dot[4];
 
     public Box(int x, int y) {
         try {
-            dots[0] = new Dot(x, y);
-            dots[1] = new Dot(x + 1, y);
-            dots[2] = new Dot(x + 1, y + 1);
-            dots[3] = new Dot(x, y + 1);
+            boxVertexes[0] = new Dot(x, y);
+            boxVertexes[1] = new Dot(x + 1, y);
+            boxVertexes[2] = new Dot(x + 1, y + 1);
+            boxVertexes[3] = new Dot(x, y + 1);
         } catch (BadDotDeclarationException e) {
             e.printStackTrace();
         }
@@ -37,11 +29,18 @@ public class Box {
 
     public Dot[][] getCouple() {
         Dot[][] boxSides = new Dot[4][2];
-        boxSides[0] = new Dot[]{dots[0], dots[1]};
-        boxSides[1] = new Dot[]{dots[1], dots[2]};
-        boxSides[2] = new Dot[]{dots[3], dots[2]};
-        boxSides[3] = new Dot[]{dots[0], dots[3]};
+        boxSides[0] = new Dot[]{boxVertexes[0], boxVertexes[1]};
+        boxSides[1] = new Dot[]{boxVertexes[1], boxVertexes[2]};
+        boxSides[2] = new Dot[]{boxVertexes[3], boxVertexes[2]};
+        boxSides[3] = new Dot[]{boxVertexes[0], boxVertexes[3]};
         return boxSides;
+    }
+    public void setArches(Arch[] arches) {
+        this.arches = arches;
+    }
+
+    public Arch[] getArches() {
+        return arches;
     }
 
     public String getPlayerBox() {
@@ -57,19 +56,19 @@ public class Box {
 
     public void setPlayerBox(String playerBox, int playerNumber) {
         this.playerBox = playerBox;
-        playerBoxCharacter = playerNumber == 1 ? "B" : "R";
+        boxCharacter = playerNumber == 1 ? "B" : "R";
     }
 
     public boolean getArchStatusByIndex(int i) {
         return arches[i].getArchStatus();
     }
 
-    public Dot[] getDots() {
-        return dots;
+    public Dot[] getBoxVertexes() {
+        return boxVertexes;
     }
 
-    public String getPlayerBoxCharacter() {
-        return playerBoxCharacter;
+    public String getBoxCharacter() {
+        return boxCharacter;
     }
 
 
