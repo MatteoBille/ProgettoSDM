@@ -48,4 +48,10 @@ class DotTest {
         assertEquals(expectedOutput,dot.toString());
     }
 
+    @Test
+    void calculationOfDotDistanceWorkProperly() throws BadDotDeclarationException {
+        Dot dot1 = new Dot(0,0);
+        Dot dot2 = new Dot(1,1);
+        assertEquals(Math.sqrt(2), dot1.calculateDistanceBetweenDots(dot2));
+    }
 }
