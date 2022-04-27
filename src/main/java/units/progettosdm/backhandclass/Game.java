@@ -5,15 +5,13 @@ import units.progettosdm.projectExceptions.BadBoardSizeDeclarationException;
 
 public class Game {
     private final String playerName1;
-    private final String playerName2;
     private int scorePlayer1;
+
+    private final String playerName2;
     private int scorePlayer2;
+
     private String playerTurn;
     private final Scoreboard scoreboard;
-
-    public Scoreboard getScoreboard() {
-        return scoreboard;
-    }
 
     public Game(int n, int m, String playerName1, String playerName2) throws BadBoardSizeDeclarationException, BadArchDeclarationException {
         this.playerName1 = playerName1;
@@ -24,21 +22,24 @@ public class Game {
 
     public void playTurn(Arch arch) {
         scoreboard.selectArch(arch);
-        int temp = scoreboard.checkPoint(playerTurn, playerTurn.equals(playerName1) ? 1 : 2);
-        if (temp > 0) {
+        int scorePoint = scoreboard.checkClosedBoxAndGivePoints(playerTurn, playerTurn.equals(playerName1) ? 1 : 2);
+        if (scorePoint > 0) {
             if (playerTurn.equals(playerName1)) {
-                scorePlayer1 += temp;
+                scorePlayer1 += scorePoint;
             } else {
-                scorePlayer2 += temp;
+                scorePlayer2 += scorePoint;
             }
         }
-        if (temp == 0) {
+        if (scorePoint == 0) {
             if (playerTurn.equals(playerName1)) {
                 playerTurn = playerName2;
             } else {
                 playerTurn = playerName1;
             }
         }
+    }
+    public Scoreboard getScoreboard() {
+        return scoreboard;
     }
 
     public String throwCoin() {
@@ -49,11 +50,11 @@ public class Game {
     }
 
     public String checkVictory() {
-        if ((scorePlayer1 == scorePlayer2) && ((scorePlayer1 + scorePlayer2) == scoreboard.gridNSize * scoreboard.gridMSize)) {
+        if ((scorePlayer1 == scorePlayer2) && ((scorePlayer1 + scorePlayer2) == scoreboard.boardWidthSize * scoreboard.boardHeightSize)) {
             return "Pareggio";
-        } else if (scorePlayer1 > ((scoreboard.gridNSize * scoreboard.gridMSize) / 2)) {
+        } else if (scorePlayer1 > ((scoreboard.boardWidthSize * scoreboard.boardHeightSize) / 2)) {
             return playerName1;
-        } else if (scorePlayer2 > ((scoreboard.gridNSize * scoreboard.gridMSize) / 2)) {
+        } else if (scorePlayer2 > ((scoreboard.boardWidthSize * scoreboard.boardHeightSize) / 2)) {
             return playerName2;
         } else {
             return null;
@@ -85,6 +86,6 @@ public class Game {
     }
 
     public int[] getScoreboardSize() {
-        return new int[]{scoreboard.gridNSize, scoreboard.gridMSize};
+        return new int[]{scoreboard.boardWidthSize, scoreboard.boardHeightSize};
     }
 }

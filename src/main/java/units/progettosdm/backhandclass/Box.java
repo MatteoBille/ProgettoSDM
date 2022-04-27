@@ -56,7 +56,7 @@ public class Box {
         return true;
     }
 
-    public void setPlayerBox(String playerBox, int playerNumber) {
+    public void setPlayerBoxAndSetBoxCharacter(String playerBox, int playerNumber) {
         this.playerBox = playerBox;
         boxCharacter = playerNumber == 1 ? "B" : "R";
     }

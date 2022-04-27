@@ -10,20 +10,20 @@ import java.util.List;
 
 public class Scoreboard {
     public List<Arch> totalArches = new ArrayList<>();
-    public int gridNSize;
-    public int gridMSize;
+    public int boardWidthSize;
+    public int boardHeightSize;
 
     private final Box[][] boxes;
 
-    public Scoreboard(int nSize, int mSize) throws BadBoardSizeDeclarationException, BadArchDeclarationException {
-        if ((nSize < 2) || (mSize < 2)) {
+    public Scoreboard(int widthSize, int heightSize) throws BadBoardSizeDeclarationException, BadArchDeclarationException {
+        if ((widthSize < 2) || (heightSize < 2)) {
             throw new BadBoardSizeDeclarationException("Cannot create a board with a size less than 2");
         }
-        this.gridNSize = nSize;
-        this.gridMSize = mSize;
-        boxes = new Box[nSize][mSize];
-        setArch();
-        setBox();
+        this.boardWidthSize = widthSize;
+        this.boardHeightSize = heightSize;
+        boxes = new Box[widthSize][heightSize];
+        createAllArches();
+        createAllBoxes();
     }
 
     public void selectArch(Arch selectedArch) {
@@ -35,22 +35,22 @@ public class Scoreboard {
         }
     }
 
-    public int checkPoint(String playerName, int playerNumber) {
+    public int checkClosedBoxAndGivePoints(String playerName, int playerNumber) {
         int count = 0;
         for (Box[] box : boxes) {
             for (Box value : box) {
                 if (value.checkClosedBox() && value.getPlayerBox() == null) {
                     count++;
-                    value.setPlayerBox(playerName, playerNumber);
+                    value.setPlayerBoxAndSetBoxCharacter(playerName, playerNumber);
                 }
             }
         }
         return count;
     }
 
-    public void setBox() throws BadArchDeclarationException {
-        for (int i = 0; i < gridNSize; i++) {
-            for (int j = 0; j < gridMSize; j++) {
+    public void createAllBoxes() throws BadArchDeclarationException {
+        for (int i = 0; i < boardWidthSize; i++) {
+            for (int j = 0; j < boardHeightSize; j++) {
                 boxes[i][j] = new Box(i, j);
                 Arch[] boxSides = boxes[i][j].getBoxSides();
                 Arch[] arches = new Arch[4];
@@ -64,23 +64,23 @@ public class Scoreboard {
         }
     }
 
-    public void setArch() {
+    public void createAllArches() {
         totalArches = new ArrayList<>();
-        for (int i = 0; i < gridNSize + 1; i++) {
-            for (int j = 0; j < gridMSize + 1; j++) {
+        for (int i = 0; i < boardWidthSize + 1; i++) {
+            for (int j = 0; j < boardHeightSize + 1; j++) {
 
                 try {
-                    Dot dot = new Dot(i, j);
-                    if (i + 1 < gridNSize + 1) {
+                    Dot tempDot = new Dot(i, j);
+                    if (i + 1 < boardWidthSize + 1) {
                         try {
-                            totalArches.add(new Arch(dot, new Dot(i + 1, j)));
+                            totalArches.add(new Arch(tempDot, new Dot(i + 1, j)));
                         } catch (BadDotDeclarationException e) {
                             e.printStackTrace();
                         }
                     }
-                    if (j + 1 < gridMSize + 1) {
+                    if (j + 1 < boardHeightSize + 1) {
                         try {
-                            totalArches.add(new Arch(dot, new Dot(i, j + 1)));
+                            totalArches.add(new Arch(tempDot, new Dot(i, j + 1)));
                         } catch (BadDotDeclarationException e) {
                             e.printStackTrace();
                         }
@@ -94,8 +94,8 @@ public class Scoreboard {
 
     public String getBoxesToString() {
         StringBuilder output = new StringBuilder();
-        for (int i = 0; i < gridNSize; i++) {
-            for (int j = 0; j < gridMSize; j++) {
+        for (int i = 0; i < boardWidthSize; i++) {
+            for (int j = 0; j < boardHeightSize; j++) {
                 output.append(boxes[i][j].checkClosedBox() ? boxes[i][j].getPlayerBox() : "O ");
             }
             output.append("\n");
@@ -108,7 +108,7 @@ public class Scoreboard {
     public String toString() {
         return "Scoreboard{" + "\n" +
                 "totalArches=" + totalArches + "\n" +
-                "gridSize=" + gridNSize + "x" + gridMSize + "\n" +
+                "gridSize=" + boardWidthSize + "x" + boardHeightSize + "\n" +
                 "boxes=" + "\n" + getBoxesToString() + "\n" +
                 '}';
     }
