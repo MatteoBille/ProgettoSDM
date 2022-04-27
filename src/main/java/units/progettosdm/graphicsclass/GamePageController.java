@@ -9,7 +9,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCombination;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -162,8 +161,8 @@ public class GamePageController {
         listOfLabels = new ArrayList<>();
         Box[][] boxes = actualMatch.getScoreboard().getBoxes();
         Arrays.stream(boxes).forEach(line -> Arrays.stream(line).forEach(cell -> {
-            GraphicalDot firstDot = mapOfDotsAndGraphicalDots.get(cell.getDots()[0]);
-            GraphicalDot thirdDot = mapOfDotsAndGraphicalDots.get(cell.getDots()[2]);
+            GraphicalDot firstDot = mapOfDotsAndGraphicalDots.get(cell.getBoxVertexes()[0]);
+            GraphicalDot thirdDot = mapOfDotsAndGraphicalDots.get(cell.getBoxVertexes()[2]);
             GraphicalDot[] firstAndThirdGraphicalDots = {firstDot, thirdDot};
             listOfLabels.add(new GraphicalBoxLabel(firstAndThirdGraphicalDots, cell, player1Token, player2Token));
         }));
