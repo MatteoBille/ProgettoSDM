@@ -10,12 +10,10 @@ public class Arch {
     boolean selected;
 
     public Arch(Dot dot1, Dot dot2) throws BadArchDeclarationException {
-        int[] tempDot1 = dot1.getDotIndexes();
-        int[] tempDot2 = dot2.getDotIndexes();
         if (dot1.equals(dot2)) {
             throw new BadArchDeclarationException("Same node connection");
         }
-        if (((tempDot1[0] - tempDot2[0]) < -1) || ((tempDot1[0] - tempDot2[0]) > 1) || ((tempDot1[1] - tempDot2[1]) < -1) || ((tempDot1[1] - tempDot2[1]) > 1)) {
+        if (((dot1.getDotIndexes()[0] - dot2.getDotIndexes()[0]) < -1) || ((dot1.getDotIndexes()[0] - dot2.getDotIndexes()[0]) > 1) || ((dot1.getDotIndexes()[1] - dot2.getDotIndexes()[1]) < -1) || ((dot1.getDotIndexes()[1] - dot2.getDotIndexes()[1]) > 1)) {
             throw new BadArchDeclarationException("Dots are too far one from each other");
         }
         this.dot1 = dot1;
