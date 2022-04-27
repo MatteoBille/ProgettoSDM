@@ -18,6 +18,7 @@ import units.progettosdm.backhandclass.Arch;
 import units.progettosdm.backhandclass.Box;
 import units.progettosdm.backhandclass.Dot;
 import units.progettosdm.backhandclass.Game;
+import units.progettosdm.projectExceptions.BadArchDeclarationException;
 import units.progettosdm.projectExceptions.BadBoardSizeDeclarationException;
 import units.progettosdm.projectExceptions.BadDotDeclarationException;
 
@@ -84,7 +85,7 @@ public class GamePageController {
     }
 
 
-    public void initializeGame(int n, int m, String player1, String player2) throws BadBoardSizeDeclarationException {
+    public void initializeGame(int n, int m, String player1, String player2) throws BadBoardSizeDeclarationException, BadArchDeclarationException {
         actualMatch = new Game(n, m, player1, player2);
         columnSize = actualMatch.getScoreboardSize()[0];
         rowSize = actualMatch.getScoreboardSize()[1];

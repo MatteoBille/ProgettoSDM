@@ -21,6 +21,7 @@ import java.util.regex.Pattern;
 
 import javafx.geometry.Rectangle2D;
 import javafx.stage.Screen;
+import units.progettosdm.projectExceptions.BadArchDeclarationException;
 import units.progettosdm.projectExceptions.BadBoardSizeDeclarationException;
 
 
@@ -73,6 +74,8 @@ public class StartPageController {
                 setErrorStyleAndErrorText(numberOfRows, errorGridSize, "La dimensione della griglia è minore di due");
                 scene = mainPane.getScene();
                 stage.setScene(scene);
+            } catch (BadArchDeclarationException e) {
+                e.printStackTrace();
             }
             stage.show();
         }
