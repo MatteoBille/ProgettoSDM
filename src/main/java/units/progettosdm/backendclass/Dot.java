@@ -1,4 +1,4 @@
-package units.progettosdm.backhandclass;
+package units.progettosdm.backendclass;
 
 import units.progettosdm.projectExceptions.BadDotDeclarationException;
 

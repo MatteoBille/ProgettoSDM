@@ -1,4 +1,4 @@
-package units.progettosdm.backhandclass;
+package units.progettosdm.backendclass;
 
 import units.progettosdm.projectExceptions.BadArchDeclarationException;
 import units.progettosdm.projectExceptions.BadBoardSizeDeclarationException;
@@ -14,6 +14,7 @@ public class Scoreboard {
     public int boardHeightSize;
 
     private final Box[][] boxes;
+    private final Dot[][] dots;
 
     public Scoreboard(int widthSize, int heightSize) throws BadBoardSizeDeclarationException, BadArchDeclarationException {
         if ((widthSize < 2) || (heightSize < 2)) {
@@ -22,6 +23,13 @@ public class Scoreboard {
         this.boardWidthSize = widthSize;
         this.boardHeightSize = heightSize;
         boxes = new Box[widthSize][heightSize];
+        dots = new Dot[widthSize + 1][heightSize + 1];
+
+        try {
+            createAllDots();
+        } catch (BadDotDeclarationException e) {
+            e.printStackTrace();
+        }
         createAllArches();
         createAllBoxes();
     }
@@ -48,20 +56,42 @@ public class Scoreboard {
         return count;
     }
 
+    public void createAllDots() throws BadDotDeclarationException {
+        for (int i = 0; i < boardWidthSize + 1; i++) {
+            for (int j = 0; j < boardHeightSize + 1; j++) {
+                dots[i][j] = new Dot(i, j);
+            }
+        }
+    }
+
     public void createAllBoxes() throws BadArchDeclarationException {
         for (int i = 0; i < boardWidthSize; i++) {
             for (int j = 0; j < boardHeightSize; j++) {
-                boxes[i][j] = new Box(i, j);
-                Arch[] boxSides = boxes[i][j].getBoxSides();
-                Arch[] arches = new Arch[4];
-                for (int k = 0; k < boxSides.length; k++) {
-                    Arch tempArch = boxSides[k];
-                    int index = totalArches.indexOf(tempArch);
-                    arches[k] = totalArches.get(index);
+                Dot[] boxVertexes = new Dot[4];
+
+                boxVertexes[0] = dots[i][j];
+                boxVertexes[1] = dots[i+1][j];
+                boxVertexes[2] = dots[i+1][j+1];
+                boxVertexes[3] = dots[i][j+1];
+
+                boxes[i][j] = new Box(boxVertexes);
+
+
+                Arch[] tempArches = new Arch[4];
+                for( int k =0;k<tempArches.length;k++) {
+                    tempArches[k] = new Arch(boxVertexes[k], boxVertexes[(k+1)% tempArches.length]);
                 }
-                boxes[i][j].setArches(arches);
+
+                for (int k = 0; k < tempArches.length; k++) {
+                    int index = totalArches.indexOf(tempArches[k]);
+                    tempArches[k] = totalArches.get(index);
+                }
+                boxes[i][j].setArches(tempArches);
+
+                tempArches=null;
             }
         }
+
     }
 
     public void createAllArches() {
@@ -70,22 +100,13 @@ public class Scoreboard {
             for (int j = 0; j < boardHeightSize + 1; j++) {
 
                 try {
-                    Dot tempDot = new Dot(i, j);
                     if (i + 1 < boardWidthSize + 1) {
-                        try {
-                            totalArches.add(new Arch(tempDot, new Dot(i + 1, j)));
-                        } catch (BadDotDeclarationException e) {
-                            e.printStackTrace();
-                        }
+                        totalArches.add(new Arch(dots[i][j], dots[i + 1][j]));
                     }
                     if (j + 1 < boardHeightSize + 1) {
-                        try {
-                            totalArches.add(new Arch(tempDot, new Dot(i, j + 1)));
-                        } catch (BadDotDeclarationException e) {
-                            e.printStackTrace();
-                        }
+                        totalArches.add(new Arch(dots[i][j], dots[i][j + 1]));
                     }
-                } catch (BadArchDeclarationException | BadDotDeclarationException e) {
+                } catch (BadArchDeclarationException e) {
                     e.printStackTrace();
                 }
             }
@@ -115,5 +136,9 @@ public class Scoreboard {
 
     public Box[][] getBoxes() {
         return boxes;
+    }
+
+    public Dot[][] getDots() {
+        return dots;
     }
 }

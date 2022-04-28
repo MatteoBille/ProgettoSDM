@@ -1,4 +1,4 @@
-package units.progettosdm.backhandclass;
+package units.progettosdm.backendclass;
 
 import units.progettosdm.projectExceptions.BadArchDeclarationException;
 import units.progettosdm.projectExceptions.BadDotDeclarationException;
@@ -28,15 +28,13 @@ public class Box {
 
     }
 
-    public Arch[] getBoxSides() throws BadArchDeclarationException {
-        Arch[] boxSides = new Arch[4];
-        boxSides[0] = new Arch(boxVertexes[0], boxVertexes[1]);
-        boxSides[1] = new Arch(boxVertexes[1], boxVertexes[2]);
-        boxSides[2] = new Arch(boxVertexes[3], boxVertexes[2]);
-        boxSides[3] = new Arch(boxVertexes[0], boxVertexes[3]);
-
-        return boxSides;
+    public Box(Dot[] vertexes) {
+        for (int i =0 ;i<vertexes.length;i++){
+            this.boxVertexes[i] = vertexes[i];
+        }
+        playerBox = null;
     }
+
     public void setArches(Arch[] arches) {
         this.arches = arches;
     }
