@@ -1,7 +1,7 @@
 package units.progettosdm.graphicsclass;
 
 import javafx.scene.shape.Circle;
-import units.progettosdm.backhandclass.Dot;
+import units.progettosdm.backendclass.Dot;
 
 class GraphicalDot extends Circle {
     Dot dot;

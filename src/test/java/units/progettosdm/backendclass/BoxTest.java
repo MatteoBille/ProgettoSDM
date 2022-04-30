@@ -1,4 +1,4 @@
-package units.progettosdm.backhandclass;
+package units.progettosdm.backendclass;
 
 import org.junit.jupiter.api.Test;
 import units.progettosdm.projectExceptions.BadArchDeclarationException;
@@ -59,9 +59,4 @@ public class BoxTest {
 
     }
 
-    @Test
-    void testBoxSides() throws BadArchDeclarationException {
-        Box box = new Box(0, 0);
-        box.getBoxSides();
-    }
 }

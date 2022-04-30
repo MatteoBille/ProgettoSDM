@@ -14,10 +14,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import units.progettosdm.backhandclass.Arch;
-import units.progettosdm.backhandclass.Box;
-import units.progettosdm.backhandclass.Dot;
-import units.progettosdm.backhandclass.Game;
+import units.progettosdm.backendclass.*;
 import units.progettosdm.projectExceptions.BadArchDeclarationException;
 import units.progettosdm.projectExceptions.BadBoardSizeDeclarationException;
 import units.progettosdm.projectExceptions.BadDotDeclarationException;
@@ -110,8 +107,8 @@ public class GamePageController {
     public void initializeDotArchesAndLabels() throws BadDotDeclarationException {
         drawGameField();
         createNxMGridOfGraphicalDots();
-        createGraphicalArchesFromBackhandArches();
-        createGraphicalLabelsFromBackhandBoxes();
+        createGraphicalArchesFromBackendArches();
+        createGraphicalLabelsFromBackendBoxes();
 
         drawListOfNodeObjectAndInsertIntoAGroupTheList(listOfLabels, labelsGroup);
         drawListOfNodeObjectAndInsertIntoAGroupTheList(mapOfDotsAndGraphicalDots.values().stream().toList(), dotsGroup);
@@ -122,7 +119,7 @@ public class GamePageController {
 
     }
 
-    private void createGraphicalArchesFromBackhandArches() {
+    private void createGraphicalArchesFromBackendArches() {
         List<Arch> arches = actualMatch.getScoreboard().totalArches;
         listOfGraphicalArches = new ArrayList<>();
         arches.forEach(e -> listOfGraphicalArches.add(new GraphicalArchesBetweenDots(mapOfDotsAndGraphicalDots.get(e.getFirstDot()), mapOfDotsAndGraphicalDots.get(e.getSecondDot()), e)));
@@ -143,12 +140,14 @@ public class GamePageController {
         double distanceY = (heightTablePane - border * 2) / (max);
         double circleSize = distanceX / 20;
 
-        mapOfDotsAndGraphicalDots = new HashMap<>();
+        Scoreboard score = actualMatch.getScoreboard();
+        Dot[][] dots = score.getDots();
+
         for (int i = 0; i < columnSize + 1; i++) {
             for (int j = 0; j < rowSize + 1; j++) {
                 double tempX = border + (distanceX * i);
                 double tempY = border + (distanceY * j);
-                mapOfDotsAndGraphicalDots.put(new Dot(i, j), new GraphicalDot(new Dot(i, j), tempX, tempY, circleSize));
+                mapOfDotsAndGraphicalDots.put(dots[i][j], new GraphicalDot(dots[i][j], tempX, tempY, circleSize));
             }
         }
         if (columnSize < rowSize) {
@@ -158,7 +157,7 @@ public class GamePageController {
         }
     }
 
-    private void createGraphicalLabelsFromBackhandBoxes() {
+    private void createGraphicalLabelsFromBackendBoxes() {
         listOfLabels = new ArrayList<>();
         Box[][] boxes = actualMatch.getScoreboard().getBoxes();
         Arrays.stream(boxes).forEach(line -> Arrays.stream(line).forEach(cell -> {
@@ -246,7 +245,7 @@ public class GamePageController {
 
     private void setClickLineListenerOnArches() {
         listOfGraphicalArches.forEach(lin -> lin.setOnMouseClicked(ev -> {
-            actualMatch.playTurn(lin.getBackhandArch());
+            actualMatch.playTurn(lin.getBackendArch());
             changeColorIfArchIsSelected();
             lin.setOnMouseEntered(e -> scoreboardAndLabelsPane.getScene().setCursor(Cursor.DEFAULT));
             listOfLabels.forEach(GraphicalBoxLabel::setBoxSelected);
@@ -394,6 +393,7 @@ public class GamePageController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
 }

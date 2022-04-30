@@ -7,10 +7,10 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
-import units.progettosdm.backhandclass.Box;
+import units.progettosdm.backendclass.Box;
 
 public class GraphicalBoxLabel extends Label {
-    private final Box backhandBox;
+    private final Box backendBox;
     private final String player1Token;
     private final String player2Token;
 
@@ -18,7 +18,7 @@ public class GraphicalBoxLabel extends Label {
     public GraphicalBoxLabel(GraphicalDot[] dots, Box box,String player1Token,String player2Token) {
 
         super();
-        this.backhandBox = box;
+        this.backendBox = box;
         this.player1Token = player1Token;
         this.player2Token = player2Token;
         this.setLayoutX(dots[0].getCenterX());
@@ -32,15 +32,15 @@ public class GraphicalBoxLabel extends Label {
     }
 
     public void setBoxSelected() {
-        if (backhandBox.checkClosedBox()) {
-            if (backhandBox.getBoxCharacter().equals(player1Token)) {
+        if (backendBox.checkClosedBox()) {
+            if (backendBox.getBoxCharacter().equals(player1Token)) {
                 this.setBackground(new Background(new BackgroundFill(Color.rgb(0, 0, 255, 0.5), new CornerRadii(0.5), new Insets(0.0))));
                 this.setTextFill(Color.rgb(0, 0, 255, 1));
-            } else if (backhandBox.getBoxCharacter().equals(player2Token)) {
+            } else if (backendBox.getBoxCharacter().equals(player2Token)) {
                 this.setBackground(new Background(new BackgroundFill(Color.rgb(255, 0, 0, 0.5), new CornerRadii(0.5), new Insets(0.0))));
                 this.setTextFill(Color.rgb(255, 0, 0, 1));
             }
-            this.setText(backhandBox.getBoxCharacter());
+            this.setText(backendBox.getBoxCharacter());
             this.setStyle("-fx-font-size:" + getHeight() * 0.7);
         }
     }
