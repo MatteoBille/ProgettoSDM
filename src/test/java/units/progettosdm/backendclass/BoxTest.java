@@ -59,9 +59,4 @@ public class BoxTest {
 
     }
 
-    @Test
-    void testBoxSides() throws BadArchDeclarationException {
-        Box box = new Box(0, 0);
-        box.getBoxSides();
-    }
 }
