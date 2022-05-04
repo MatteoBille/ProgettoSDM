@@ -52,7 +52,7 @@ public class StartPageController {
 
     @FXML
     protected void onStartGameButtonClick(ActionEvent event) throws IOException {
-        //if (validateTextField() && validateGridSizeInput()) {
+        if (validateTextField() && validateGridSizeInput()) {
             FXMLLoader fxmlLoader = new FXMLLoader(StartPageController.class.getResource("gamePage.fxml"));
             int n, m;
 
@@ -78,7 +78,7 @@ public class StartPageController {
                 e.printStackTrace();
             }
             stage.show();
-        //}
+        }
     }
 
     private boolean validateTextField() {
