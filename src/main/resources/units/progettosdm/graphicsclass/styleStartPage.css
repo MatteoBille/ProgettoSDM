@@ -8,15 +8,15 @@
     -fx-font-size: 15;
 }
 
-#errorPlayer1{
+#labelErrorPlayer1{
     -fx-font-size: 10;
     -fx-text-fill:red;
 }
-#errorPlayer2{
+#labelErrorPlayer2{
     -fx-font-size: 10;
     -fx-text-fill:red;
 }
-#errorGridSize{
+#labelErrorGridSize{
     -fx-font-size: 10;
     -fx-text-fill:red;
 }

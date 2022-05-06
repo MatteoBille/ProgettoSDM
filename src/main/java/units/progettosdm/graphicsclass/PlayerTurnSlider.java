@@ -2,6 +2,7 @@ package units.progettosdm.graphicsclass;
 
 import javafx.animation.TranslateTransition;
 import javafx.scene.control.Label;
+import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
 public class PlayerTurnSlider extends Label {
@@ -10,9 +11,10 @@ public class PlayerTurnSlider extends Label {
     public PlayerTurnSlider() {
     }
 
-    public void setPlayerAndSlide(String text) {
+    public void setPlayerAndSlide(String text, Color color) {
         playerName = text;
         setText("Turno di " + text);
+        setTextFill(color);
         slidingEffect();
     }
 
