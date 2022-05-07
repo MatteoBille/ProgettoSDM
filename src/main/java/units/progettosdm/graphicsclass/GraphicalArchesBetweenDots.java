@@ -1,16 +1,15 @@
 package units.progettosdm.graphicsclass;
 
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import units.progettosdm.backendclass.Arch;
 
 class GraphicalArchesBetweenDots extends Rectangle {
 
-    private final GraphicalDot dot1;
-    private final GraphicalDot dot2;
     private final String direction;
     private final Arch backendArch;
 
-    public GraphicalArchesBetweenDots(GraphicalDot dot1, GraphicalDot dot2, Arch backendArch) {
+    public GraphicalArchesBetweenDots(Circle dot1, Circle dot2, Arch backendArch) {
         this.backendArch = backendArch;
         if (dot1.getCenterX() == dot2.getCenterX()) {
             setLayoutX(dot1.getCenterX() - dot1.getRadius() / 2);
@@ -27,9 +26,6 @@ class GraphicalArchesBetweenDots extends Rectangle {
             setWidth(dot2.getCenterX() - dot1.getCenterX() - dot1.getRadius() * 4);
             this.direction = "horizontal";
         }
-
-        this.dot1 = dot1;
-        this.dot2 = dot2;
     }
 
     @Override

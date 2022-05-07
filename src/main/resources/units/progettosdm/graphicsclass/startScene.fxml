@@ -25,12 +25,12 @@
                   </Label>
                   <Label alignment="CENTER" prefHeight="17.0" prefWidth="160.0" text="Nome Giocatore 1 :" textAlignment="CENTER">
                   </Label>
-                  <TextField fx:id="namePlayer1" prefHeight="25.0" prefWidth="144.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                  <TextField fx:id="textFieldNamePlayer1" prefHeight="25.0" prefWidth="144.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                      <GridPane.margin>
                         <Insets />
                      </GridPane.margin>
                   </TextField>
-                  <TextField fx:id="namePlayer2" prefHeight="25.0" prefWidth="144.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                  <TextField fx:id="textFieldNamePlayer2" prefHeight="25.0" prefWidth="144.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                      <GridPane.margin>
                         <Insets />
                      </GridPane.margin>
@@ -38,15 +38,15 @@
                   <Label alignment="CENTER" prefHeight="17.0" prefWidth="160.0" text="Dimensioni campo :" textAlignment="CENTER" GridPane.rowIndex="4">
                   </Label>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
-                        <TextField fx:id="numberOfColumn" maxHeight="25.0" maxWidth="40.0" />
+                        <TextField fx:id="textFieldNumberOfColumn" maxHeight="25.0" maxWidth="40.0" />
                         <Label alignment="CENTER" prefWidth="30.0" text="X" />
-                        <TextField fx:id="numberOfRows" maxHeight="25.0" maxWidth="40.0" />
+                        <TextField fx:id="textFieldNumberOfRows" maxHeight="25.0" maxWidth="40.0" />
                   </HBox>
                   <Button mnemonicParsing="false" onAction="#onStartGameButtonClick" prefHeight="25.0" prefWidth="150.0" text="Inizia Partita" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="BOTTOM" />
-                  <Label fx:id="errorPlayer1" prefHeight="17.0" prefWidth="230.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <Label fx:id="errorPlayer2" prefHeight="17.0" prefWidth="230.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <Label fx:id="labelErrorPlayer1" prefHeight="17.0" prefWidth="230.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label fx:id="labelErrorPlayer2" prefHeight="17.0" prefWidth="230.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
 
-                  <Label fx:id="errorGridSize" alignment="CENTER" prefHeight="17.0" prefWidth="230.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <Label fx:id="labelErrorGridSize" alignment="CENTER" prefHeight="17.0" prefWidth="230.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             </GridPane>
       </Pane>
 </VBox>

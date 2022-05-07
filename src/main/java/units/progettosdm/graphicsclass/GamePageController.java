@@ -43,12 +43,12 @@ public class GamePageController {
     private Pane scoreboardAndLabelsPane;
 
 
-    private PlayerTurnSlider nameOfplayerThatPlayTheTurn;
+    private PlayerTurnSlider nameOfPlayerThatPlayTheTurn;
     private PointCounter totalPointsOfPlayer1;
     private PointCounter totalPointsOfPlayer2;
 
     List<GraphicalArchesBetweenDots> listOfGraphicalArches = new ArrayList<>();
-    Map<Dot, GraphicalDot> mapOfDotsAndGraphicalDots = new HashMap<>();
+    Map<Dot, Circle> mapOfDotsAndGraphicalDots = new HashMap<>();
     List<GraphicalBoxLabel> listOfLabels = new ArrayList<>();
 
     Group dotsGroup = new Group();
@@ -133,7 +133,7 @@ public class GamePageController {
         });
     }
 
-    private void createNxMGridOfGraphicalDots() throws BadDotDeclarationException {
+    private void createNxMGridOfGraphicalDots() {
         double max = Math.max(columnSize, rowSize);
         double border = widthTablePane * 0.05;
         double distanceX = (widthTablePane - border * 2) / (max);
@@ -147,7 +147,7 @@ public class GamePageController {
             for (int j = 0; j < rowSize + 1; j++) {
                 double tempX = border + (distanceX * i);
                 double tempY = border + (distanceY * j);
-                mapOfDotsAndGraphicalDots.put(dots[i][j], new GraphicalDot(dots[i][j], tempX, tempY, circleSize));
+                mapOfDotsAndGraphicalDots.put(dots[i][j], new Circle(tempX, tempY, circleSize));
             }
         }
         if (columnSize < rowSize) {
@@ -161,9 +161,9 @@ public class GamePageController {
         listOfLabels = new ArrayList<>();
         Box[][] boxes = actualMatch.getScoreboard().getBoxes();
         Arrays.stream(boxes).forEach(line -> Arrays.stream(line).forEach(cell -> {
-            GraphicalDot firstDot = mapOfDotsAndGraphicalDots.get(cell.getBoxVertexes()[0]);
-            GraphicalDot thirdDot = mapOfDotsAndGraphicalDots.get(cell.getBoxVertexes()[2]);
-            GraphicalDot[] firstAndThirdGraphicalDots = {firstDot, thirdDot};
+            Circle firstDot = mapOfDotsAndGraphicalDots.get(cell.getBoxVertexes()[0]);
+            Circle thirdDot = mapOfDotsAndGraphicalDots.get(cell.getBoxVertexes()[2]);
+            Circle[] firstAndThirdGraphicalDots = {firstDot, thirdDot};
             listOfLabels.add(new GraphicalBoxLabel(firstAndThirdGraphicalDots, cell, player1Token, player2Token));
         }));
     }
@@ -206,18 +206,18 @@ public class GamePageController {
         backwardsButton.setOnAction(e -> newMatch());
 
 
-        nameOfplayerThatPlayTheTurn = new PlayerTurnSlider();
-        nameOfplayerThatPlayTheTurn.setLayoutX(0);
-        nameOfplayerThatPlayTheTurn.setLayoutY(0);
-        nameOfplayerThatPlayTheTurn.setPrefSize(widthGameViewPane, 17);
-        nameOfplayerThatPlayTheTurn.setAlignment(Pos.CENTER);
+        nameOfPlayerThatPlayTheTurn = new PlayerTurnSlider();
+        nameOfPlayerThatPlayTheTurn.setLayoutX(0);
+        nameOfPlayerThatPlayTheTurn.setLayoutY(0);
+        nameOfPlayerThatPlayTheTurn.setPrefSize(widthGameViewPane, 17);
+        nameOfPlayerThatPlayTheTurn.setAlignment(Pos.CENTER);
       
 
         totalPointsOfPlayer1 = new PointCounter(17, widthGameViewPane / 4, 0, heightGameViewPane - 17, player1Name, player1BackgroundColor);
         totalPointsOfPlayer2 = new PointCounter(17, widthGameViewPane / 4, widthGameViewPane * 3 / 4, heightGameViewPane - 17, player2Name, player2BackgroundColor);
 
 
-        gameViewPane.getChildren().add(nameOfplayerThatPlayTheTurn);
+        gameViewPane.getChildren().add(nameOfPlayerThatPlayTheTurn);
         gameViewPane.getChildren().add(totalPointsOfPlayer1);
         gameViewPane.getChildren().add(totalPointsOfPlayer2);
 
@@ -271,14 +271,14 @@ public class GamePageController {
     }
 
     private void changePlayerNameOnTopLabel() {
-        if (nameOfplayerThatPlayTheTurn.playerName == null || !nameOfplayerThatPlayTheTurn.playerName.equals(actualMatch.getPlayerTurn())) {
+        if (nameOfPlayerThatPlayTheTurn.playerName == null || !nameOfPlayerThatPlayTheTurn.playerName.equals(actualMatch.getPlayerTurn())) {
             if (actualMatch.getPlayerTurn().equals(player1Name)) {
-                nameOfplayerThatPlayTheTurn.setTextFill(player1TextColor);
+                nameOfPlayerThatPlayTheTurn.setPlayerAndSlide(actualMatch.getPlayerTurn(),player1TextColor);
 
             } else {
-                nameOfplayerThatPlayTheTurn.setTextFill(player2TextColor);
+                nameOfPlayerThatPlayTheTurn.setPlayerAndSlide(actualMatch.getPlayerTurn(),player2TextColor);
             }
-            nameOfplayerThatPlayTheTurn.setPlayerAndSlide(actualMatch.getPlayerTurn());
+
 
         }
     }
@@ -347,12 +347,14 @@ public class GamePageController {
             circlePlayer2.setLayoutY(secondPlayerRectangle.getLayoutY() + secondPlayerRectangle.getHeight() / 2);
 
 
+            double circle1Diameter=circlePlayer1.getRadius()*2;
+            double circle2Diameter=circlePlayer1.getRadius()*2;
+
             labelPointsPlayer1.setLayoutY(circlePlayer1.getLayoutY() - circlePlayer2.getRadius());
-            labelPointsPlayer1.setPrefWidth(circlePlayer1.getRadius() * 2);
-            labelPointsPlayer1.setPrefHeight(circlePlayer1.getRadius() * 2);
+            labelPointsPlayer1.setPrefSize(circle1Diameter,circle1Diameter);
+
             labelPointsPlayer2.setLayoutY(circlePlayer2.getLayoutY() - circlePlayer2.getRadius());
-            labelPointsPlayer2.setPrefWidth(circlePlayer2.getRadius() * 2);
-            labelPointsPlayer2.setPrefHeight(circlePlayer2.getRadius() * 2);
+            labelPointsPlayer2.setPrefSize(circle2Diameter,circle2Diameter);
 
             Label winnerLabel = (Label) popupPane.lookup("#winnerTitle");
             winnerLabel.setText(winnerTitle);
@@ -365,7 +367,7 @@ public class GamePageController {
             gameViewPane.getChildren().add(popupPane);
 
         } catch (IOException e) {
-            e.printStackTrace();
+
         }
 
     }

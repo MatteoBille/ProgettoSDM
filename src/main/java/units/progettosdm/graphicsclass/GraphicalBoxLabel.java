@@ -7,6 +7,7 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import units.progettosdm.backendclass.Box;
 
 public class GraphicalBoxLabel extends Label {
@@ -15,7 +16,7 @@ public class GraphicalBoxLabel extends Label {
     private final String player2Token;
 
   
-    public GraphicalBoxLabel(GraphicalDot[] dots, Box box,String player1Token,String player2Token) {
+    public GraphicalBoxLabel(Circle[] dots, Box box, String player1Token, String player2Token) {
 
         super();
         this.backendBox = box;
