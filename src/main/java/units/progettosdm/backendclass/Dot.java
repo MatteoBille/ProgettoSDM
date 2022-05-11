@@ -33,8 +33,8 @@ public class Dot {
         return dotIndexes;
     }
 
-    public double calculateDistanceBetweenDots(Dot dot){
-        return Math.sqrt(Math.pow((this.getDotIndexes()[0]-dot.getDotIndexes()[0]),2)+Math.pow((this.getDotIndexes()[1]-dot.getDotIndexes()[1]),2));
+    public double calculateDistanceBetweenDots(Dot dot) {
+        return Math.sqrt(Math.pow((this.getDotIndexes()[0] - dot.getDotIndexes()[0]), 2) + Math.pow((this.getDotIndexes()[1] - dot.getDotIndexes()[1]), 2));
     }
 
     @Override

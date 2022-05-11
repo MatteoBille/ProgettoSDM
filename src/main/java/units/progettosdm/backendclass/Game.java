@@ -1,7 +1,7 @@
 package units.progettosdm.backendclass;
 
-import units.progettosdm.projectExceptions.BadArchDeclarationException;
 import units.progettosdm.projectExceptions.BadBoardSizeDeclarationException;
+
 
 public class Game {
     private final String playerName1;
@@ -13,7 +13,7 @@ public class Game {
     private String playerTurn;
     private final Scoreboard scoreboard;
 
-    public Game(int n, int m, String playerName1, String playerName2) throws BadBoardSizeDeclarationException, BadArchDeclarationException {
+    public Game(int n, int m, String playerName1, String playerName2) throws BadBoardSizeDeclarationException {
         this.playerName1 = playerName1;
         this.playerName2 = playerName2;
         playerTurn = throwCoin();
@@ -38,6 +38,7 @@ public class Game {
             }
         }
     }
+
     public Scoreboard getScoreboard() {
         return scoreboard;
     }

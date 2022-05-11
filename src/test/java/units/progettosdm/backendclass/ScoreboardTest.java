@@ -1,6 +1,9 @@
 package units.progettosdm.backendclass;
 
 import org.junit.jupiter.api.Test;
+
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import units.progettosdm.projectExceptions.BadArchDeclarationException;
 import units.progettosdm.projectExceptions.BadBoardSizeDeclarationException;
 import units.progettosdm.projectExceptions.BadDotDeclarationException;
@@ -12,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ScoreboardTest {
     @Test
-    void correctNumberOfArches() throws BadBoardSizeDeclarationException, BadArchDeclarationException {
+    void correctNumberOfArches() throws BadBoardSizeDeclarationException {
         int n = 2;
         Scoreboard board = new Scoreboard(n, n);
         board.createAllArches();
@@ -21,7 +24,7 @@ class ScoreboardTest {
     }
 
     @Test
-    void notNullInitializationOfBoxes() throws BadBoardSizeDeclarationException, BadArchDeclarationException {
+    void notNullInitializationOfBoxes() throws BadBoardSizeDeclarationException {
         int n = 2;
         Scoreboard board = new Scoreboard(n, n);
         board.createAllArches();
@@ -29,9 +32,8 @@ class ScoreboardTest {
         assertNotNull(board.getBoxes());
     }
 
-
     @Test
-    void notNullScoreboardInitialization() throws BadBoardSizeDeclarationException, BadArchDeclarationException {
+    void notNullScoreboardInitialization() throws BadBoardSizeDeclarationException {
         Scoreboard board = new Scoreboard(2, 2);
         board.createAllArches();
         board.createAllBoxes();
@@ -101,10 +103,11 @@ class ScoreboardTest {
         assertEquals(2, scoreboard.checkClosedBoxAndGivePoints("A", 1));
     }
 
-    @Test
-    void boardInizializationIsCorrect() {
-        int x = 0;
-        int y = -1;
+    @ParameterizedTest
+    @CsvSource(
+            {"0,-1", "2,1", "1,2"}
+    )
+    void boardInizializationIsCorrect(int x, int y) {
         BadBoardSizeDeclarationException badBoardDeclarationException = assertThrows(BadBoardSizeDeclarationException.class, () -> new Scoreboard(x, y));
         String expectedMessage = "Cannot create a board with a size less than 2";
         String actualMessage = badBoardDeclarationException.getMessage();

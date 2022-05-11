@@ -15,7 +15,7 @@ public class GraphicalBoxLabel extends Label {
     private final String player1Token;
     private final String player2Token;
 
-  
+
     public GraphicalBoxLabel(Circle[] dots, Box box, String player1Token, String player2Token) {
 
         super();
