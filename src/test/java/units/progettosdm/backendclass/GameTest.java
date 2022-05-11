@@ -33,7 +33,6 @@ public class GameTest {
         Game game = new Game(gridSize,gridSize, playerName1, playerName2);
         game.setScorePlayer1(20);
         game.setScorePlayer2(60);
-
         assertEquals("Giovanni", game.checkVictory());
     }
 }
