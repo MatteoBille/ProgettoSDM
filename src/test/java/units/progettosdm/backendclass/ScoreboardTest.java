@@ -55,7 +55,7 @@ class ScoreboardTest {
     }
 
     @Test
-    void closedBoxTest() throws BadDotDeclarationException, BadArchDeclarationException, BadBoardSizeDeclarationException {
+    void closedBoxAndGivePointsTest() throws BadDotDeclarationException, BadArchDeclarationException, BadBoardSizeDeclarationException {
         Scoreboard board = new Scoreboard(2, 2);
         board.createAllArches();
         board.createAllBoxes();
