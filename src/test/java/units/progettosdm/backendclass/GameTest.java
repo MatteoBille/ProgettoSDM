@@ -28,11 +28,11 @@ public class GameTest {
     @Test
     void checkVictoryWorkProperly() throws BadBoardSizeDeclarationException, BadArchDeclarationException {
         int gridSize = 10;
-        String playerName1 = "mario";
+        String playerName1 = "Leandro";
         String playerName2 = "Giovanni";
         Game game = new Game(gridSize,gridSize, playerName1, playerName2);
         game.setScorePlayer1(20);
         game.setScorePlayer2(60);
-        game.checkVictory();
+        assertEquals("Giovanni", game.checkVictory());
     }
 }
