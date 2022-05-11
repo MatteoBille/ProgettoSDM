@@ -25,8 +25,9 @@ public class GameTest {
         int index = totalArches.indexOf(arch);
         assertTrue(totalArches.get(index).getArchStatus());
     }
+
     @Test
-    void checkVictoryWorkProperly() throws BadBoardSizeDeclarationException, BadArchDeclarationException {
+    void checkVictoryWorkProperly() throws BadBoardSizeDeclarationException {
         int gridSize = 10;
         String playerName1 = "Leandro";
         String playerName2 = "Giovanni";

@@ -12,11 +12,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PlayMatchTest {
     @Test
-    void playMatchDraw() throws BadDotDeclarationException, BadBoardSizeDeclarationException, BadArchDeclarationException {
+    void playMatchDraw() throws BadDotDeclarationException, BadBoardSizeDeclarationException {
         Scoreboard scoreboard;
         String playerName1 = "A ";
         String playerName2 = "B ";
-        Game newGame = new Game(2,2, playerName1, playerName2);
+        Game newGame = new Game(2, 2, playerName1, playerName2);
         scoreboard = newGame.getScoreboard();
         Dot dot1 = new Dot(0, 0);
         Dot dot2 = new Dot(0, 1);
@@ -54,11 +54,11 @@ public class PlayMatchTest {
     }
 
     @Test
-    void playMatchAWin() throws BadDotDeclarationException, BadBoardSizeDeclarationException, BadArchDeclarationException {
+    void playMatchAWin() throws BadDotDeclarationException, BadBoardSizeDeclarationException {
         Scoreboard scoreboard;
         String playerName1 = "A ";
         String playerName2 = "B ";
-        Game newGame = new Game(2,2, playerName1, playerName2);
+        Game newGame = new Game(2, 2, playerName1, playerName2);
         newGame.setPlayerTurn(playerName2);
         scoreboard = newGame.getScoreboard();
         Dot dot1 = new Dot(0, 0);
@@ -99,11 +99,11 @@ public class PlayMatchTest {
     }
 
     @Test
-    void playMatchBWin() throws BadDotDeclarationException, BadBoardSizeDeclarationException, BadArchDeclarationException {
+    void playMatchBWin() throws BadDotDeclarationException, BadBoardSizeDeclarationException {
         Scoreboard scoreboard;
         String playerName1 = "A ";
         String playerName2 = "B ";
-        Game newGame = new Game(2,2, playerName1, playerName2);
+        Game newGame = new Game(2, 2, playerName1, playerName2);
         newGame.setPlayerTurn(playerName1);
         scoreboard = newGame.getScoreboard();
         Dot dot1 = new Dot(0, 0);

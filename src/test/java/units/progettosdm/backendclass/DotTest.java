@@ -31,9 +31,9 @@ class DotTest {
 
     @Test
     void dotCannotBeNegativeException() {
-        int x=-1;
-        int y=0;
-        BadDotDeclarationException badDotDeclarationException = assertThrows(BadDotDeclarationException.class, () -> new Dot(x,y));
+        int x = -1;
+        int y = 0;
+        BadDotDeclarationException badDotDeclarationException = assertThrows(BadDotDeclarationException.class, () -> new Dot(x, y));
 
         String expectedMessage = "Dots cannot have negative coordinates";
         String actualMessage = badDotDeclarationException.getMessage();
@@ -43,15 +43,15 @@ class DotTest {
 
     @Test
     void dotToStringWorkProperly() throws BadDotDeclarationException {
-        Dot dot = new Dot(1,0);
-        String expectedOutput="(1, 0)";
-        assertEquals(expectedOutput,dot.toString());
+        Dot dot = new Dot(1, 0);
+        String expectedOutput = "(1, 0)";
+        assertEquals(expectedOutput, dot.toString());
     }
 
     @Test
     void calculationOfDotDistanceWorkProperly() throws BadDotDeclarationException {
-        Dot dot1 = new Dot(0,0);
-        Dot dot2 = new Dot(1,1);
+        Dot dot1 = new Dot(0, 0);
+        Dot dot2 = new Dot(1, 1);
         assertEquals(Math.sqrt(2), dot1.calculateDistanceBetweenDots(dot2));
     }
 }

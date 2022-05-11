@@ -14,6 +14,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+
 import units.progettosdm.backendclass.*;
 import units.progettosdm.projectExceptions.BadArchDeclarationException;
 import units.progettosdm.projectExceptions.BadBoardSizeDeclarationException;
@@ -21,6 +22,7 @@ import units.progettosdm.projectExceptions.BadDotDeclarationException;
 
 import java.io.IOException;
 import java.util.*;
+
 
 public class GamePageController {
 
@@ -31,14 +33,12 @@ public class GamePageController {
 
     @FXML
     private Pane allWindowPane;
-
     @FXML
     private Pane gameViewPane;
     @FXML
     private Button exitButton;
     @FXML
     private Button backwardsButton;
-
     @FXML
     private Pane scoreboardAndLabelsPane;
 
@@ -96,7 +96,7 @@ public class GamePageController {
         try {
             initializeDotArchesAndLabels();
         } catch (BadDotDeclarationException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
 
         changePlayerNameOnTopLabel();
@@ -211,7 +211,7 @@ public class GamePageController {
         nameOfPlayerThatPlayTheTurn.setLayoutY(0);
         nameOfPlayerThatPlayTheTurn.setPrefSize(widthGameViewPane, 17);
         nameOfPlayerThatPlayTheTurn.setAlignment(Pos.CENTER);
-      
+
 
         totalPointsOfPlayer1 = new PointCounter(17, widthGameViewPane / 4, 0, heightGameViewPane - 17, player1Name, player1BackgroundColor);
         totalPointsOfPlayer2 = new PointCounter(17, widthGameViewPane / 4, widthGameViewPane * 3 / 4, heightGameViewPane - 17, player2Name, player2BackgroundColor);
@@ -273,10 +273,10 @@ public class GamePageController {
     private void changePlayerNameOnTopLabel() {
         if (nameOfPlayerThatPlayTheTurn.playerName == null || !nameOfPlayerThatPlayTheTurn.playerName.equals(actualMatch.getPlayerTurn())) {
             if (actualMatch.getPlayerTurn().equals(player1Name)) {
-                nameOfPlayerThatPlayTheTurn.setPlayerAndSlide(actualMatch.getPlayerTurn(),player1TextColor);
+                nameOfPlayerThatPlayTheTurn.setPlayerAndSlide(actualMatch.getPlayerTurn(), player1TextColor);
 
             } else {
-                nameOfPlayerThatPlayTheTurn.setPlayerAndSlide(actualMatch.getPlayerTurn(),player2TextColor);
+                nameOfPlayerThatPlayTheTurn.setPlayerAndSlide(actualMatch.getPlayerTurn(), player2TextColor);
             }
 
 
@@ -347,14 +347,14 @@ public class GamePageController {
             circlePlayer2.setLayoutY(secondPlayerRectangle.getLayoutY() + secondPlayerRectangle.getHeight() / 2);
 
 
-            double circle1Diameter=circlePlayer1.getRadius()*2;
-            double circle2Diameter=circlePlayer1.getRadius()*2;
+            double circle1Diameter = circlePlayer1.getRadius() * 2;
+            double circle2Diameter = circlePlayer1.getRadius() * 2;
 
             labelPointsPlayer1.setLayoutY(circlePlayer1.getLayoutY() - circlePlayer2.getRadius());
-            labelPointsPlayer1.setPrefSize(circle1Diameter,circle1Diameter);
+            labelPointsPlayer1.setPrefSize(circle1Diameter, circle1Diameter);
 
             labelPointsPlayer2.setLayoutY(circlePlayer2.getLayoutY() - circlePlayer2.getRadius());
-            labelPointsPlayer2.setPrefSize(circle2Diameter,circle2Diameter);
+            labelPointsPlayer2.setPrefSize(circle2Diameter, circle2Diameter);
 
             Label winnerLabel = (Label) popupPane.lookup("#winnerTitle");
             winnerLabel.setText(winnerTitle);
@@ -367,7 +367,7 @@ public class GamePageController {
             gameViewPane.getChildren().add(popupPane);
 
         } catch (IOException e) {
-
+            System.out.println(e.getMessage());
         }
 
     }

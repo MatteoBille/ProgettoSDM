@@ -16,7 +16,7 @@ public class Scoreboard {
     private final Box[][] boxes;
     private final Dot[][] dots;
 
-    public Scoreboard(int widthSize, int heightSize) throws BadBoardSizeDeclarationException, BadArchDeclarationException {
+    public Scoreboard(int widthSize, int heightSize) throws BadBoardSizeDeclarationException {
         if ((widthSize < 2) || (heightSize < 2)) {
             throw new BadBoardSizeDeclarationException("Cannot create a board with a size less than 2");
         }
@@ -25,11 +25,7 @@ public class Scoreboard {
         boxes = new Box[widthSize][heightSize];
         dots = new Dot[widthSize + 1][heightSize + 1];
 
-        try {
-            createAllDots();
-        } catch (BadDotDeclarationException e) {
-            e.printStackTrace();
-        }
+        createAllDots();
         createAllArches();
         createAllBoxes();
     }
@@ -39,7 +35,7 @@ public class Scoreboard {
             int index = totalArches.indexOf(selectedArch);
             totalArches.get(index).setArchSelected();
         } catch (SelectArchAlreadySelectedException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
 
@@ -56,30 +52,38 @@ public class Scoreboard {
         return count;
     }
 
-    public void createAllDots() throws BadDotDeclarationException {
+    public void createAllDots() {
         for (int i = 0; i < boardWidthSize + 1; i++) {
             for (int j = 0; j < boardHeightSize + 1; j++) {
-                dots[i][j] = new Dot(i, j);
+                try {
+                    dots[i][j] = new Dot(i, j);
+                } catch (BadDotDeclarationException e) {
+                    System.out.println(e.getMessage());
+                }
             }
         }
     }
 
-    public void createAllBoxes() throws BadArchDeclarationException {
+    public void createAllBoxes() {
         for (int i = 0; i < boardWidthSize; i++) {
             for (int j = 0; j < boardHeightSize; j++) {
                 Dot[] boxVertexes = new Dot[4];
 
                 boxVertexes[0] = dots[i][j];
-                boxVertexes[1] = dots[i+1][j];
-                boxVertexes[2] = dots[i+1][j+1];
-                boxVertexes[3] = dots[i][j+1];
+                boxVertexes[1] = dots[i + 1][j];
+                boxVertexes[2] = dots[i + 1][j + 1];
+                boxVertexes[3] = dots[i][j + 1];
 
                 boxes[i][j] = new Box(boxVertexes);
 
 
                 Arch[] tempArches = new Arch[4];
-                for( int k =0;k<tempArches.length;k++) {
-                    tempArches[k] = new Arch(boxVertexes[k], boxVertexes[(k+1)% tempArches.length]);
+                for (int k = 0; k < tempArches.length; k++) {
+                    try {
+                        tempArches[k] = new Arch(boxVertexes[k], boxVertexes[(k + 1) % tempArches.length]);
+                    } catch (BadArchDeclarationException e) {
+                        System.out.println(e.getMessage());
+                    }
                 }
 
                 for (int k = 0; k < tempArches.length; k++) {
@@ -87,8 +91,6 @@ public class Scoreboard {
                     tempArches[k] = totalArches.get(index);
                 }
                 boxes[i][j].setArches(tempArches);
-
-                tempArches=null;
             }
         }
 

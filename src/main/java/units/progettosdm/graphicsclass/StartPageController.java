@@ -23,23 +23,18 @@ import units.progettosdm.projectExceptions.BadBoardSizeDeclarationException;
 public class StartPageController {
     @FXML
     Pane mainPane;
-
     @FXML
     TextField textFieldNamePlayer1;
     @FXML
     Label labelErrorPlayer1;
-
     @FXML
     TextField textFieldNamePlayer2;
     @FXML
     Label labelErrorPlayer2;
-
     @FXML
-
     TextField textFieldNumberOfColumn;
     @FXML
     TextField textFieldNumberOfRows;
-
     @FXML
     Label labelErrorGridSize;
 
@@ -97,8 +92,8 @@ public class StartPageController {
         return response;
     }
 
-    private boolean TextFieldRespectInputConstrain( TextField namePlayer, Label errorPlayer) {
-        boolean response=true;
+    private boolean TextFieldRespectInputConstrain(TextField namePlayer, Label errorPlayer) {
+        boolean response = true;
         if (textInTextFieldIsEqual(namePlayer, "")) {
             setErrorStyleAndErrorText(namePlayer, errorPlayer, "Inserisci un nome");
             response = false;
@@ -124,14 +119,14 @@ public class StartPageController {
             removeErrorStyleAndSetErrorLabelEmpty(textFieldNumberOfRows, labelErrorGridSize);
         }
 
-        response = GridSizeInputRespectConstrain( maxSize, textFieldNumberOfColumn) &  GridSizeInputRespectConstrain( maxSize, textFieldNumberOfRows);
+        response = GridSizeInputRespectConstrain(maxSize, textFieldNumberOfColumn) & GridSizeInputRespectConstrain(maxSize, textFieldNumberOfRows);
 
 
         return response;
     }
 
     private boolean GridSizeInputRespectConstrain(int maxSize, TextField numberOfRows) {
-        boolean response= true;
+        boolean response = true;
         Pattern pattern = Pattern.compile("-?\\d+(\\.\\d+)?");
 
         if (numberOfRows.getText().equals("")) {
@@ -157,6 +152,7 @@ public class StartPageController {
         namePlayer.getStyleClass().removeAll(Collections.singleton("error"));
         errorPlayer.setText("");
     }
+
     private void setErrorStyleAndErrorText(TextField namePlayer, Label errorPlayer, String text) {
         namePlayer.getStyleClass().add("error");
         errorPlayer.setText(text);
@@ -165,8 +161,6 @@ public class StartPageController {
     private boolean containErrorStyle(TextField namePlayer1) {
         return namePlayer1.getStyleClass().contains("error");
     }
-
-
 
 
     @FXML

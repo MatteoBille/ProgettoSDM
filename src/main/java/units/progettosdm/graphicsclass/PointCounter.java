@@ -13,10 +13,7 @@ import javafx.scene.text.Font;
 import javafx.util.Duration;
 
 public class PointCounter extends HBox {
-    private final String playerName;
     private int points;
-
-    private final Label name;
     private final Label point;
 
     public PointCounter(double height, double width, double layoutX, double layoutY, String player, Color color) {
@@ -26,27 +23,26 @@ public class PointCounter extends HBox {
         this.setPrefWidth(width);
         this.setPrefHeight(height);
 
-        this.playerName = player;
         this.points = 0;
 
-        name = new Label();
-        setLabelParameters(name,color,0.75,playerName,15);
+        Label name = new Label();
+        setLabelParameters(name, color, 0.75, player, 15);
 
         point = new Label();
-        setLabelParameters(point,color,0.25,Integer.toString(points),12);
+        setLabelParameters(point, color, 0.25, Integer.toString(points), 12);
 
         this.getChildren().add(name);
         this.getChildren().add(point);
 
     }
 
-    private void setLabelParameters(Label labelToSet,Color color,double widthPercentage,String textInsideLabel,int fontSize) {
+    private void setLabelParameters(Label labelToSet, Color color, double widthPercentage, String textInsideLabel, int fontSize) {
         labelToSet.setPrefHeight(this.getPrefHeight());
         labelToSet.setPrefWidth(this.getPrefWidth() * widthPercentage);
         labelToSet.setBackground(new Background(new BackgroundFill(color, new CornerRadii(0.5), new Insets(0))));
         labelToSet.setAlignment(Pos.CENTER);
         labelToSet.setText(textInsideLabel);
-        labelToSet.setFont(new Font("",fontSize));
+        labelToSet.setFont(new Font("", fontSize));
     }
 
     public void setPoint(int score) {
