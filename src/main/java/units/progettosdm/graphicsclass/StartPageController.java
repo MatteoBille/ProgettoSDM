@@ -125,19 +125,19 @@ public class StartPageController {
         return response;
     }
 
-    private boolean GridSizeInputRespectConstrain(int maxSize, TextField numberOfRows) {
+    private boolean GridSizeInputRespectConstrain(int maxSize, TextField textFieldSize) {
         boolean response = true;
         Pattern pattern = Pattern.compile("-?\\d+(\\.\\d+)?");
 
-        if (numberOfRows.getText().equals("")) {
-            setErrorStyleAndErrorText(numberOfRows, labelErrorGridSize, "Inserisci la dimensione della griglia");
+        if (textFieldSize.getText().equals("")) {
+            setErrorStyleAndErrorText(textFieldSize, labelErrorGridSize, "Inserisci la dimensione della griglia");
             response = false;
-        } else if (!pattern.matcher(numberOfRows.getText()).matches()) {
-            setErrorStyleAndErrorText(numberOfRows, labelErrorGridSize, "Il valore inserito non è un numero");
+        } else if (!pattern.matcher(textFieldSize.getText()).matches()) {
+            setErrorStyleAndErrorText(textFieldSize, labelErrorGridSize, "Il valore inserito non è un numero");
             response = false;
         } else {
-            if (Integer.parseInt(numberOfRows.getText()) > maxSize) {
-                setErrorStyleAndErrorText(numberOfRows, labelErrorGridSize, "Il valore inserito è maggiore di " + maxSize);
+            if (Integer.parseInt(textFieldSize.getText()) > maxSize) {
+                setErrorStyleAndErrorText(textFieldSize, labelErrorGridSize, "Il valore inserito è maggiore di " + maxSize);
                 response = false;
             }
         }

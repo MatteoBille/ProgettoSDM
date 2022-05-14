@@ -4,12 +4,12 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import units.progettosdm.backendclass.Arch;
 
-class GraphicalArchesBetweenDots extends Rectangle {
+class GraphicalArch extends Rectangle {
 
     private final String direction;
     private final Arch backendArch;
 
-    public GraphicalArchesBetweenDots(Circle dot1, Circle dot2, Arch backendArch) {
+    public GraphicalArch(Circle dot1, Circle dot2, Arch backendArch) {
         this.backendArch = backendArch;
         if (dot1.getCenterX() == dot2.getCenterX()) {
             setLayoutX(dot1.getCenterX() - dot1.getRadius() / 2);
@@ -30,7 +30,7 @@ class GraphicalArchesBetweenDots extends Rectangle {
 
     @Override
     public String toString() {
-        return "GraphicalArchesBetweenDots{" +
+        return "GraphicalArch{" +
                 "xStart=" + getLayoutX() +
                 ", yStart=" + getLayoutY() +
                 ",width=" + getWidth() +
