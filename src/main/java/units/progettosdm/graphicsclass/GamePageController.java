@@ -47,12 +47,12 @@ public class GamePageController {
     private PointCounter totalPointsOfPlayer1;
     private PointCounter totalPointsOfPlayer2;
 
-    List<GraphicalArchesBetweenDots> listOfGraphicalArches = new ArrayList<>();
+    List<GraphicalArch> listOfGraphicalArches = new ArrayList<>();
     Map<Dot, Circle> mapOfDotsAndGraphicalDots = new HashMap<>();
     List<GraphicalBoxLabel> listOfLabels = new ArrayList<>();
 
     Group dotsGroup = new Group();
-    Group archesBetweenDotsGroup = new Group();
+    Group archesGroup = new Group();
     Group labelsGroup = new Group();
 
     String player1Name;
@@ -112,7 +112,7 @@ public class GamePageController {
 
         drawListOfNodeObjectAndInsertIntoAGroupTheList(listOfLabels, labelsGroup);
         drawListOfNodeObjectAndInsertIntoAGroupTheList(mapOfDotsAndGraphicalDots.values().stream().toList(), dotsGroup);
-        drawListOfNodeObjectAndInsertIntoAGroupTheList(listOfGraphicalArches, archesBetweenDotsGroup);
+        drawListOfNodeObjectAndInsertIntoAGroupTheList(listOfGraphicalArches, archesGroup);
 
         setClickLineListenerOnArches();
         setMouseHoverArchesListener();
@@ -122,7 +122,7 @@ public class GamePageController {
     private void createGraphicalArchesFromBackendArches() {
         List<Arch> arches = actualMatch.getScoreboard().totalArches;
         listOfGraphicalArches = new ArrayList<>();
-        arches.forEach(e -> listOfGraphicalArches.add(new GraphicalArchesBetweenDots(mapOfDotsAndGraphicalDots.get(e.getFirstDot()), mapOfDotsAndGraphicalDots.get(e.getSecondDot()), e)));
+        arches.forEach(e -> listOfGraphicalArches.add(new GraphicalArch(mapOfDotsAndGraphicalDots.get(e.getFirstDot()), mapOfDotsAndGraphicalDots.get(e.getSecondDot()), e)));
 
         listOfGraphicalArches.forEach(e -> {
             if (e.isSelected()) {
