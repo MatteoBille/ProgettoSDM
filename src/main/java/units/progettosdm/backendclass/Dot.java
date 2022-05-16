@@ -16,11 +16,6 @@ public class Dot {
         return Arrays.equals(dotIndexes, dot.dotIndexes);
     }
 
-    @Override
-    public int hashCode() {
-        return this.dotIndexes[0] * 1000 + this.dotIndexes[1];
-    }
-
     public Dot(int x, int y) throws BadDotDeclarationException {
         if ((x < 0) || (y < 0)) {
             throw new BadDotDeclarationException("Dots cannot have negative coordinates");
