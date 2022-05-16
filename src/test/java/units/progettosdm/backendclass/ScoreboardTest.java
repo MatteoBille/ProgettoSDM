@@ -19,7 +19,6 @@ class ScoreboardTest {
         int n = 2;
         Scoreboard board = new Scoreboard(n, n);
         board.createAllArches();
-        board.totalArches.forEach(System.out::println);
         assertEquals((n + 1) * 2 * n, board.totalArches.size());
     }
 
@@ -37,7 +36,6 @@ class ScoreboardTest {
         Scoreboard board = new Scoreboard(2, 2);
         board.createAllArches();
         board.createAllBoxes();
-        System.out.println(board);
         assertNotNull(board);
     }
 
@@ -72,12 +70,8 @@ class ScoreboardTest {
         board.selectArch(new Arch(dot1, dot4));
 
         Box box = board.getBoxes()[0][0];
-        Arch[] arch = box.getArches();
-        for (int i = 0; i < 4; i++) {
-            System.out.println(arch[i] + " " + box.getArchStatusByIndex(i));
-        }
+        box.getArches();
         assertEquals(1, board.checkClosedBoxAndGivePoints("Leandro", 2));
-        System.out.println(box.getPlayerBox());
     }
 
     @Test

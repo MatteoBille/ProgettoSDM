@@ -13,11 +13,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class PlayMatchTest {
     @Test
     void playMatchDraw() throws BadDotDeclarationException, BadBoardSizeDeclarationException {
-        Scoreboard scoreboard;
         String playerName1 = "A ";
         String playerName2 = "B ";
         Game newGame = new Game(2, 2, playerName1, playerName2);
-        scoreboard = newGame.getScoreboard();
         Dot dot1 = new Dot(0, 0);
         Dot dot2 = new Dot(0, 1);
         Dot dot3 = new Dot(0, 2);
@@ -46,21 +44,16 @@ public class PlayMatchTest {
         } catch (BadArchDeclarationException e) {
             e.printStackTrace();
         }
-        arch.forEach(archIndex -> {
-            newGame.playTurn(archIndex);
-            System.out.println(scoreboard);
-        });
+        arch.forEach(newGame::playTurn);
         assertEquals("Pareggio", newGame.checkVictory());
     }
 
     @Test
     void playMatchAWin() throws BadDotDeclarationException, BadBoardSizeDeclarationException {
-        Scoreboard scoreboard;
         String playerName1 = "A ";
         String playerName2 = "B ";
         Game newGame = new Game(2, 2, playerName1, playerName2);
         newGame.setPlayerTurn(playerName2);
-        scoreboard = newGame.getScoreboard();
         Dot dot1 = new Dot(0, 0);
         Dot dot2 = new Dot(0, 1);
         Dot dot3 = new Dot(0, 2);
@@ -89,23 +82,16 @@ public class PlayMatchTest {
         } catch (BadArchDeclarationException e) {
             e.printStackTrace();
         }
-        arch.forEach(archIndex -> {
-            newGame.playTurn(archIndex);
-            System.out.println(scoreboard);
-        });
-        System.out.println(newGame.getScorePlayer1());
-        System.out.println(newGame.getScorePlayer2());
+        arch.forEach(newGame::playTurn);
         assertEquals(playerName1, newGame.checkVictory());
     }
 
     @Test
     void playMatchBWin() throws BadDotDeclarationException, BadBoardSizeDeclarationException {
-        Scoreboard scoreboard;
         String playerName1 = "A ";
         String playerName2 = "B ";
         Game newGame = new Game(2, 2, playerName1, playerName2);
         newGame.setPlayerTurn(playerName1);
-        scoreboard = newGame.getScoreboard();
         Dot dot1 = new Dot(0, 0);
         Dot dot2 = new Dot(0, 1);
         Dot dot3 = new Dot(0, 2);
@@ -134,10 +120,7 @@ public class PlayMatchTest {
         } catch (BadArchDeclarationException e) {
             e.printStackTrace();
         }
-        arch.forEach(archIndex -> {
-            newGame.playTurn(archIndex);
-            System.out.println(scoreboard);
-        });
+        arch.forEach(newGame::playTurn);
         assertEquals(playerName2, newGame.checkVictory());
     }
 }
