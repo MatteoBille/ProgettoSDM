@@ -20,3 +20,5 @@ L'obiettivo del gioco è quello di conquistare più celle dell'avversario.
 - Fare il clone della repository sul proprio computer
 - Assicurarsi di avere gradle installato sul pc
 - Da terminale posizionarsi nella cartella del progetto attraverso il comando `cd path` e digitare `gradlew run`
+
+- In alternativa il gioco è eseguibile una volta aperto l'IDE attraverso il task run di Gradle oppure anche dalla MainApplication presente all'interno del package graphicsclass
